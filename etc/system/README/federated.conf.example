@@ -1,0 +1,27 @@
+#   Version 8.0.4
+#
+# This is an example federated.conf.
+#
+#
+## Federated Providers
+
+[deployment-sf-search]
+type = splunk
+ip = 192.0.2.0
+splunk.port = 8089
+splunk.serviceAccount = sf-search
+splunk.app = search
+
+[deployment-sf-hr]
+type = splunk
+ip = 192.0.2.0
+splunk.port = 8089
+splunk.serviceAccount = sf-hr
+splunk.app = search
+
+[deployment-sr-search]
+type = splunk
+ip = 198.51.100.0
+splunk.port = 8089
+splunk.serviceAccount = sf-search
+splunk.app = search

@@ -1,0 +1,131 @@
+.search-history {
+    clear: both;
+    padding: $spacing;
+    margin-bottom: $spacing;
+    @mixin create-card;
+
+
+    .time-selected {
+      margin: -5px 0 0 10px;
+      display: inline-block;
+    }
+
+    .count-selected {
+      margin: 0 0 0 10px;
+      > .btn-pill {
+        vertical-align: middle;
+      }
+    }
+
+    .history-content {
+        .table {
+            @mixin create-card-table;
+            border-bottom: 0;
+        }
+        .history-filters {
+            float: left;
+            padding: $spacingHalf 0;
+        }
+
+        .shared-controls-controlgroup {
+            margin-left: 210px
+        }
+
+        .time-ran-header {
+            width: 200px;
+        }
+
+        .actions-header {
+            width: 100px;
+        }
+
+        .history-group {
+            padding: 5px;
+        }
+
+        .search-history-row {
+
+            td.search {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            td.time-ran, td.search-action {
+                height: 100%;
+                width: 50px;
+            }
+
+            td.search-action {
+                > a {
+                    padding: 2px;
+                    border-radius: $borderRadius;
+                }
+            }
+
+            td.details {
+                > span {
+                    word-wrap: break-word;
+                    white-space: pre-wrap;
+                }
+            }
+            &, &.even {
+                td.disabled {
+                    &:hover {
+                        background-color: $tableRowHoverColor !important;
+                    }
+                    > a:focus {
+                        box-shadow: none;
+                    }
+                }
+            }
+            &.more-info {
+                > td.filler-cell {
+                    padding: 0;
+                }
+            }
+        }
+
+        td.disabled {
+            cursor: not-allowed;
+            > a {
+                cursor: default;
+                color: $textDisabledColor;
+                box-shadow: none;
+            }
+        }
+
+        div.table-search-input {
+            position: absolute;
+            float: left;
+            margin: 0;
+        }
+
+        tr.waiting, tr.noresults {
+            > td {
+                text-align: center;
+            }
+        }
+    }
+    .search-history-label {
+        h2 {
+            margin: 0;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        a.show-history {
+            display: inline-block;
+            color: $textColor;
+            border-radius: $borderRadius;
+            text-decoration: none;
+            > i {
+                margin-right: $spacingQuarter;
+            }
+        }
+    }
+    .pagination {
+        padding: $spacingHalf 0;
+        margin-top: $spacingHalf;
+    }
+}

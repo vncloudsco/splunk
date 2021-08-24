@@ -1,0 +1,13 @@
+.shared-resultstable-resultstablesummaryrow > td {
+    border-top: 2px solid $tableSummaryBorderColor !important;
+    background: $tableSummaryRowBackgroundColor !important;
+    color: $textColor !important;
+}
+
+.shared-resultstable-resultstablesummaryrow ~ .shared-resultstable-resultstablesummaryrow > td {
+    border-top: 1px solid $tableSummaryBorderColor !important;
+}
+
+tr.shared-resultstable-resultstablesummaryrow:last-child {
+	border-bottom: $tableSummaryLastRowBorderBottom;
+}

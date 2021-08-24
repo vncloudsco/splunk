@@ -1,0 +1,114 @@
+.savedsearchesadvancededit {
+
+    $perctWidth: 40%;
+    $space: 30px;
+    $inputWidth : 436px;
+    $verticalPadding: 10px;
+    $horizontalPadding: 20px;
+    $breadcrumbFontSize: 14px;
+
+    .section-header {
+        min-height: 108px;
+        padding-bottom: 0px;
+
+        .breadcrumb {
+            height: 20px;
+            font-size: $breadcrumbFontSize;
+        }
+        .control-wrapper .control {
+            display: inline-block;
+        }
+    }
+
+    .control-wrapper {
+        width: 100%;
+        padding-top: $verticalPadding;
+
+        .savedsearchesadvancededit-buttonheader {
+            position: absolute;
+            right: $horizontalPadding;
+        }
+
+        form {
+            margin-bottom: 0px;
+            display: inline-block;
+        }
+
+        .alert {
+            margin-bottom: 0px;
+        }
+
+        .header-buttons {
+            a {
+                margin-right: 10px;
+            }
+        }
+
+        .shared-controls-textcontrol {
+            display: inline;
+        }
+    }
+
+    .control-wrapper.fix-position {
+        position: fixed;
+        top: 0px;
+        bottom: inherit;
+        min-height: 42px;
+        margin-left: -$horizontalPadding;
+        padding: $verticalPadding 0px 0px $horizontalPadding;
+        z-index: 1;
+        background-color: $bodyBackgroundColor;
+        box-shadow: $affixTopBoxShadow;
+
+        .savedsearchesadvancededit-buttonheader {
+            right: calc(2 * $horizontalPadding);
+        }
+    }
+
+    .edit-form-wrapper {
+        min-height: 393px;
+        padding: $spacing;
+        margin: 0 $spacing $spacing;
+        @mixin create-card;
+
+        .alerts {
+            padding: 20px;
+        }
+
+        .controls-placeholder.form-horizontal  {
+            margin: 20px auto 0;
+            width: 800px;
+
+            .shared-controls-controlgroup {
+
+                .control-label {
+                    width : $perctWidth;
+                    margin-right: $space;
+                }
+
+                .controls {
+                    margin-left: $perctWidth;
+
+                    input {
+                        width: $inputWidth;
+
+                        &.text-clear {
+                            padding-right: 30px;
+                        }
+                    }
+
+                    span.input-label {
+                        width: $inputWidth;
+                    }
+
+                    .shared-controls-textcontrol {
+
+                        .control-clear {
+                            right: 25px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

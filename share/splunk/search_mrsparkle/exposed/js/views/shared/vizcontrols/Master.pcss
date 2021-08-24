@@ -1,0 +1,45 @@
+/*  Splunk: Component: Visualization Controls */
+/*  ========================================= */
+/*  TODO: organize this better */
+
+
+/* visualization controls
+
+    missing markup ...
+
+*/
+.visualization-controls {
+    @mixin clearfix;
+    margin-bottom: $spacingHalf;
+    padding-left: $spacing;
+    padding-right: $spacing;
+
+    .format-visualization {
+        width: 450px;
+    }
+}
+
+.shared-vizcontrols-customcontrols-overlayfieldscontrolgroup .select2-search-choice {
+    max-width: 218px;
+}
+
+.shared-vizcontrols-components-form > help-block {
+    color: $placeholderText;
+}
+
+/* Fixes truncated labels for IE11 */
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    .shared-vizcontrols-components-form {
+        .shared-vizcontrols-customcontrols-axistitlecontrolgroup > .controls .dropdown-toggle > .link-label {
+            flex-shrink: 0;
+        }
+    }
+}
+
+/*  Print */
+/*  -------------------------------------------------- */
+@media print {
+	.visualization-controls {
+		@mixin print-hide;
+	}
+}

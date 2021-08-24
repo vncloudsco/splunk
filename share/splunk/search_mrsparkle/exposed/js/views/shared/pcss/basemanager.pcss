@@ -1,0 +1,198 @@
+.new-item-button {
+  min-width: 80px;
+}
+
+.main-section {
+  background: $bodyBackgroundColor;
+  padding-top: 8px;
+
+  .table-toolbar {
+    > * {
+      min-height: 28px;
+      padding: 0 0 4px;
+
+      > * {
+        display: inline-block;
+      }
+    }
+    .collection-count {
+      height: $inputHeight;
+      line-height: $inputHeight;
+      vertical-align: top;
+      margin-right: $spacingQuarter;
+    }
+    .filter-container {
+      border-top: 1px solid $gray80;
+      padding-top: 10px;
+
+      .collection-count {
+        min-width: 170px;
+
+        .shared-waitspinner {
+          float: left;
+          width: 14px;
+          height: 14px;
+          margin: 8px 3px 2px 2px;
+        }
+      }
+
+      .select-page-count {
+        float: right;
+      }
+    }
+
+    .table-controls {
+      .paginator-container {
+        min-height: initial;
+      }
+
+    }
+
+    .text-name-filter-placeholder {
+        width: 200px;
+        vertical-align: top;
+    }
+  }
+  .entities-grid {
+    clear: both;
+    background-color: $white;
+    @mixin create-card-table;
+
+    .col-entity-select {
+      width: 50px;
+    }
+
+    > thead > tr > .sorts {
+      padding: 0;
+
+      > a {
+        width: 100%;
+        display: inline-block;
+        padding: $tableCellPadding;
+        box-sizing: border-box;
+
+        &:focus {
+          @mixin focus-element-inset $tableHeaderBackground;
+        }
+      }
+    }
+
+    .col-actions {
+      white-space: nowrap;
+      width: 150px;
+
+      .delete {
+        margin-left: 16px;
+      }
+    }
+    th, td {
+      > .control > label.checkbox {
+        padding: 0px;
+        margin: 0px;
+      }
+    }
+    tr.list-item {
+      td {
+        transition: background, 0.2s;
+      }
+      &:hover td {
+        background-color: $tableRowHoverColor;
+        transition: background, 0.02s;
+      }
+
+      .cell-name {
+        word-break: break-all;
+      }
+      td[disabled], th[disabled]{
+        color: $textDisabledColor;
+      }
+    }
+    td.actions {
+      white-space: nowrap;
+    }
+    td.cell-actions, td.actions, td.cell-name {
+      a:not(:last-child) {
+        margin-right: 1em;
+      }
+      .disabled-action {
+        color: $textDisabledColor;
+        margin-right: 1em;
+        pointer-events: none;
+      }
+    }
+    .message-single {
+      margin-left: 10px;
+    }
+    .model-description {
+      color: #999;
+      font-size: .85em;
+    }
+    i.icon-check, i.desc, i.asc, i.icon-lock {
+      width: 14px;
+      color: $successColor;
+      font-size: 1.2em;
+      display: inline-block;
+
+      &.disable-icon {
+        color: $errorColor;
+      }
+    }
+    .list-dotted dt {
+      width: 220px;
+    }
+  }
+}
+
+/*  Space between inline actions */
+.entity-action, .model-fields {
+  margin-right: 1em;
+}
+/*  Shift error box */
+.shared-flashmessages {
+  padding-left: 15px;
+}
+
+/*  Warning message */
+.red-triangle-warning {
+  display: block;
+  float: left;
+  margin-top: 2px;
+  margin-right: 10px;
+  color: inherit;
+  background-color: inherit;
+}
+.red-triangle-warning i {
+  font-size: 200%;
+  padding-right: 5px;
+  position: relative;
+  top: 3px;
+}
+
+.splPipe {
+  margin: 0 5px 0 0;
+  color: $textGray;
+}
+
+.sharing-info {
+  margin-right: 5px;
+}
+
+.modal-with-spinner {
+
+  .modal-footer .shared-waitspinner {
+    float: right;
+    margin: 6px 3px;
+  }
+}
+
+.modal-body {
+  hyphens: auto;
+}
+.rolling-restart-warning-placeholder {
+  margin-top: 15px;
+  .icon-alert {
+    font-size: 25px;
+    color: $warningColor;
+    margin-right: 5px;
+  }
+}

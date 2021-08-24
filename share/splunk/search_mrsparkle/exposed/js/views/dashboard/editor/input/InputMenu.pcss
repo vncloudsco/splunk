@@ -1,0 +1,38 @@
+/* ideally these styles should live in a .pcssm file that is imported by staticoptionscontrol.js.
+   But, staticoptionscontrol.js is part of splunkjs which doesn't support .pcssm file for now.
+ */
+
+.static-options-footer {
+  padding-left: 21px;
+  margin-bottom: 10px;
+}
+
+.static-options-footer i.icon-plus {
+  padding-right: 5px;
+}
+
+.input-editor-body .input-editor-format {
+    /* fix width when the time range picker is inside the form input editor */
+    .splunk-timerange.splunk-view {
+        width: 200px;
+    }
+
+    /* we should rewrite splunkjs-mvc-simpleform-edit eventually */
+    .splunkjs-mvc-simpleform-edit-dynamicoptionscontrol .inline-search-options .splunk-timerange.splunk-view {
+        margin-left: 135px;
+    }
+
+    .shared-controls-syntheticradiocontrol {
+        width: 200px;
+    }
+}
+
+/* this is to make sure the form input editor works with the react-based popdown,
+   ref SPL-147731, SPL-147905.
+   The problem is, react-based popdown is appended to the DOM before the backbone-based popdown is appended
+   to the DOM. So even if they have the same z-index, backbone-based popdown is layered on top of
+   the react-based popdown.
+   The solution is to give the react-based popdown a smaller z-index. */
+.popdown-dialog.dashboard-form-input-editor-popdown {
+    z-index: 1050;
+}

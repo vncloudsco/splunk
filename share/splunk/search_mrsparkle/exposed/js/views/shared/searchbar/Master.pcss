@@ -1,0 +1,136 @@
+/*  Splunk: Component: SearchBar */
+/*  ============================= */
+/*  Main searchbar with default styling */
+
+/*  TODO: add color classes */
+
+
+/*  Search Bar */
+/*  -------------- */
+/*  Sub-Components: searchbar-input, time-range-picker, etc ... */
+/*  JS: exposed/js/views/searhbar/Master.js */
+
+/* search bar
+
+<div class="search-bar-wrapper shared-searchbar">
+    <form method="get" action="" class="search-form">
+        <table class="search-bar">
+            <tbody>
+                <tr>
+                    <td class="search-input" width="100%">
+                        <div class="shared-searchbarinput"></div>
+                    </td>
+                    <td class="search-apps"></td>
+                    <td class="search-timerange">
+                        <div class="btn-group shared-timerangepicker"></div>
+                    </td>
+                    <td class="search-button">
+                        <a class="btn" href="#"><i class="icon-search-thin"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div><!-- /.search-bar-wrapper -->
+
+*/
+$searchAssistantTypeaheadWidth:  50%;
+$searchBarHeight: 40px;
+$searchAssistantResizeHeight: 6px;
+
+form.search-form {
+    margin-bottom:0;
+}/* form */
+
+.search-bar, .search-bar-primary { /* table */
+
+    .btn, .btn.dropdown-toggle {
+        border-radius: 0;
+        line-height: 28px;
+        height: $searchBarHeight;
+        white-space: nowrap;
+        border-left: none;
+        box-sizing: border-box;
+    }
+
+    td {
+        padding:0;
+        vertical-align:top;
+
+        &.search-timerange {
+            display: flex;
+        }
+    }
+    td.search-input {
+        width: 100%
+    }
+
+    .shared-timerangepicker {
+        max-width: 280px;
+        flex-shrink: 0; /* Bug with button truncating in IE. */
+
+        .btn {
+            border-radius: 0;
+            .caret {
+                line-height: 28px;
+            }
+        }
+    }
+    .search-button{
+        .btn {
+            @mixin interactive-primary;
+            padding: calc($buttonPaddingVertical + 2px) calc($buttonPaddingSides + 1px);
+            border: none;
+            border-top-right-radius: $interactiveBorderRadius;
+            border-bottom-right-radius: $interactiveBorderRadius;
+            font-size: $fontSizeXXLarge;
+            position: relative;
+
+            &:hover {
+                @mixin interactive-primary-hover;
+            }
+            &:active {
+                @mixin interactive-primary-active;
+            }
+            &:focus {
+                @mixin focus-element;
+            }
+        }
+    }
+
+    .search-field-wrapper {
+        .ace_editor,
+        textarea.search-field {
+            border-top-left-radius: $interactiveBorderRadius;
+            border-bottom-left-radius: $interactiveBorderRadius;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-color: $interactiveBorderColor;
+        }
+    }
+}/* .search-bar */
+
+
+/*  Print */
+/*  -------------------------------------------------- */
+
+@media print {
+    .search-bar {
+        width: 100%;
+        display: block;
+
+        td, tbody, tr {
+            display: block;
+            width:100%;
+        }
+    }
+    .search-button {
+        @mixin print-hide;
+    }
+}
+
+/* SPL-126825: fix printing issues in Firefox */
+body.print table.search-bar td {
+    display: block;
+    width:100% !important; /* overrides web/exposed/build/css/bootstrap-enterprise.css */
+}

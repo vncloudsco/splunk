@@ -1,0 +1,266 @@
+/* Alerts manager styles */
+
+
+/* reset elements */
+body, html {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+input, textarea, select {
+  margin: 0;
+}
+
+.alerts-page-wrapper {
+  li {
+    list-style:none;
+    float:left;
+  }
+  ul, li {
+    margin: 0;
+    padding: 0;
+  }
+  table {
+    width: 100%;
+  }
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: $tableCellPadding;
+    line-height: $lineHeight;
+
+    td:focus {
+        @mixin focus-element-inset;
+    }
+  }
+  th {
+    font-weight: normal;
+    background-color: $tableHeaderBackground;
+    border-right: $tableBorderVertical;
+    border-bottom: none;
+    box-shadow: none;
+    &:last-child {
+        border-right: none;
+    }
+  }
+  td {
+    input {
+      margin: 0;
+      vertical-align: middle;
+    }
+  }
+
+
+  /* shared */
+  .formelement1, #owner, #app, #alerts_id, #severity {
+    white-space: nowrap;
+  }
+  .formelement1, #owner {
+    max-width: 200px;
+  }
+  #app {
+    white-space: nowrap;
+    width: 250px;
+  }
+  #alerts_id, #severity {
+    max-width: 100px;
+  }
+  input#search {
+  	width: 180px;
+  }
+
+
+  /* filters */
+  #filters {
+    position: relative;
+    background: $gray96;
+    border-bottom: $borderDefault;
+    border-top: $borderDefault;
+    display: block;
+    padding: 10px 20px;
+    zoom: 1;
+
+    table {
+      margin: 0;
+      padding: 0;
+
+      td {
+        margin: 0;
+        padding: 0;
+        vertical-align: middle;
+      }
+    }
+
+    .col2 {
+      text-align: right;
+
+      .input-append {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-right: -1px;
+
+        &:focus {
+          z-index: $zindexFocus;
+          position: relative;
+        }
+      }
+    }
+    li {
+      padding-right: $spacing;
+    }
+    label {
+      padding-right: 5px;
+    }
+  }
+
+
+  /* results */
+  #results {
+    overflow:auto;
+    position: relative;
+
+    > form {
+      padding: $spacing;
+    }
+    table {
+      @mixin create-card-table;
+      background: transparent;
+
+      tr {
+        &:nth-child(odd) {
+          background-color: $white;
+        }
+        &:hover {
+          background-color: $tableRowHoverColor !important;
+        }
+      }
+    }
+    .none {
+      text-align: center;
+      font-weight: bold;
+    }
+    .none, .empty_results {
+      background-color: transparent;
+      line-height: 20px;
+    }
+    .sortable {
+      position: relative;
+      display: block;
+      margin: -6px -12px;
+      padding: $tableCellPadding;
+
+      span {
+        color: $black;
+        text-decoration: none;
+      }
+      &:hover span {
+        color: $linkColor;
+        text-decoration: none;
+      }
+    }
+    .bulk {
+      text-indent:-5000px;
+      direction:ltr;
+    }
+    .severity:before {
+      content: '';
+      height: 16px;
+      width: 16px;
+      border-radius: 100%;
+      vertical-align: top;
+      display: inline-block;
+      margin-right: 5px;
+      position: relative;
+      top: 2px;
+    }
+    .severitylow:before {
+      background-color: $successColor;
+    }
+    .severityhigh:before {
+      background-color: $alertColor;
+    }
+    .severitycritical:before {
+      background-color: $errorColor;
+    }
+    .severityinfo:before {
+      background-color: $infoColor;
+    }
+    .severitymedium:before {
+      background-color: $warningColor;
+    }
+  }
+
+
+  /* pagination */
+  #Pagination {
+    position: relative;
+    padding: 5px 10px;
+    background: $gray96;
+    border-bottom: $borderDefault;
+
+    ul {
+      float: left;
+    }
+    li {
+      margin-right: 2px;
+      display: block;
+    }
+    a {
+      @mixin button-padding calc($buttonPaddingVertical + 1px);
+      float: left;
+      line-height: $lineHeight;
+      border: $border transparent;
+      border-radius: $interactiveBorderRadius;
+
+      @mixin interactive none, transparent, none, $pillTextColor;
+      @mixin button-states pill-hover, pill-active, pill-disabled, pill-style $linkColor;
+
+      &.active, &.active:hover {
+        cursor: default;
+        border: $border $accentColor;
+        background: transparent;
+      }
+      &.disabled, &.disabled:hover {
+        color: $textGray;
+        background-color: transparent;
+        cursor: text;
+        visibility: visible;
+      }
+    }
+    .count {
+      float: right;
+      margin: 0;
+      padding: $spacingHalf;
+    }
+  }
+
+
+  /* actions */
+  #actions {
+    position: absolute;
+    bottom: 0;
+    background: $gray96;
+    font-size: $fontSize;
+    border-top: 1px solid $borderColor;
+    height: 55px;
+    width: 100%;
+    padding: $spacingHalf $spacing;
+    box-sizing: border-box;
+  }
+  #actionsSelection {
+    span:not(.button-text) {
+      padding-right: 5px;
+    }
+    a {
+      margin-right: 5px;
+    }
+    .selected {
+      padding-left: 5px;
+    }
+    button {
+      margin: 0;
+    }
+  }
+}

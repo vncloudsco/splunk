@@ -1,0 +1,79 @@
+
+
+.view {
+    width: 230px;
+    flex: 1 1 230px; /* shrink or grow is fine */
+    display: flex;
+    position: relative;
+}
+
+
+.input {
+    /* needed for composition */
+}
+
+/* Some of these need greater specificity than input[type=text] */
+.uneditableInput, .input[type=text] {
+    @mixin base-input;
+    font-family: $fontFamily;
+    color: $inputTextColor;
+    border: $borderDefault;
+    border-radius: $inputBorderRadius;
+    vertical-align: middle;
+    transition: $transitionBorder, $transitionBoxShadow;
+    margin-top: 0;
+    margin-bottom: 0;
+    box-sizing: border-box;
+
+    width: 100%;
+
+    &::placeholder {
+        color: $placeholderText;
+        opacity:1;
+    }
+
+    /*  Focus state */
+    &:focus {
+        @mixin focus-element;
+    }
+
+    /* Don't show IE clear button when an artificial one is shown. */
+    &.text-clear::-ms-clear {
+        display: none;
+        width: 0;  /* IE 11 on windows 8 */
+        height: 0; /* IE 11 on windows 8 */
+    }
+};
+
+.inputCanClear {
+    composes: input;
+    &[type=text] {
+        padding-right: 30px;
+    }
+}
+
+.inputSearch {
+    composes: inputCanClear;
+}
+
+.clear, .searchIcon {
+    position: absolute;
+    right: 8px;
+    top: 5px;
+    line-height: 22px;
+    font-size: 18px;
+    color: $textGray;
+}
+
+.searchIcon {
+    top: 6px;
+}
+
+.placeholder {
+    color: $placeholderText;
+    position: absolute;
+    max-width: 100%;
+    top: 3px;
+    left: 6px;
+    font-size: $fontSize;
+}

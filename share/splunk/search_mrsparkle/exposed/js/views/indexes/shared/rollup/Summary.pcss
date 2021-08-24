@@ -1,0 +1,22 @@
+.rollup-summary:not(:last-child) {
+    margin-bottom: 24px;
+}
+
+.summary-item {
+    margin-right: 3px;
+}
+
+.summary-time-error {
+    font-size: 12px;
+    color: $errorText;
+
+    /* align left margin with min span value input */
+    margin-left: 388px;
+    float: left;
+}
+
+/* tried far too long to resolve the need to use !important here in TextControl.pcssm */
+.data-input-text.time-error {
+    border: 1px solid $errorText !important;
+    color: $errorText !important;
+}

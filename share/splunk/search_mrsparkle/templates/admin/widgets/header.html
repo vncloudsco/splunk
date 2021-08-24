@@ -1,0 +1,10 @@
+<%page args="element, eaiAttributes, form_defaults" />
+<%namespace file="../_helpers.html" import="generateFormRow"/>
+
+
+<div class="managerEditHeader ${element['class'] if 'class' in element else ''}" ${'id="item-'+element['elementName']+'"' if 'elementName' in element else ''}>
+    <!--<h1>${_(element['title'])|h}</h1>-->
+    % if 'body' in element:
+        <p>${_(element['body'])|h}</p>
+    % endif
+</div>

@@ -1,0 +1,250 @@
+$searchAssistantTypeaheadWidth:  370px;
+.search-assistant-wrapper {
+    position: relative;
+    width:100%;
+    height: 0;
+
+    &.open {
+        z-index: $zindexPopdown;
+    }
+
+    .icon-triangle-down-small:before {
+        content: "\02C5";
+    }
+
+    .icon-triangle-up-small {
+        &:before {
+            content: "\02C4";
+        }
+    }
+
+    &.search-assistant-enabled {
+        box-shadow: $overlayBoxShadow;
+    }
+}
+
+.search-assistant-container {
+    display:none;
+    position:relative;
+    border: 1px solid $borderColor;
+    border-bottom: 0px;
+    border-top: 0px;
+    background-color: $gray96;
+    overflow: auto;
+
+    @mixin clearfix;
+}
+
+.search-assistant-typeahead-wrapper, .search-assistant-help-wrapper {
+    h5 {
+       margin-top: 10px;
+    }
+}
+
+.search-assistant-typeahead-wrapper {
+    background-color: $white;
+    margin-right: -$searchAssistantTypeaheadWidth;
+    width: $searchAssistantTypeaheadWidth;
+
+    h5 {
+        padding: 5px 10px 0 10px;
+        margin: 10px 0;
+    }
+
+    a + h5 {
+        margin-top: 10px;
+    }
+
+    a {
+        padding: 0 10px 0 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+    
+    & > .shared-searchbarinput-searchassistant-typeahead-matching {
+         background-color: $white;
+    }
+}
+
+.typeahead-keyword {
+    display: block;
+    cursor: pointer;
+
+    &:focus {
+        @mixin focus-background;
+    }
+    &:hover {
+        background: $pillBackgroundColorHover;
+    }
+}
+
+.search-assistant-help-wrapper {
+    background-color: $gray96;
+    margin-left: $searchAssistantTypeaheadWidth;
+    padding: 5px 10px 5px 20px;
+
+    code {
+        color: $brandColor;
+        border: none;
+        background: transparent;
+    }
+}
+
+.search-assistant-help-notices {
+    margin-right: 100px;
+    padding: 2px 0px 2px 0px;
+    div:empty {
+        padding: 0px;
+    }
+}
+
+.intro-and-command-container {
+    word-wrap: break-word;
+    max-width: calc(100vw - 660px);
+}
+
+.intro-and-command-container > h5 {
+    color: $brandColor;
+}
+
+.intro-and-command-header, .intro-and-command-examples {
+    h5:first-child {
+        margin-top: 0;
+    }
+
+    dd {
+        margin-left: 20px;
+    }
+
+    dt, h5 {
+        margin-top: 10px;
+    }
+
+    dt {
+        font-weight: normal;
+    }
+
+    a {
+        cursor: pointer;
+    }
+}
+
+.intro-and-command-header, .syntax-header {
+    h5 {
+        display: inline;
+    }
+
+    a {
+        margin-left: 30px;
+    }
+}
+
+.intro-and-command-examples {
+    margin-top: 0px;
+}
+
+.intro-and-command-steps {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+.search-assistant-autoopen-wrapper {
+    position: relative;
+    float: right;
+}
+
+.search-assistant-autoopen-toggle > .icon-check {
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.search-assistant-resize-active {
+    background-color: $interactiveBackgroundColor;
+    border: 1px solid $interactiveBorderColor;
+    border-top: 0;
+    height: 6px;
+    margin:0;
+    position:relative;
+    cursor: row-resize;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+        border-radius: 2px;
+        border: none;
+        height: 4px;
+        width: 4px;
+        background-color: color($black a(25%));
+    }
+}
+
+.search-assistant-activator {
+    position: absolute;
+    top: -32px;
+    right: 8px;
+    cursor:pointer;
+    width: 16px;
+    height: 16px;
+    padding: 4px;
+    display: block;
+    color: $textGrayDark;
+    text-align: center;
+    text-decoration: none;
+    border-radius: $interactiveBorderRadius;
+    z-index: calc($zindexFocus + 1);
+
+    &:hover {
+        text-decoration: none;
+        color: $linkColorHover;
+        background: $gray96;
+    }
+    &:focus {
+        @mixin focus-element;
+        background: $white;
+        text-decoration: none;
+        color:  $linkColorHover;
+
+        &:before {
+            display: block;
+            position: relative;
+        }
+    }
+
+    [data-theme=dark] > & {
+        color: $gray80;
+
+        &:hover, &:focus {
+            color: $accentColorL10;
+            background: $gray30;
+        }
+    }
+}
+
+.disabled .search-assistant-activator {
+    background-color: $gray92;
+    cursor: not-allowed;
+}
+
+&.multiline .search-assistant-resize, &.search-assistant-open .search-assistant-resize {
+    border-width: 1px;
+}
+
+/*  Print */
+/*  -------------------------------------------------- */
+
+@media print {
+    .search-assistant-wrapper{
+        @mixin print-hide;
+    }
+}

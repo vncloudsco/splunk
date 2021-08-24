@@ -1,0 +1,20 @@
+--- pyOpenSSL-0.13.1/OpenSSL/crypto/x509name.c.orig	2015-04-22 11:32:59.841736281 -0700
++++ pyOpenSSL-0.13.1/OpenSSL/crypto/x509name.c	2015-04-22 09:01:21.266819223 -0700
+@@ -14,7 +14,7 @@
+ #define crypto_MODULE
+ #include "crypto.h"
+
+-static PyMethodDef crypto_X509Name_methods[4];
++extern PyMethodDef crypto_X509Name_methods[4];
+
+ /*
+  * Constructor for X509Name, never called by Python code directly
+@@ -474,7 +474,7 @@
+  */
+ #define ADD_METHOD(name)        \
+     { #name, (PyCFunction)crypto_X509Name_##name, METH_VARARGS, crypto_X509Name_##name##_doc }
+-static PyMethodDef crypto_X509Name_methods[] =
++extern PyMethodDef crypto_X509Name_methods[] =
+ {
+     ADD_METHOD(hash),
+     ADD_METHOD(der),

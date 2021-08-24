@@ -1,0 +1,2050 @@
+/* Styles for the admin container and list views
+ *
+ *    This file only included for the admin section when wrapped in full admin skin.  See adminforms.css for
+ *    styles specific to form elements themselves (which would be included when wrapped in the admin skin or in popups).
+ */
+
+/* body */
+body.splView-_admin {
+    background: $bodyBackgroundColor;
+}
+
+.navigationHeader {
+    background-color: transparent;
+}
+
+.ManagerPageTitle {
+    font-weight: $fontWeightSemiBold;
+}
+
+.ManagerBar {
+    #managerContextSwitcherActivator{
+        padding-right: 15px;
+        position: relative;
+    }
+    .splIcon-triangle-3-s {
+        position:absolute;
+        top: 9px;
+        right: 10px;
+        background-position: -26px -327px;
+        width: 7px;
+    }
+    > .ManagerPageTitle:only-child {
+        margin-bottom: 0;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  ABOUT DIALOG                                                                                 */
+/*************************************************************************************************/
+.aboutPopupContainer {
+    display:none;
+    padding: $spacingHalf;
+
+    .aboutPopupSplunkLogo {
+        background: transparent url(/static/img/skins/default/logo_splunkServer_white_low.png) no-repeat scroll 0 0;
+        height: 45px;
+        width: 120px;
+    }
+}
+
+/*************************************************************************************************/
+/*  CONTENT                                                                                      */
+/*************************************************************************************************/
+.adminContent {
+    clear: both;
+    min-height: 400px;
+
+    table.splTable {
+        background-color: $white;
+
+        th {
+            border-bottom: none;
+            font-weight: $fontWeight;
+            background-color: $tableHeaderBackground;
+            border-right: $borderWhite;
+            position: relative;
+            &:last-child {
+                border-right: none;
+            }
+            a:hover {
+                color: $linkColor;
+            }
+            &:empty {
+                padding: 16px;
+            }
+        }
+        tr:last-child {
+            td, td.inout_description {
+                border-bottom: 0;
+            }
+        }
+        .col-share, .col-status, .col-actions {
+            white-space: nowrap;
+        }
+    }
+}
+
+
+/*************************************************************************************************/
+/*  INDEX PAGE                                                                                   */
+/*************************************************************************************************/
+div.adminIndex {
+    overflow: hidden;
+    font-size: $fontSize;
+    padding: $spacingHalf;
+    margin: auto;
+    max-width: $bodyMinWidth;
+
+    div.adminSections {
+        overflow:hidden;
+        clear:left;
+    }
+    div.adminIndexLeft, div.adminIndexRight {
+        float:left;
+        width:50%;
+        padding:$spacingHalf;
+        margin:0;
+        box-sizing: border-box;
+    }
+    div.adminGroup {
+        padding: 0px;
+        margin-bottom: $spacing;
+        position: relative;
+        @mixin create-card;
+    }
+    h2 {
+        @mixin create-heading-large;
+        background: none !important;
+        padding: 0;
+    }
+    div.lastCell {
+        border: none;
+    }
+    h1 {
+        margin: $spacingHalf 0px $spacingHalf $spacingHalf;
+        font-weight: bold;
+        font-size: 21px;
+        letter-spacing: -0.5pt;
+    }
+    p {
+        margin-top: $spacing;
+        padding: 0px 10px;
+    }
+    dl {
+        padding: 0;
+        margin: 0;
+    }
+    div.adminListItem {
+        padding: $spacing;
+        background: none;
+        border-bottom: $borderLight;
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+    .adminListIcon {
+        display: block;
+        height: 36px;
+        width: 36px;
+        margin-right: $spacingHalf;
+        margin-left: $spacingHalf;
+        float: left;
+        background-size: 36px;
+    }
+    dl {
+        dt {
+            margin: 0 0 $spacingQuarter 0;
+            font-weight: normal;
+            font-size: $fontSizeLarge;
+
+            a {
+                font-size: $fontSizeLarge;
+                white-space: nowrap;
+            }
+            span a {
+                font-size: $fontSizeSmall;
+            }
+        }
+        dd {
+            margin: 0;
+            color:$textGrayDark;
+        }
+    }
+}
+
+/* SPL-55408 - for IE*/
+#adminIndexRadios {
+    .authCheckbox {
+        border: none;
+    }
+    input[type='checkbox']{
+        padding: 5px 7px 5px 7px;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  SERVER RESTART                                                                               */
+/*************************************************************************************************/
+#restarterr { color: red; font-weight: bold; display: none; }
+#restartstatus, #restartsslwarn {
+    display: none;
+    position: fixed;
+    top: 45px;
+    left: 50%;
+    z-index: 900; /*place behind the disconnect message */
+    width: 400px;
+    margin-left: -220px;
+    background-color: $white;
+    border-radius: $borderRadius;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    color: $gray30;
+    padding: $spacing;
+    text-align: center;
+
+    h1 {
+        font-size: $fontSizeLarge;
+        font-weight: normal;
+        color: $gray30;
+    }
+}
+#restartsslwarn {
+    top: 35px;
+    z-index: 1100; /*place over the disconnect message */
+    width: 400px;
+    height: 150px;
+    margin-left: -270px;
+    padding: $spacing 70px;
+}
+#restartstatus .sslwarn {
+    display: none;
+}
+
+
+/*************************************************************************************************/
+/*  SERVER CONTROLS                                                                              */
+/*************************************************************************************************/
+.serverControlsWrapper {
+    display: flex;
+    justify-content: center;
+    min-height: auto !important;
+    min-width: $bodyMinWidth;
+
+    .fieldsetWrapper {
+        @mixin create-card;
+        flex: 1;
+        padding: $spacing !important;
+        margin: $spacingHalf;
+
+        h1 {
+            margin-top: 0;
+        }
+        .splButton-primary {
+            padding: $buttonPaddingVerticalLarge calc($buttonPaddingSides * 2);
+        }
+    }
+}
+
+
+/*************************************************************************************************/
+/*  LOADING MESSAGE                                                                              */
+/*************************************************************************************************/
+.editFormWrapper .splOverlay-white {
+    position:absolute;
+}
+
+
+/*************************************************************************************************/
+/*  EDIT PAGES                                                                                   */
+/*************************************************************************************************/
+div.editFormWrapper {
+    padding:0px;
+    position:relative;
+    margin-top: $spacingHalf;
+    border-top: $borderLight;
+}
+
+
+/*************************************************************************************************/
+/*  DATA INPUTS                                                                                  */
+/*************************************************************************************************/
+div.dataInputsWrapper, div.pageContentWrapper {
+    padding: 20px;
+    border-top: $borderLight;
+    min-height: 420px;
+}
+
+div.dataInputsWrapper .dataInputsDesc, div.pageContentWrapper .pageContentDesc {
+    display: block;
+    font-size: $fontSize;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+div.dataInputsWrapper {
+    .fieldsetWrapper.first {
+        padding-bottom: 15px;
+        padding-top: 0px;
+    }
+    table p.input_description {
+        font-style: italic;
+        margin: 0px;
+        font-size: $fontSizeSmall;
+        font-weight: normal;
+        padding-top: 5px;
+    }
+    .listWrapper {
+        padding: 0;
+    }
+    > .fieldsetWrapper:first-child {
+        padding-top: 0;
+    }
+    h2 {
+        font-size: $fontSizeXLarge;
+        font-weight: bold;
+        color: $textGrayDark;
+    }
+}
+
+/*************************************************************************************************/
+/*  SETTINGS INDEX                                                                               */
+/*************************************************************************************************/
+div.dataInputsWrapper.settingsIndex, .settingsIndex {
+    padding: 0 $spacing $spacing;
+    border-top: none;
+
+    &.noSettingsIndexDesc {
+        margin-top: 0;
+    }
+    .splTable {
+        width: calc($bodyMinWidth - $spacing);
+        margin: auto auto $spacingDouble auto;
+        box-sizing: border-box;
+        @mixin create-card-table;
+
+        &:not(.show-table-header) th {
+            display: none;
+        }
+        td {
+            padding: $spacingThreeQuarters $spacingHalf;
+            &.actions {
+                text-align: right;
+
+                a {
+                    @mixin button-padding calc($buttonPaddingVertical + 4px); /*  note the vertical padding will be funky unless it's block, inline-block, or floated */
+                    line-height: $lineHeight;
+                    border-radius: $interactiveBorderRadius;
+
+                    @mixin interactive none, transparent, none, $pillTextColor;
+                    @mixin button-states pill-hover, pill-active, pill-style $textDisabledColor, pill-style $linkColor;
+
+                    &.add-new:before {
+                        padding: 0 4px 0 0;
+                        line-height: 18px;
+                        font-family: 'Splunk Icons';
+                        content: '+';
+                        display: inline-block;
+                    }
+                }
+            }
+            a {
+                border-radius: $borderRadius;
+                &:focus {
+                    @mixin focus-element;
+                }
+            }
+            &.input_name {
+                vertical-align: top !important;
+            }
+        }
+        &#dataInputs, &#forwarded-dataInputs {
+            &.show-table-header th {
+                padding: $spacingHalf $spacing;
+                font-weight: $fontWeightSemiBold;
+
+                &.actions {
+                    text-align: right;
+                }
+            }
+            td {
+                &.input_name, &.actions, &.input_count {
+                    border-top: $borderLight;
+                }
+                &.input_description {
+                    padding: 0 $spacing;
+                    position: relative;
+                    top: -$spacingThreeQuarters;
+                    border-bottom: 0;
+                    pointer-events: none;
+                }
+                &.input_count {
+                    padding: $spacingThreeQuarters $spacing 0;
+                }
+            }
+            tr:first-child td, tr:nth-child(2) td {
+                &.input_name, &.actions, &.col-2 {
+                    border-top: 0;
+                }
+            }
+        }
+        a {
+            padding: $spacingHalf;
+        }
+    }
+    .settingsIndexDesc {
+        border-bottom: $borderLight;
+        margin: -$spacingHalf -$spacing $spacing;
+        padding: 0 $spacing $spacing;
+    }
+    .Message + & {
+        padding-top: $spacing;
+
+        .settingsIndexDesc {
+            margin-top: 0;
+        }
+    }
+    h2 {
+        @mixin create-heading-large;
+    }
+    h2, .dataInputsDesc {
+        width: $bodyMinWidth;
+        margin: auto auto $spacingHalf auto;
+    }
+}
+
+/*************************************************************************************************/
+/*  LISTING PAGE                                                                                 */
+/*************************************************************************************************/
+.adminContentList {
+    h2 {
+        font-weight: $fontWeightSemiBold;
+        font-size: 24px;
+        margin: 10px 0;
+        margin-top: 5px;
+    }
+    h3 {
+        font-size: 14px;
+        font-weight: 700;
+        margin: 30px 0 0;
+    }
+    div.listWrapper {
+        table.splTable {
+            td {
+                border-bottom: none;
+                .bolt {
+                    padding-top: 8px;
+                }
+            }
+            tr {
+                &:nth-child(odd) {
+                    background-color: $tableRowAccentColor;
+                }
+                &:hover {
+                    background-color: $tableRowHoverColor;
+                }
+            }
+        }
+    }
+    .eaiPagination {
+        .actionButtons {
+            position: absolute;
+            top: calc($navbarHeight + 6);
+            right: 15px;
+            transition: top $transitionTime;
+            .splButton-primary, .splButton-secondary {
+                min-width: 80px;
+                display: inline-block;
+                margin-left: $spacingQuarter;
+            }
+            .open & {
+                right: -$sideNavWidth;
+                transition: right $transitionTime;
+            }
+        }
+    }
+    table.splTable-list {
+        @mixin create-card-table;
+    }
+    .eaiFilterControls .eaiResultsCount {
+        float: none;
+        line-height: $spacing;
+        margin: 0;
+
+        + .eaiFilterControl {
+            margin-left: 0;
+        }
+    }
+}
+div.listWrapper {
+    padding: 0 $spacing $spacing;
+    table.splTable {
+        background-color:$white;
+    }
+    .splPipe {
+        margin:0px 2px;
+    }
+    td input {
+        margin: 0px;
+    }
+}
+
+.listIntroText {
+    padding: 10px;
+    &:empty {
+        padding: 0;
+        margin-bottom: -10px;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  FILTER CONTROLS                                                                              */
+/*************************************************************************************************/
+.eaiFilterControls {
+    margin-left: 0;
+    padding: 0 $spacing;
+
+    .eaiFilterControl {
+        float: left;
+        margin: $spacingQuarter;
+
+        &:empty {
+            display: none;
+        }
+        &.eaiSearchControl {
+            > input[name=search] {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                height: 32px;
+                box-sizing: border-box;
+                &:focus {
+                    z-index: 1;
+                    position: relative;
+                }
+            }
+            > input.searchButton {
+                box-sizing: border-box;
+            }
+        }
+        .eaiFilterControlLabel {
+            margin: 0 $spacingQuarter 0 $spacingHalf;
+            vertical-align: middle;
+        }
+        div&:first-of-type > .eaiFilterControlLabel {
+            margin-left: 0;
+        }
+        input, select {
+            margin: 0;
+            width: auto;
+            vertical-align: middle;
+            max-width: 186px;
+        }
+        input {
+            border: $borderDefault;
+            &.checkbox, &.radio {
+                width:auto;
+                background-color: transparent;
+                border: none;
+            }
+            &.eaiFilter {
+                background: $white;
+                width: 250px;
+            }
+        }
+    }
+    label {
+        margin: 0 3px 0 20px;
+        vertical-align: middle;
+        text-shadow: none;
+        font-weight: $fontWeight;
+    }
+    .appOnlyFilter {
+        padding: 0;
+        line-height: 30px;
+        input {
+            margin-left: 15px;
+        }
+        label {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+    }
+}
+
+/* override overrides for search button */
+input.searchButton, .eaiFilterControls .eaiFilterControl input.searchButton {
+    margin: 0 0 0 -$spacingQuarter;
+    outline: 0;
+    vertical-align: bottom;
+}
+.eaiFilterControls .eaiFilterControl input.searchButton {
+    margin-top:-2px;
+}
+
+/** Firefox hack **/
+@-moz-document url-prefix()
+{
+    .eaiFilterControls .eaiFilterControl {
+        padding-top: 0px;
+    }
+}
+.hasTabs .eaiFilterControls {
+    background-color:$white;
+    border-bottom:1px solid $borderColor;
+    margin:0px 10px;
+}
+
+.appOnlyFilter {
+    padding: 3px 10px;
+    input {
+        margin: 0px;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  PAGINATION                                                                                   */
+/*************************************************************************************************/
+.eaiPagination {
+    margin-bottom: 10px;
+    padding: 10px 15px 0px;
+
+    .adminContentList & {
+        margin-bottom: 0;
+    }
+
+    .eaiPaginationHeader h2 {
+        float: left;
+        margin-right: 10px;
+        margin-top: 2px;
+    }
+    div.actionButtons {
+        float: left;
+        margin: 10px 5px;
+    }
+    h2 {
+        font-weight:bold;
+        font-size: 18px;
+        color: $brandColor;
+        margin:0px;
+    }
+    p span {
+        font-weight: bold;
+    }
+    .Paginator {
+        padding-top: 5px;
+    }
+    select {
+        margin-top: 0px;
+    }
+}
+
+.eaiResultsPageControls {
+    padding: 0px $spacing;
+
+    .eaiResultsPageControl {
+        float: none;
+        line-height: 28px;
+
+        .eaiResultsCount {
+            float: left;
+        }
+        .ResultsContainer {
+            float: right;
+            min-height: $spacingHalf;
+        }
+    }
+    .Paginator {
+        display: block;
+        .active a {
+            margin-bottom: 10px;
+        }
+    }
+    .eaiResultsPerPage {
+        float: right;
+        margin-right: 0px;
+        margin-top: -2px;
+    }
+}
+.eaiFilterControls {
+    .eaiResultsPageControl {
+        line-height: 30px;
+    }
+    .eaiResultsPerPage {
+        float: right;
+
+        select {
+            margin-bottom: 0;
+        }
+    }
+}
+.eaiResultsPerPage {
+    select {
+        margin: 0 0 $spacingHalf;
+        font-size: $fontSize;
+        width: 70px;
+    }
+    label {
+        font-size: $fontSize;
+        margin-right: $spacingQuarter;
+    }
+}
+.eaiResultsCount {
+    float: left;
+    font-size: $fontSize;
+    margin: 0px;
+}
+.checkboxCell {
+    width: 20px;
+}
+
+
+.bolt {
+    width:auto;
+    height:16px;
+    padding-top: 3px;
+    padding-left:9px;
+    padding-right:2px;
+}
+.rssLink {
+    width:12px;
+    height:12px;
+    background: url(/static/img/skins/default/xml.gif) no-repeat 0 50%;
+    float:left;
+}
+.enabledCheck {
+    width:6px;
+    height:7px;
+    background: url(/static/img/skins/default/check.gif) no-repeat 0 50%;
+    float:left;
+    margin-top:3px;
+    margin-right:5px;
+}
+
+.enabledCheckNotPresentFiller {
+    width:21px;
+    height:7px;
+    float:left;
+}
+
+/* styling for move dialog */
+.moveObjectFormContainer {
+    display:none;
+    padding: $spacing;
+}
+
+
+/*************************************************************************************************/
+/*  SHARED STYLES                                                                                */
+/*************************************************************************************************/
+.adminTitleStyle label {
+    color:$brandColor;
+    font-size: $fontSize;
+    font-weight: $fontWeightSemiBold;
+}
+
+legend.hasHelpText {
+    padding-bottom: $spacingHalf;
+}
+div.standaloneHelp p.helpText {
+    display: block;
+    margin: 0 0 5px 0;
+}
+
+.splTable h1 {
+    margin: 0;
+}
+
+
+/*************************************************************************************************/
+/*  EDIT FORM                                                                                    */
+/*************************************************************************************************/
+$editFormWidth: 940px;
+$editFormLabelWidth: 250px;
+$deleteButtonWidth: 100px;
+$inputWidth: calc($editFormWidth - $editFormLabelWidth - 22px);
+$inputWidthMedium: calc($inputWidth - $deleteButtonWidth);
+$inputWidthHalf: calc($inputWidth / 2 - 58);
+$shortInputWidth: 150px;
+
+.entityEditForm {
+    width: $editFormWidth;
+    background: $white;
+    margin: calc($spacing + $spacingHalf) auto;
+    @mixin create-card;
+
+    h1 {
+        font-weight: $fontWeightSemiBold;
+    }
+    fieldset legend {
+        margin: 0 0 $spacingHalf 0;
+        width: 50%;
+        padding: $spacingHalf $spacing;
+        box-sizing: border-box;
+        display: inline-block;
+        color: $textColor;
+        font-weight: bold;
+        &.labelLegend {
+            padding: $spacingHalf $spacing !important;
+        }
+        &.topLegendLabel {
+            padding-top: $spacing !important;
+        }
+    }
+    input[type=text], input[type=password], textarea.regular, .CodeMirror {
+        width: $inputWidth;
+        min-height: $inputHeight;
+        box-sizing: border-box;
+    }
+    select.regular {
+        width: $inputWidth;
+    }
+    input.short, select.short {
+        width: $inputWidthHalf;
+    }
+    .fieldmapping input {
+        width: $inputWidthHalf !important;
+    }
+
+    .fieldsetWrapper, fieldset {
+        padding: 0;
+        clear: both;
+    }
+    .fieldsetWrapper, .widget {
+        + .fieldsetWrapper {
+            margin-top: $spacingHalf;
+        }
+    }
+    .formWrapper > div:first-of-type,
+    #item-level:first-child {
+        padding-top: $spacing;
+    }
+
+    /* Help text */
+    .exampleText {
+        margin: $spacingQuarter $spacingQuarter $spacingHalf 0;
+    }
+    .helpText {
+        margin: $spacing 0 0 0;
+    }
+    .standaloneHelp p.helpText, .fieldsetHelpText {
+        margin-left: $spacing;
+        margin-right: $spacing;
+    }
+
+    /* Form Contents */
+    .formWrapper {
+        .widget {
+            margin-bottom: $spacingQuarter;
+            padding-right: $spacing;
+            clear: both;
+
+            > label, .orphanLabel {
+                float: left;
+                text-align: right;
+                width: $editFormLabelWidth;
+                padding: $spacingHalf $spacingThreeQuarters $spacingHalf $spacing;
+                box-sizing: border-box;
+                margin-right: 0;
+                line-height: $lineHeight;
+            }
+            > div {
+                margin-left: $editFormLabelWidth;
+                margin-bottom: $spacingQuarter;
+
+                .fieldmapping:first-child, .repeatabletemplate + .fieldmapping {
+                    clear: none;
+                }
+            }
+            &.checkboxWidget {
+                br {
+                    display: none;
+                }
+                .checkbox {
+                    margin-top: $spacingQuarter;
+                    margin-left: 0;
+                    vertical-align: top;
+
+                    + label {
+                        display: inline-block;
+                        width: calc(100% - 30px);
+                        vertical-align: top;
+                        margin-top: $spacingQuarter;
+                        -webkit-margin-before: calc($spacingQuarter + 1px);
+                    }
+                }
+                .orphanLabel {
+                    margin-left: -$editFormLabelWidth;
+                }
+                &#item-createrole > div {
+                    margin-left: $spacing;
+                }
+            }
+            &.radioWidget {
+                > div, .widgeterror {
+                    padding-top: 9px;
+                }
+                input[type=radio] {
+                    @mixin radio-button-overlay;
+                }
+            }
+            &#item-imported_capabilities {
+                label {
+                    text-align: left;
+                }
+                > div {
+                    clear: both;
+                    margin-left: $spacing;
+                    textarea {
+                        resize: vertical;
+                        height: 100px;
+                        width: 900px;
+                    }
+                }
+            }
+            &#item-remotePassword {
+                > label {
+                    clear: left;
+                }
+            }
+            &:last-child {
+                margin-bottom: $spacingHalf;
+            }
+        }
+        > .fieldsetWrapper:first-child,
+        > input[type=hidden]:first-child + .fieldsetWrapper {
+            > fieldset > legend:first-child {
+                margin-bottom: 0;
+                position: relative;
+                top: -$spacingHalf;
+            }
+        }
+        .accumulator {
+            margin: $spacingHalf 0 $spacingHalf $spacing;
+            .availableOptionsContainer, .selectedOptionsContainer {
+                width: calc(($editFormWidth - ($spacing * 3)) / 2);
+            }
+            .selectedOptionsContainer {
+                margin-right: 0;
+            }
+        }
+        .multiColumnFieldset {
+            div {
+                float: none;
+            }
+            fieldset .widget.short {
+                &#item-alert_suppress_period_value,
+                &#item-spl-ctrl_stanza_prefix {
+                    display: inline-block;
+                    vertical-align: top;
+
+                    &, > div {
+                        padding-right: 0;
+                        margin-right: 0;
+                    }
+                    & + .widget.short {
+                        &#item-alert_suppress_period_unit,
+                        &#item-stanza {
+                            display: inline-block;
+                            padding-right: 0;
+                            vertical-align: top;
+
+                            > label {
+                                border: $border;
+                                border-radius: $inputBorderRadiusLeft;
+                                display: inline-block;
+                                width: 103px;
+                                margin: 4px -1px 0 10px;
+                                padding: $buttonPadding;
+                                text-align: left;
+                                white-space: nowrap;
+                                @mixin interactive;
+                                box-shadow: none;
+
+                                + div > input[type=text]{
+                                    border-radius: $inputBorderRadiusRight;
+                                }
+                            }
+                            > div {
+                                margin-left: 0;
+                                display: inline-block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .fieldmapping > div,
+        .repeatable .widget > div {
+            margin-left: 0;
+        }
+        .repeatable {
+            .widget {
+                padding-right: 0;
+            }
+            input[type=text]{
+                width: $inputWidthMedium;
+            }
+            > .exampleText {
+                position: relative;
+                top: -calc($spacing + $spacingQuarter);
+                margin: 0 0 -$spacing $editFormLabelWidth;
+            }
+        }
+        .standaloneHelp {
+            padding-left: $spacingQuarter;
+        }
+    }
+    .hasTabs & {
+        padding: $spacing;
+    }
+    #permissions & {
+        fieldset {
+            > *:not(legend) {
+                margin-left: $spacing;
+            }
+            > label {
+                display: block;
+                margin-bottom: $spacingHalf;
+            }
+            > .sharingRadios > input[type=radio]:not(:last-child) {
+                margin-bottom: $spacingHalf;
+            }
+            > div > input[type=radio] {
+                @mixin radio-button-overlay;
+                margin-right: 6px;
+            }
+        }
+    }
+}
+@-moz-document url-prefix() {
+    .entityEditForm .formWrapper .widget.checkboxWidget .checkbox + label {
+        margin-top: calc($spacingQuarter - 1px);
+    }
+}
+
+.jmFormActions, .jmBatchActions {
+    margin-top: $spacing;
+    border-top: 1px solid $borderLightColor;
+    padding: $spacing;
+}
+.jmFormOptions {
+    padding: 0px $spacing;
+}
+.jmFormActions {
+    min-height: 32px;
+    padding: $spacing !important;
+    text-align: right;
+    overflow: hidden;
+
+    .splButton-primary, .splButton-secondary {
+        min-width: 100px;
+        font-weight: $fontWeightSemiBold;
+        margin-left: $spacingHalf;
+        line-height: $lineHeight;
+    }
+}
+.admin-dialog-tray {
+    .splButton-primary, .splButton-secondary {
+        min-width: 100px;
+        font-weight: $fontWeightSemiBold;
+        margin-left: $spacingHalf;
+    }
+}
+
+.error-message {
+    background-color: red;
+    border: 1px $borderColor solid;
+}
+.notification {
+    background-color: yellow;
+    border: 1px $borderColor solid;
+}
+.msgBox {
+    padding: 10px;
+    background: #f2f2f2;
+    margin: 20px 3%;
+    clear: both;
+    font-size: 14px;
+    h2 {
+        font-size: $fontSizeLarge;
+    }
+    .machine {
+        font-size: 10px;
+        color:$textGrayDark;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  SPLUNKBASE APPLICATIONS                                                                      */
+/*************************************************************************************************/
+
+/*  AppsApplicationBox  */
+#appsSplunkbaseApps h1 {
+    font-size: 21px;
+}
+
+.adminContentHeader {
+    font-size: 14px;
+    margin-top: 7px;
+
+}
+
+.appsPaginator {
+    clear: left;
+}
+
+.appsList {
+    float: left;
+    margin-top: 10px;
+    ul {
+        margin-left: 0px;
+    }
+    li {
+        list-style: none;
+    }
+}
+
+.appsApplicationBox {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    width: 100%;
+    border-bottom: 1px solid ;
+    font-size: $fontSize;
+    .appIcon {
+        float: left;
+    }
+    a.splunkBaseAppTitle{
+        margin-right: 10px;
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .appMeta, .author {
+        font-size: $fontSizeSmall;
+    }
+    .author {
+        float: left;
+        padding: 2px 5px 0px;
+    }
+    .price {
+        float: left;
+        font-weight: bold;
+        color: $brandColor;
+        font-size: 14px;
+    }
+    .appType {
+        font-weight: bold;
+        font-size: $fontSizeSmall;
+        margin-bottom: 5px;
+    }
+    .stars {
+        display: block;
+        text-indent: -5000px;
+        width: 65px;
+        float: left;
+        margin-right: 5px;
+    }
+    .votes, .downloads, .updated {
+        margin-right: 10px;
+    }
+    table {
+        margin-top: 10px;
+        font-size: $fontSizeSmall;
+        th {
+            text-align: left;
+        }
+        td {
+            font-size: $fontSizeSmall;
+        }
+    }
+    .splButton-primary, .textstatus {
+        float: left;
+    }
+    .buttonDiv {
+        margin-top: 10px;
+        font-weight: bold;
+        .splButton-primary {
+            margin-left: 0px;
+            margin-right: 5px;
+        }
+    }
+}
+
+.appDetail {
+    /* float: left; */
+    /* width: 700px; */
+    margin-left: 56px;
+    h2 {
+        margin: 0px 0px 10px 0px;
+        font-size: 14px;
+    }
+}
+
+.appsApplicationDesc {
+    margin-top: 10px;
+    font-size: $fontSize;
+    line-height: 130%;
+}
+
+.appDetailsTable {
+    td, th {
+        text-align: left;
+        vertical-align: top;
+    }
+    .author, .version, .last_updated, .downloads, .license {
+        width: 80px;
+        padding: 1px 5px 0px;
+    }
+    .author {
+        width: 120px;
+    }
+    .license {
+        width: auto;
+    }
+}
+
+
+.textstatus {
+    float: left;
+}
+
+.clear {
+    clear: left;
+}
+.lastApplicationBox {
+    padding-bottom: 50px;
+}
+
+
+/*************************************************************************************************/
+/*  APPS APPLICATION BOX                                                                         */
+/*************************************************************************************************/
+#appsSplunkbaseApps {
+    #pager {
+        clear: both;
+        margin-top: 10px;
+        padding-top: 10px;
+        width: 100%;
+        ul {
+            float: left;
+        }
+        li {
+            display: inline;
+            list-style-type: none none;
+            margin-right: 10px;
+            padding: 3px;
+            &.currentpage {
+                border: 1px solid $borderColor;
+            }
+        }
+    }
+}
+
+
+/*************************************************************************************************/
+/*  ACCUMULATOR STYLES                                                                           */
+/*************************************************************************************************/
+.accumulator {
+    fieldset {
+        margin:0;
+    }
+    select.hiddenSelectedOptions {
+        display:none;
+    }
+    .availableOptionsContainer, .selectedOptionsContainer {
+        float: left;
+        width: 370px;
+        margin: 0px 20px 0px 0px;
+    }
+    .addAllLink, .removeAllLink {
+        float:right;
+    }
+    .selectedOptionsContainer {
+        margin-right: 0px;
+    }
+    h4 {
+        font-weight:normal;
+        font-size: $fontSize;
+        width:200px;
+        margin-right:22px;
+        padding-bottom:5px;
+        &.selectedOptionsHeader {
+            width: 200px;
+            margin-right:0px;
+        }
+    }
+    ul {
+        &.availableOptions, &.selectedOptions {
+            border-radius: $borderRadius;
+            height:200px;
+            overflow: auto;
+            /*width:318px;
+            float: left;*/
+            list-style: none none;
+            margin: 0;
+            padding:0;
+            border: 1px solid $borderColor;
+            clear: left;
+            li {
+                clear: left;
+                padding: 6px;
+                font-size: $fontSize;
+                cursor: pointer;
+                &:hover {
+                    background-color: #e5f2f5;
+                }
+                span {
+                    margin: -2px 6px 0 0;
+                    display: block;
+                    float: left;
+                    height: 17px;
+                    width: 17px;
+                    border-radius: $borderRadius;
+                }
+                &.selected {
+                    color: $textGray;
+                    span.splIcon {
+                        background-color: $gray80;
+                        &:before {
+                            color: $textColor;
+                        }
+                    }
+                }
+            }
+        }
+        span.splIcon-arrow-e, span.splIcon-arrow-w {
+            background-image: none;
+            &:before {
+                padding: 0 4px;
+                line-height: 18px;
+                font-family: 'Splunk Icons';
+                color: $white;
+            }
+        }
+        span.splIcon-arrow-e {
+            background-color: $brandColor;
+            &:before {
+                content: "\27A1";
+            }
+        }
+        span.splIcon-arrow-w {
+            background-image: none;
+            &:before {
+                content: "\EC00";
+            }
+        }
+    }
+    &#item-capabilities {
+        ul.availableOptions, ul.selectedOptions {
+            height: 450px;
+        }
+    }
+}
+.accDisabled {
+    ul {
+        &.availableOptions, &.selectedOptions {
+            background-color: #f0f0f0;
+        }
+        li {
+            color: $textGray;
+            span.splIcon {
+                background-color:$gray80;
+            }
+        }
+    }
+}
+
+.radioWidget ul {
+    list-style: none none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/*************************************************************************************************/
+/*  FIELD MAPPING                                                                                */
+/*************************************************************************************************/
+.fieldmapping, .repeatable div.widget, .repeatabletemplate {
+    padding-bottom: 0;
+
+    + .addField, + .addnew {
+        margin-top: 0;
+        a {
+            padding: $buttonPadding;
+            margin-top: $spacingQuarter;
+            border: $border;
+            border-radius: $interactiveBorderRadius;
+            box-sizing: border-box;
+            display: inline-block;
+            @mixin interactive;
+            @mixin button-states;
+
+            &:before {
+                padding: 0 4px 0 0;
+                line-height: 18px;
+                font-family: 'Splunk Icons';
+                content: '+';
+                display: inline-block;
+            }
+        }
+    }
+}
+.fieldmapping input {
+    width: 150px;
+}
+.fieldmapping input.right,
+.repeatable .widgeterror {
+    + .delete {
+        display: inline-block;
+        @mixin button-padding calc($buttonPaddingVertical + 1px); /*  note the vertical padding will be funky unless it's block, inline-block, or floated */
+        margin-left: $spacingQuarter;
+        max-width: calc($deleteButtonWidth - $spacing);
+        line-height: $lineHeight;
+        border-radius: $interactiveBorderRadius;
+
+        @mixin interactive none, transparent, none, $pillTextColor;
+        @mixin button-states pill-hover, pill-active, pill-style $textDisabledColor, pill-style $linkColor;
+    }
+}
+
+/*************************************************************************************************/
+/*  DATA INPUTS                                                                                  */
+/*************************************************************************************************/
+table#dataInputs, table#forwarded-dataInputs {
+    td {
+        border-bottom: 0;
+        &.input_description {
+            border-bottom: $tableBorder;
+            padding-top: 0px;
+        }
+        &.input_name {
+            font-size: $fontSize;
+            padding-bottom: 0px;
+            vertical-align: middle;
+
+            a {
+                padding: 2px $spacingQuarter;
+                margin-left: $spacingQuarter;
+                border-radius: $borderRadius;
+                &:focus {
+                    @mixin focus-element;
+                }
+            }
+        }
+    }
+    tr:last-child td {
+        border-bottom: 0;
+    }
+}
+
+#eaiform {
+    &.entityEditForm {
+        .disabledTextarea pre, textarea {
+            font-family: $monoFontFamily;
+            font-size: $fontSize;
+        }
+    }
+    h2 {
+        margin:0px 10px 10px 10px;
+        font-weight: bold;
+        font-size: 18px;
+        letter-spacing: -0.5pt;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  GDI                                                                                          */
+/*************************************************************************************************/
+.spl-mgr-advanced-switch, .managerEditHeader {
+    > * {
+        margin: $spacingQuarter $spacing $spacingHalf !important;
+    }
+}
+
+/*************************************************************************************************/
+/*  GDI: GENERAL                                                                                 */
+/*************************************************************************************************/
+span.spl-hr-solid,
+span.spl-hr-dotted-lite,
+span.spl-hr-solid-lite {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    display: block;
+    font-size: 1%;
+}
+
+span.spl-hr-solid,
+span.spl-hr-dotted-lite {
+    padding: 0;
+    margin: 10px 0;
+}
+
+span.spl-hr-solid {
+    border-bottom: 1px solid $borderDarkColor;
+}
+
+span.spl-hr-dotted-lite {
+    border-bottom: 1px dotted $borderColor;
+}
+
+span.spl-hr-solid-lite {
+    /*
+        border-bottom: 1px solid $borderColor;
+        padding: 0;
+        margin: 10px 0 30px 0;
+    */
+    display: none;
+}
+
+.spl-gdi-wrapper .spl-border-box-sizing {
+    box-sizing: border-box;
+}
+
+
+/*************************************************************************************************/
+/*  GDI: DATA INPUTS                                                                             */
+/*************************************************************************************************/
+.spl-gdi-wrapper {
+    position: relative;
+    height: auto;
+    width: 660px;
+    margin: 30px auto 20px auto;
+    padding-top: 15px;
+    box-sizing: border-box;
+    background: $white;
+    border-radius: 2px;
+    @mixin create-card;
+
+    .jmFormActions-btn-left {
+        text-align: left;
+
+        .splButton-primary {
+            float: left !important;
+        }
+    }
+    .jmFormActions .splButton-secondary span {
+        min-width: 80px;
+    }
+    div.spl-clear-fix {
+        clear: both;
+        height: 1px;
+        margin-top: -1px;
+        overflow: hidden;
+        font-size: 1%;
+    }
+    * {
+        line-height: 1;
+
+        p {
+            font-size: inherit;
+            color: #111;
+            padding: 0;
+            margin: 0;
+        }
+    }
+    h2.spl-page-hdr {
+        margin-top: 0;
+        margin-bottom: $spacingQuarter;
+        font-size: 18px;
+        font-weight: bold;
+        position: relative;
+        padding: 0px $spacingHalf;
+
+        a.spl-help-link {
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: inline-block;
+            height: 16px;
+            line-height: $lineHeight;
+            padding-left: $spacing;
+            white-space: nowrap;
+            font-size: $fontSize;
+            text-align: right;
+            font-weight: bold;
+        }
+    }
+    .spl-col-floating-link-left {
+        font-size: $fontSize;
+        margin-left: $spacingHalf;
+
+        span {
+            margin-top: $spacing;
+            margin-bottom: $spacingHalf;
+            display: inline-block;
+        }
+        .spl-icon-external-link-sm {
+            padding-right: 2px;
+        }
+    }
+}
+.icon-external {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+
+/*************************************************************************************************/
+/*  GDI: THREE COLUMNS                                                                           */
+/*************************************************************************************************/
+.spl-gdi-wrapper {
+    .spl-three-col-wrapper-inner {
+        padding: 0 10px;
+        margin-top: 5px;
+    }
+    .spl-three-col-wrapper {
+        float: left;
+        width: 100%;
+        padding: 0;
+
+        .spl-left-col,
+        .spl-mid-col,
+        .spl-right-col {
+            display: inline;
+            float: left;
+            width: 30%;
+        }
+        .spl-mid-col {
+            margin: 0px 15px;
+        }
+    }
+    .spl-col-border-left {
+        border-left: 1px dotted $borderColor;
+    }
+    .spl-col-border-right {
+        border-right: 1px dotted $borderColor;
+    }
+    ul.spl-data-options-links {
+        min-height: 70px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            padding: 4px 0;
+
+            p {
+                font-size: $fontSizeSmall !important;
+                color: $textGrayDark !important;
+                padding: 0;
+                margin: 3px 10px 10px 0;
+            }
+            a {
+                font-size: $fontSize;
+            }
+        }
+    }
+    ul.spl-data-options-links-strong li a {
+        font-weight: bold !important;
+    }
+    h3.spl-tan-section-head {
+        padding: $spacingHalf;
+        clear: both;
+        border-bottom: 1px solid $borderColor;
+        box-sizing: border-box;
+        color: #111;
+        font-size: 13px;
+        font-weight: normal;
+    }
+    h3.spl-tan-section-head-top {
+        margin-top: $spacing;
+    }
+    .spl-data-options-links {
+        li.spl-icon-local-event-log-sm,
+        li.spl-icon-remote-event-log-sm,
+        li.spl-icon-files-dirs-log-sm,
+        li.spl-icon-wmi-collections-sm,
+        li.spl-icon-tcp-sm,
+        li.spl-icon-udp-sm,
+        li.spl-icon-registry-monitoring-sm,
+        li.spl-icon-active-dir-monitoring-sm,
+        li.spl-icon-scripts-sm {
+            padding: 2px 0px 10px 20px!important;
+        }
+    }
+}
+.adminContent .spl-gdi-wrapper h3.add-data-header {
+    font-weight: bold;
+}
+
+
+/*************************************************************************************************/
+/*  GDI: RECIPE PAGE                                                                             */
+/*************************************************************************************************/
+.spl-gdi-wrapper {
+    .spl-recipes-wrapper {
+        position: relative;
+        display: block;
+    }
+    ul.spl-recipes-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li.spl-recipe-list-item {
+            padding: 0 10px 15px 45px;
+            margin-bottom: 15px;
+            border-bottom: 1px dotted $borderColor;
+        }
+        li.spl-recipe-last {
+            border-bottom: 0px dotted $borderColor !important;
+        }
+        li p.spl-recipe-description {
+            margin: 0 0 10px 0;
+            color: $textGrayDark;
+            font-size: $fontSizeSmall;
+            line-height: 15px;
+        }
+        li span.spl-recipe-action {
+            display: inline-block;
+            height: 16px;
+
+            a.spl-action-link {
+                display: block;
+                background-position: 0 0;
+                font-size: $fontSize;
+                line-height: $lineHeight;
+                padding: 0 0 0 20px;
+            }
+        }
+        li h3.spl-recipe-hdr {
+            font-size: 14px;
+            font-weight: 300;
+            color: #111;
+            margin-bottom: 3px;
+        }
+    }
+    p.spl-main-description a.spl-inline-link,
+    .spl-recipes-wrapper ul.spl-recipes-list li p.spl-recipe-description a.spl-inline-link {
+        background-position: 0 0px;
+        margin-left: 3px;
+        padding-left: 15px;
+        font-size: $fontSizeSmall;
+        line-height: 13px;
+    }
+    h3.spl-main-description-hdr {
+        font-size: $fontSizeLarge;
+        font-weight: 300;
+        color: $brandColor;
+        position: relative;
+        margin: 5px 0 10px 0;
+    }
+    p.spl-main-description {
+        font-size: $fontSize;
+        font-weight: 300;
+        line-height: 140%;
+        padding-bottom: 0px;
+        margin-top: 0;
+        text-align: justify;
+        > .spl-icon-external-link-xsm {
+            line-height: $lineHeight;
+            vertical-align: baseline;
+        }
+    }
+}
+
+
+/*************************************************************************************************/
+/*  GDI: START SUCCESS PAGE                                                                      */
+/*************************************************************************************************/
+.spl-success-message-page {
+    text-align: center;
+}
+.spl-gdi-success-layout-wrapper {
+    position: relative;
+    text-align: center;
+    margin-top: 10px;
+}
+.spl-gdi-wrapper {
+    span.spl-success-message-wrapper {
+        display: inline-block;
+        padding: 40px 40px 30px 40px;
+    }
+    .spl-success-message-wrapper-inner {
+        position: relative;
+        text-align: center;
+    }
+    span.spl-success-message-content {
+        position: relative;
+        display: inline-block;
+        text-align: left;
+        padding-left: 60px;
+        background-position: 0 0;
+    }
+    h1.spl-success-message {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0 0 5px 0;
+        font-size: 24px;
+        font-weight: 300;
+        text-align: left;
+        letter-spacing: -0.3pt;
+        white-space: normal;
+    }
+    span.spl-success-sub-message,
+    span.spl-success-sub-message span.spl-success-sub-message-inner {
+        display: inline-block;
+        position: relative;
+        box-sizing: border-box;
+    }
+    span.spl-success-sub-message {
+        text-align: left;
+        border-radius: $interactiveBorderRadius;
+
+        span.spl-success-sub-message-inner {
+            text-align: center;
+            background-color: $warningColorL50;
+            padding: 5px 10px;
+        }
+    }
+    .spl-success-actions-wrapper {
+        position: relative;
+        display: block;
+        margin: 20px auto 0 auto;
+    }
+    .spl-success-actions-wrapper-inner {
+        padding: 0;
+        text-align: left;
+    }
+    .spl-success-actions-list {
+        margin: 0;
+    }
+    .spl-success-actions-item {
+        border-bottom: 1px dotted $borderColor;
+        display: block;
+    }
+    .spl-success-actions-item-last {
+        border: 0 solid;
+    }
+    .spl-success-actions-link {
+        display: block;
+        height: 48px;
+        font-size: $fontSizeLarge;
+        line-height: 48px;
+        padding-left: 45px;
+        background-position: 0 50%;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  GDI: PROMPT MESSAGE                                                                          */
+/*************************************************************************************************/
+.spl-prompt-message-layout {
+    a.splButton-primary, a.splButton-secondary {
+        span {
+            line-height: 21px;
+        }
+    }
+    h2.spl-page-hdr {
+        position: relative;
+        height: 24px;
+        font-size: 18px;
+        font-weight: $fontWeightSemiBold;
+        line-height: 24px;
+        margin-bottom: 10px;
+        margin-top: 0;
+        padding-left: 30px;
+    }
+    h2.spl-no-icon-no-padding {
+        padding-left: 20px;
+    }
+}
+.spl-gdi-wrapper {
+    .spl-prompt-message-wrapper {
+        position: relative;
+        width: inherit;
+        text-align: left;
+
+        .error {
+            color: $white;
+            display: block;
+            margin-bottom: 10px;
+            padding: 5px 0;
+            text-indent: 10px;
+            width: 300px;
+        }
+        .adminFormItem {
+            margin-bottom: 10px;
+
+            label {
+                display: block;
+            }
+        }
+        .spl-main-description {
+            margin-bottom: 15px;
+
+            strong {
+                color: $brandColor;
+                font-weight: bold;
+            }
+        }
+        .spl-license-warn {
+            color: $errorText;
+            display: none;
+            margin-left: 20px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+
+/*************************************************************************************************/
+/*  GDI: ICONS                                                                                   */
+/*************************************************************************************************/
+/* small icons 16x16 px */
+legend a.spl-help-link {
+    background: transparent url(/static/img/skins/default/icon-help-sm.png) no-repeat 0 0;
+    width: 16px;
+    height: 16px;
+    margin-bottom: -3px;
+    display: inline-block;
+}
+
+.spl-icon-help-sm {
+    background: transparent url("/static/img/skins/default/icon-help-sm.png") no-repeat 0 0;
+}
+.spl-icon-more-info-sm {
+    background: transparent url("/static/img/skins/default/icon-info-sm.png") no-repeat scroll 0 0;
+}
+.spl-icon-next-link-sm {
+    background: transparent url("/static/img/skins/default/icon-link-sm.png") no-repeat scroll 0 1px;
+}
+.spl-icon-external-link-sm, .splunk-components > .icon-external {
+    vertical-align: middle;
+    &:before {
+        display: inline-block;
+        padding: 0 3px;
+        content: "\EC13";
+        font-family: 'Splunk Icons';
+        font-style: normal;
+        text-decoration: none;
+        vertical-align: middle;
+    }
+}
+.spl-icon-universal-sm {
+    background: transparent url(/static/img/skins/default/icon-universal-sm.png) no-repeat 0 0;
+}
+.spl-icon-local-event-log-sm {
+    background: transparent url(/static/img/skins/default/icon-local-event-log-sm.png) no-repeat 0 0;
+}
+.spl-icon-remote-event-log-sm {
+    background: transparent url(/static/img/skins/default/icon-remote-event-log-sm.png) no-repeat 0 0;
+}
+.spl-icon-files-dirs-log-sm {
+    background: transparent url(/static/img/skins/default/icon-files-dirs-log-sm.png) no-repeat 0 0;
+}
+.spl-icon-wmi-collections-sm {
+    background: transparent url(/static/img/skins/default/icon-wmi-collections-sm.png) no-repeat 0 0;
+}
+.spl-icon-tcp-sm {
+    background: transparent url(/static/img/skins/default/icon-tcp-sm.png) no-repeat 0 1px;
+}
+.spl-icon-udp-sm {
+    background: transparent url(/static/img/skins/default/icon-udp-sm.png) no-repeat 0 1px;
+}
+.spl-icon-registry-monitoring-sm {
+    background: transparent url(/static/img/skins/default/icon-registry-monitoring-sm.png) no-repeat 0 0;
+}
+.spl-icon-active-dir-monitoring-sm {
+    background: transparent url(/static/img/skins/default/icon-active-dir-monitoring-sm.png) no-repeat 0 1px;
+}
+.spl-icon-scripts-sm {
+    background: transparent url(/static/img/skins/default/icon-scripts-sm.png) no-repeat 0 0;
+}
+.spl-icon-success-md {
+    background: transparent url(/static/img/skins/default/icon-success-md.png) no-repeat 0 0;
+}
+.spl-icon-attention-md {
+    background: transparent url(/static/img/skins/default/icon-attention-md.png) no-repeat 0 0;
+}
+
+/* large icons 32x32 px */
+.spl-icon-manager-form-lg {
+    background: transparent url(/static/img/skins/default/icon-manager-form-lg.png) no-repeat 0 0;
+}
+.spl-icon-application-lg {
+    background: transparent url(/static/img/skins/default/icon-application-lg.png) no-repeat 0 0;
+}
+.spl-icon-online-doc-lg {
+    background: transparent url(/static/img/skins/default/icon-online-doc-lg.png) no-repeat 0 0;
+}
+.spl-icon-search-app-lg {
+    background: transparent url(/static/img/skins/default/searchIcon.png) no-repeat 0 0;
+}
+.spl-icon-home-lg {
+    background: transparent url(/static/img/skins/default/icon-home.png) no-repeat 0 0;
+}
+.spl-icon-add-data-lg {
+    background: transparent url(/static/img/skins/default/icon_addData.png) no-repeat 0 0;
+}
+
+/* xlarge icons 48x48 px */
+.spl-icon-success-xlg {
+    background: transparent url(/static/img/skins/default/icon-success-xlg.png) no-repeat 0 0;
+}
+
+/* Manager icons */
+.spl-manager-icon-apps,
+.spl-manager-icon-knowledge,
+.spl-manager-icon-system,
+.spl-manager-icon-data,
+.spl-manager-icon-distributed,
+.spl-manager-icon-users {
+    background: url(/static/img/skins/default/sprite_manager_icons.png) no-repeat 8px 2px;
+    padding-left: 25px;
+}
+
+.spl-manager-icon-knowledge {
+    background-position: 8px -38px;
+}
+.spl-manager-icon-system {
+    background-position: 8px -78px;
+}
+.spl-manager-icon-data {
+    background-position: 8px -118px;
+}
+.spl-manager-icon-distributed {
+    background-position: 8px -198px;
+}
+.spl-manager-icon-users {
+    background-position: 8px -158px;
+}
+
+/***********************************************************************/
+/******** END CSS FOR GDI **********************************************/
+/***********************************************************************/
+
+body.splTemplate-authoverview {
+    div.licenseWrapper {
+        padding: $spacing;
+    }
+    form.entityEditForm {
+        box-shadow: none;
+        border-radius: 0px;
+        border: none;
+        width: auto;
+        margin: 0px;
+        padding: 0px;
+    }
+    .entityEditForm h1 {
+        font-weight: bold;
+        margin-top: 0px;
+    }
+    div.splButtonWrapper {
+        border-top: none;
+        margin-top: 0px;
+        padding: $spacing;
+    }
+    div.clear {
+        clear: both;
+    }
+}

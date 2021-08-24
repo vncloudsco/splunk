@@ -1,0 +1,222 @@
+$minScreenWidth: 1080px;
+$leftColumnWidth: 400px;
+$formWidth: calc(
+    $minScreenWidth - $leftColumnWidth - $spacingDouble * 2
+); /* Automatically Calculated */
+
+@mixin application-layout $leftColumnWidth;
+
+.shared-page {
+    position: relative;
+
+    .main-section-body {
+        min-height: 0;
+    }
+}
+
+.settings-wrapper {
+    height: 100%;
+}
+
+/* flash messages section */
+.shared-flashmessages {
+    padding-left: 20px;
+    width: $formWidth;
+}
+
+.shared-flashmessages .alert {
+    margin: 0;
+}
+
+.search-results-wrapper {
+    z-index: 99;
+    clear: none;
+    min-height: 0;
+}
+
+/* remove extra bottom border from static header */
+.header-table-static .header-table-wrapper {
+    border: 0;
+}
+
+.pageHeading {
+    margin: 20px;
+
+    .title {
+        font-weight: bold;
+        font-size: 20px;
+    }
+}
+
+.modularInputView {
+    height: 100%;
+}
+
+.modularInputWrapper {
+    width: $formWidth;
+    height: 100%;
+    margin: 0 $spacing;
+}
+
+/* Lite */
+.inputform_wrapper p {
+    margin-bottom: 30px;
+}
+
+.fileRemote p {
+    margin-bottom: 30px;
+}
+
+.spinner-placeholder {
+    width: 14px;
+    left: calc($formWidth / 2 - 14 / 2); /* spinner width is 14px */
+    top: 10px;
+    position: relative;
+    text-align: center;
+}
+
+.adddata-inputforms-wineventlogslocal {
+    .accumulator {
+        width: 700px;
+    }
+    .net-port {
+        .control-label {
+            width: 100px;
+            margin-top: 30%;
+        }
+        .controls {
+            margin-left: 110px;
+        }
+    }
+
+}
+
+/* Data Source */
+.inputForm {
+    margin: 0 $spacing;
+    flex: 1;
+}
+
+.input-intro {
+    width: $formWidth;
+}
+
+.inputform_wrapper {
+    width: $formWidth;
+}
+
+.form-horizontal {
+    .control-label {
+        width: 170px;
+    }
+    .controls {
+        margin-left: 180px;
+    }
+    .control-group {
+        margin-bottom: $spacing;
+    }
+}
+
+.shared-controls-textbrowsecontrol {
+    width: 100%;
+
+    input {
+        width: 77%;
+    }
+    button {
+        width: 20%;
+    }
+}
+
+.inline {
+    float: left;
+}
+
+.form-section-label {
+    color: green;
+}
+
+.modularInputIframe {
+    width: 100%;
+    height: 100%;
+}
+
+.modularInputWrapper iframe {
+    display: block;
+    border: 0;
+}
+
+#initial_prompt {
+    font-size: 20px;
+    font-weight: 200;
+    text-align: center;
+    color: $gray60;
+    width: 100%;
+    padding-top: 50px;
+}
+
+.faq {
+    background-color: $white;
+    clear: both;
+    margin-left: -$spacing;
+    margin-right: -$spacing;
+}
+
+.data-source-col-left {
+    overflow-x: hidden;
+}
+
+/* Header */
+$addDataHeaderHeight: 80px;
+.adddata-header {
+    .adddatalink {
+        color: inherit;
+        text-decoration: none;
+    }
+    .addDataHeader {
+        padding-top: 0px !important;
+        text-align: center;
+        background-color: $bodyBackgroundColor;
+        box-shadow: $affixTopBoxShadow;
+        z-index: 2;
+    }
+    .addDataTitle {
+        display: inline-block;
+        height: 30px;
+        margin: 30px 20px 0 0 !important;
+        font-size: 18px;
+        font-weight: 500;
+    }
+}
+
+#wizardAlert {
+    font-size: $fontSize;
+    line-height: 70px;
+}
+
+.icon-alert {
+    color: $errorColor;
+    font-size: 150%;
+    margin-right: 10px;
+}
+
+#wizard-placeholder {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#btnExit {
+    white-space: nowrap;
+    float: right;
+    margin: 30px;
+}
+
+.layoutBodyColumns {
+    background: transparent;
+    top: 0;
+    position: relative;
+}
+
+.datapreview {
+    flex: 1 0 0;
+}

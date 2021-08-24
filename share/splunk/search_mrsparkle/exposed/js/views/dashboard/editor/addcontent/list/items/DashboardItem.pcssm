@@ -1,0 +1,10 @@
+.item {
+    margin-top: 1px;
+
+    :global .accordion-toggle {
+        padding-left: 31px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

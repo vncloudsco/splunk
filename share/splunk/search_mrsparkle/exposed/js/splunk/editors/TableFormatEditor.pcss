@@ -1,0 +1,23 @@
+.splunk-editors-TableFormatEditor {
+    > .splunk-editors-EnumEditor {
+        margin-bottom: 10px;
+    }
+    > .splunk-editors-NumberFormatEditor > .splunk-editors-NumberFormatEditor-row {
+        display: flex;
+
+        > .splunk-editors-Editor {
+            flex: 1;
+
+            > .control {
+                display: flex;
+
+                &.btn-group > .dropdown-toggle,
+                &.btn-group-radio > button,
+                &.shared-controls-textcontrol > input,
+                &.shared-controls-textcontrol > span {
+                    flex: 1;
+                }
+            }
+        }
+    }
+}

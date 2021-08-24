@@ -1,0 +1,9 @@
+.switch {
+    padding-left: 10px;
+    display: inline-block;
+    position: relative;
+    font-size: 0;
+    white-space: nowrap;
+    vertical-align: middle;
+    height: 32px;
+}

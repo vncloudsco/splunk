@@ -1,0 +1,20 @@
+<% if( errors.length > maxErrors) { %>
+    <div class="section-padded cluster-errors-short">
+        <% _.each(errors.slice(0, maxErrors), function(error) { %>
+            <p><span style="display:block;"><i class="icon-alert alert-error"></i><%- error %></span></p>
+        <% }); %>
+        <p><a href="#" class="cluster-errors-more"><%- _("More").t() %></a></p>
+    </div>
+    <div class="section-padded cluster-errors-full">
+        <% _.each(errors, function(error) { %>
+            <p><span style="display:block;"><i class="icon-alert alert-error"></i><%- error %></span></p>
+        <% }); %>
+        <p><a href="#" class="cluster-errors-less"><%- _("Less").t() %></a></p>
+    </div>
+<% } else { %>
+    <div class="section-padded cluster-errors">
+        <% _.each(errors, function(error) { %>
+            <p><span style="display:block;"><i class="icon-alert alert-error"></i><%- error %></span></p>
+        <% }); %>
+    </div>
+<% } %>

@@ -1,0 +1,9 @@
+.view {
+    composes: title from '../../ModalLocalClassNames.pcssm';
+    font-size: $modalHeadingFontSize;
+}
+
+.healthTitle {
+    font-size: 1em;
+    color: $textColor;
+}

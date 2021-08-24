@@ -1,0 +1,15 @@
+@import '../../../../../../shared/apps_remote/Master.pcss';
+
+$spinnerDiameter: 14px;
+
+.spinner-small-gray {
+    width: $spinnerDiameter;
+    height: $spinnerDiameter;
+}
+
+.results-pane {
+    .shared-waitspinner {
+        left: initial;
+        right: calc((100% - ($appsRemoteSidebarOuterWidth + $spinnerDiameter)) * 0.5);
+    }
+}

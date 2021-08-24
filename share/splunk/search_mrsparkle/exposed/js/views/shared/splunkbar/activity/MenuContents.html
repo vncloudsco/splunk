@@ -1,0 +1,10 @@
+<li>
+    <a class="<%-css.primaryLink%>" href="<%= jobLink %>" data-role="jobs-link" aria-label="<%- _('Open Jobs').t() %>"><%- _("Jobs").t() %></a>
+    <a class="<%-css.secondaryLink%>" href="<%= jobLink %>" target="_blank" data-role="jobs-link-external" title="<%- _('Open Jobs in a new window').t() %>" aria-label="<%- _('Open Jobs in a new window').t() %>"></a>
+</li>
+<% if (typeof alertsLink !== "undefined" && alertsLink !== null) { %>
+<li>
+    <a class="<%-css.primaryLink%>" href="<%= alertsLink %>" data-role="alerts-link" aria-label="<%- _('Open Triggered Alerts').t() %>"><%- _("Triggered Alerts").t() %></a>
+    <a class="<%-css.secondaryLink%>" href="<%= alertsLink %>" target="_blank" data-role="alerts-link-external" title="<%- _('Open Triggered Alerts in a new window').t() %>" aria-label="<%- _('Open Triggered Alerts in a new window').t() %>"></a>
+</li>
+<% } %>

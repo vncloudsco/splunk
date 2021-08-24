@@ -1,0 +1,54 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "SLIM\-GENERATE\-MANIFEST" "1" "September 2017" "Splunk, Inc." "Splunk Packaging Toolkit"
+.
+.SH "NAME"
+\fBslim\-generate\-manifest\fR \- create a new or updated app manifest
+.
+.SH "SYNOPSIS"
+\fBslim\fR \fBgenerate\-manifest\fR [(\fB\-h\fR|\fB\-\-help\fR)] [(\fB\-o\fR|\fB\-\-output=)\fR<filename>] [\fB\-\-update\fR] <app\-source>
+.
+.SH "DESCRIPTION"
+Create a new or updated manifest for a Splunk app\. The manifest created is based on the app\'s configuration settings\.
+.
+.SH "OPTIONS"
+<app\-source>
+.
+.br
+Location of the app source directory\.
+.
+.P
+\fB\-h\fR, \fB\-\-help\fR
+.
+.br
+Print help message and exit\.
+.
+.P
+\fB\-o\fR <filename>, \fB\-\-output=\fR<filename>
+.
+.br
+Save the app manifest to the file at this location\. (default: stdout)
+.
+.P
+\fB\-\-update\fR
+.
+.br
+Amend the current app manifest based on configuration settings\.
+.
+.SH "EXAMPLES"
+The following example demonstrates using the \fBgenerate\-manifest\fR command to produce a manifest for an app called "fictional\."
+.
+.IP "" 4
+.
+.nf
+
+$ slim \-\-debug generate\-manifest \-\-output fictional\eapp\.manifest fictional
+generate\-manifest: Parsing app configuration at \'fictional\'\.\.\.
+generate\-manifest: Generating app manifest to \'app\.manifest\'\.\.\.
+generate\-manifest: Done! Please update [dependencies] and [inputGroups] sections as needed\.
+.
+.fi
+.
+.IP "" 0
+

@@ -1,0 +1,78 @@
+.color-picker-container {
+	$swatchSize: $inputHeight;
+	$swatchMargin: 5px;
+	$swatchesPerRow: 5;
+	$totalWidth: calc($swatchSize * $swatchesPerRow + $swatchMargin * ($swatchesPerRow - 1));
+
+	.swatches {
+		margin-bottom: 10px;
+
+		.swatch-holder {
+			width: $totalWidth;
+			list-style: none;
+			margin: 0;
+
+			li {
+				line-height: $lineHeight;
+				height: $swatchSize;
+				width: $swatchSize;
+				float: left;
+				margin-right: $swatchMargin;
+				margin-top: $swatchMargin;
+
+				/*  The last swatch in the row shouldn't have a horizontal margin. */
+				&:nth-child($(swatchesPerRow)n) {
+					margin-right: 0;
+				}
+			}
+
+			.swatch {
+				border-radius: 1px;
+                display: block;
+				height: 100%;
+				width: 100%;
+				border: 1px solid lightgray;
+				box-sizing: border-box;
+
+                &:focus {
+                    @mixin focus-element;
+                }
+			}
+		}
+	}
+
+
+	.hex-input-container {
+		display: flex;
+		width: $totalWidth;
+	}
+
+	.hex-input-prepend {
+		flex: 0 0 $inputHeight;
+		width: $inputHeight;
+		text-align: center;
+		padding-top: 5px;
+		border: 1px solid $inputBorderColor;
+		border-right: none;
+		border-radius: 3px 0 0 3px;
+		box-sizing: border-box;
+		background-color: $inputBackground;
+        color: $inputTextColor
+	}
+
+	.hex-input {
+		flex: 1 0 auto;
+		margin-bottom: 0;
+		border-radius: 0;
+		border-right: none;
+		color: $textColor;
+		width: 0;
+	}
+
+	.hex-input-submit {
+		width: $inputHeight;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		box-shadow: none;
+	}
+}

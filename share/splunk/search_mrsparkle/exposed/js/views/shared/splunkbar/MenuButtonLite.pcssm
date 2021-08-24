@@ -1,0 +1,32 @@
+
+.view {
+    composes: view from './MenuButton.pcssm';
+    line-height: $litebarHeight;
+    height: $litebarHeight;
+
+    &:hover {
+        color: $white;
+        outline: none;
+        text-decoration: none;
+    }
+    &.active, &:active {
+        color: $white;
+    }
+    &:focus {
+        @mixin focus-element-inset $navbarBackground;
+        color: $white;
+        background: $navbarBackground;
+    }
+}
+
+.label {
+    composes: label from "./MenuButton.pcssm";
+}
+
+.truncateLabel {
+    composes: truncateLabel from "./MenuButton.pcssm";
+}
+
+.optionalLabel {
+    composes: optionalLabel from "./MenuButton.pcssm";
+}

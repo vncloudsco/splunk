@@ -1,0 +1,96 @@
+.shared-controls-syntheticslidercontrol {
+  .slider {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    cursor: default;
+  }
+
+  .slider-bar {
+    position: absolute;
+    left: 0;
+  }
+
+  .slider-handle {
+    @mixin reset;
+    position: absolute;
+    border-width: 0;
+    background-color: $gray45;
+
+
+    &.slider-handle-moving,
+    &:focus,
+    &:hover,
+    &:active {
+      border-color: color($focusColor a(80%));
+      outline: 0;
+      box-shadow: 0 0 1px 2px color($focusColor a(60%));
+      z-index: 1;
+    }
+  }
+
+  .slider-handle-tooltip:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    width: 60px;
+    margin-left: -34px;
+    padding: 4px;
+    border-radius: 4px;
+    text-align: center;
+    background: $gray45;
+    color: $white;
+  }
+
+  .slider-handle-tooltip:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 15px;
+    margin-left: -5px;
+    border-left: 5px solid transparent;
+    border-top: 5px solid $gray45;
+    border-right: 5px solid transparent;
+  }
+
+  .slider-notch {
+    position: absolute;
+    width: 1px;
+
+    &.left-of-handle {
+        background: $gray92;
+    }
+
+    &.right-of-handle {
+        background: $gray96;
+    }
+
+    &:first-child {
+      display: none;
+    }
+  }
+
+  .slider-min-label {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    text-align: right;
+    color: $textColor;
+  }
+
+  .slider-max-label {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    text-align: left;
+    color: $textColor;
+  }
+
+}
+
+.text-highlight-disabled {
+  cursor: default;
+  -webkit-touch-callout: none;
+  user-select: none;
+}

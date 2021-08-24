@@ -1,0 +1,20 @@
+.view {
+    float: left;
+    position: relative;
+    flex-grow: 1;
+}
+.dividerEnterprise {
+    display: inline-block;
+    height: 10px;
+    margin: 0 15px;
+    opacity: 0.2;
+}
+.dividerLite {
+    display: block;
+    height: 40px;
+    float: left;
+
+}
+.appNavInner {
+    float: left;
+}

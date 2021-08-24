@@ -1,0 +1,103 @@
+$appIconSize: 36px;
+
+.view {
+	font-size: $fontSize;
+
+	p {
+	  margin: 0 0 calc($lineHeight / 2);
+	}
+}
+
+.sectionHeader {
+	margin: 0px;
+    padding: 0px;
+	font-weight: bold;
+    color: $textColor;
+}
+
+.aboutIcon {
+    float: right;
+    font-size: $fontSizeXLarge;
+
+    .prompt {
+        max-width: 600px;
+    }
+
+    .prompt, .product {
+        color: $splunkEnterpriseColor;
+    }
+
+    .promptLite, .productLite {
+        color: $splunkLiteColor;
+    }
+
+    & > [data-role="icon"] {
+        height: $appIconSize;
+        width: $appIconSize;
+    }
+
+    & > [data-role="logo"] {
+        max-height: $appBarHeight;
+    }
+}
+
+.aboutSection {
+    line-height: $spacing;
+    margin: 0 0 $spacing;
+    color: $modalAboutSectionColor;
+
+    dl {
+        margin: 0;
+    }
+
+    dt {
+        float: left;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-right: 5px;
+        font-weight: normal;
+        line-height: $spacing;
+        /*  SPL-69719 - fix IE10 when in dropdown */
+        word-wrap: normal;
+        font-weight: $fontWeightSemiBold;
+    }
+
+    dd {
+        line-height: $spacing;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &[data-section-role="footnote"] {
+        font-size: $fontSizeSmall;
+        line-height: $fontSizeSmall;
+    }
+}
+
+.aboutLink {
+    @mixin link;
+
+    padding: 0 2px;
+    margin-left: -2px;
+    margin-right: -2px;
+    border-radius: $borderRadius;
+    display: inline-block;
+}
+
+.divider {
+	@mixin nav-divider;
+	margin: -5px 0 15px;
+}
+
+.currentAppHeader {
+    @mixin create-section-heading;
+    font-size: $fontSizeSmall;
+    padding: 0px;
+}
+
+.attributionLink {
+	margin-bottom: 10px;
+	display: block;
+}

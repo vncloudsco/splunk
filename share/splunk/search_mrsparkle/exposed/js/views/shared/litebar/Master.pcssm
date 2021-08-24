@@ -1,0 +1,115 @@
+/*  Lite Bar */
+/*  ======================= */
+
+.view {
+    all: initial;
+    background: $gray20;
+    color: $white;
+    min-height: $litebarHeight;
+    padding-right: 10px;
+    font-size: $fontSize;
+    font-family: $fontFamily;
+    display: block;
+    a {
+        text-decoration: none;
+    }
+}
+.hamburger {
+    line-height: $litebarHeight;
+    height: $litebarHeight;
+    cursor: pointer;
+    position: relative;
+    z-index: calc($zindexSideNavBackdrop + 1);
+    padding: 0 20px;
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    color: $white;
+    float: left;
+
+    &:hover  {
+        background: color($white a(10%));
+        color: $white;
+    }
+    &:focus {
+        @mixin focus-element-inset $gray20;
+    }
+}
+.brand {
+    font-size: 17px;
+    float: left;
+    text-decoration: none;
+    color: $white;
+    line-height: $litebarHeight;
+    height: $litebarHeight;
+    border: none;
+    &:hover {
+        background: none;
+        border: none;
+        text-decoration: none;
+    }
+}
+.gt {
+    color: $gray60;
+    font-weight: normal;
+}
+.subBrand {
+    color: $splunkLiteColor;
+    -webkit-font-smoothing: antialiased;
+}
+.logo {
+    float: left;
+}
+.nav {
+    margin-bottom: 0;
+    height: $litebarHeight;
+    line-height: $litebarHeight;
+    float: left;
+}
+.navbarGlobal {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    float: right;
+}
+.messageNotification {
+    background: $errorColor;
+    border-radius: 10px;
+    color: $white;
+    display: inline-block;
+    line-height: 8px;
+    padding: 3px 4px;
+    font-size: 9px;
+    font-style: normal;
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 12px;
+}
+.sidenavScreen {
+    position: fixed;
+    background: rgba(23, 29, 33, 0.6);
+    z-index: $zindexSideNavBackdrop;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+@media only screen and (min-width: 1100px) {
+  .nav .product-menu-label,
+  .nav .help-menu-label {
+    display: inline;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  .nav .realname {
+      max-width: 250px;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  .nav .realname {
+      max-width: 350px;
+  }
+}

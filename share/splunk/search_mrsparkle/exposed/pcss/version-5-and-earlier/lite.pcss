@@ -1,0 +1,31 @@
+
+/*************************************************************
+ *  Splunk Lite Overrides
+ *
+ *    This file contains color overrides for Splunk Lite.
+ *
+ ************************************************************/
+
+/*************************************************************************************************/
+/*  BUTTONS                                                                                      */
+/*************************************************************************************************/
+.splButton-primary {
+    background-color: $splunkLiteColor;
+    &:focus {
+        background-color: $splunkLiteColor;
+    }
+    &:hover {
+        background-color: $splunkLiteColorD20;
+    }
+    &:active {
+        background-color: $splunkLiteColorD30;
+    }
+    &:disabled, &.disabled {
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: $splunkLiteColorL20;
+        }
+    }
+}

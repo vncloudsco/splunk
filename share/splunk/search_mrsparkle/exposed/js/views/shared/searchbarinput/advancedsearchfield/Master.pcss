@@ -1,0 +1,113 @@
+/* Search Autocomplete */
+.ace_hidden-cursors .ace_cursor {
+    opacity: 0;
+}
+
+.ace_editor.ace_autocomplete {
+    z-index: $zindexPopdown !important;
+    width: 415px !important;
+    font-family: $fontFamily !important;
+    line-height: 18px !important;
+    box-shadow: 0px 2px 1px rgba(0, 0, 0, .1) !important;
+    border: 1px solid $interactiveBorderColor !important;
+    border-radius: $containerInnerBorderRadius;
+
+    .ace_layer.ace_marker-layer{
+        .ace_active-line {
+            @mixin focus-element-inset;
+        }
+
+        .ace_line-hover {
+            border: none;
+            background: $pillBackgroundColorHover;
+        }
+    }
+
+    .ace_matched-highlight {
+        font-weight: bolder;
+    }
+}
+
+.ace_tooltip.ace_doc-tooltip{
+    z-index: $zindexPopdown !important;
+    white-space: normal;
+    color: $searchIdeTooltipTextColor;
+    background: $searchIdeTooltipBackgroundColor;
+    line-height: $lineHeight;
+    padding: 6px;
+    border: $interactiveBorder;
+    border-top-color: $borderColor;
+    box-shadow: 0px 2px 1px rgba(0, 0, 0, .1);
+    border-radius: $containerInnerBorderRadius;
+
+    .command-intro {
+        margin-top: 5px;
+    }
+
+    .command-example {
+        margin-top: 3px;
+    }
+}
+
+.tooltip.right {
+    margin-left: 5px;
+    word-wrap: break-word;
+}
+
+/* AceEditor */
+/* -------------------------------------------------- */
+.search-field-wrapper {
+    .ace_editor {
+        margin-bottom: 0px;
+        padding: 9px 6px;
+        min-height: 20px;
+        line-height: 20px;
+        font-family: $monoFontFamily;
+        font-size: $fontSize;
+        border: $borderDefault;
+        border-radius: $interactiveBorderRadius;
+        &.focused {
+            z-index: $zindexFocus;
+            @mixin focus-element;
+        }
+        cursor: auto;
+    }
+    .ace_text-input:focus {
+        z-index: 0;
+    }
+    .ace_emptyMessage {
+        color: #999;
+        padding-left: 6px;
+    }
+    .ace_scroller {
+        margin-top: 8px;
+        margin-left: 4px;
+        padding-bottom: 8px;
+    }
+    .ace_gutter {
+        padding-top: 8px;
+        background: $interactiveBackgroundColorHover;
+
+        .ace_gutter-active-line {
+            margin-top: 8px;
+        }
+
+        .ace_gutter-cell {
+            padding-left: 6px;
+            padding-right: 6px;
+            color: $textGray;
+        }
+    }
+}
+
+/*  Print */
+/*  -------------------------------------------------- */
+
+@media print {
+    .shared-searchbarinput {
+        padding: 0 !important;
+    }
+    .ace_editor {
+        border: 0 !important;
+    }
+}

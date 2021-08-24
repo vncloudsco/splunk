@@ -1,0 +1,41 @@
+.syntheticCheckbox {
+    :global(a) {
+        background-color: transparent;
+        border-color: currentColor;
+        color: $checkboxColor;
+
+        &:hover,
+        &:active,
+        &:focus {
+            background-color: transparent;
+            border-color: currentColor;
+            color: $checkboxColor;
+        }
+
+        :global(.icon-check) {
+            color: $checkboxColor;
+        }
+    }
+}
+
+.disabled {
+    :global(a) {
+        background-color: transparent;
+        color: $checkboxDisabledColor;
+        border-color: currentColor;
+
+        &:hover,
+        &:active,
+        &:focus {
+            color: $checkboxDisabledColor;
+            cursor: not-allowed;
+            background-color: transparent;
+            border-color: currentColor;
+            box-shadow: none;
+        }
+
+        :global(.icon-check) {
+            color: $checkboxDisabledColor;
+        }
+    }
+}

@@ -1,0 +1,177 @@
+/*  Splunk: Component: time range picker */
+/*  =================================== */
+/*  FIXME: remove old classes */
+
+/* time range picker dialog
+
+	markup missing ...
+
+*/
+.shared-timerangepicker-dialog {
+    width: 650px;
+    border-radius: $containerInnerBorderRadius;
+
+    .accordion-group {
+        &:first-child > .accordion-heading > .accordion-toggle {
+            border-top-left-radius: $containerInnerBorderRadius;
+            border-top-right-radius: $containerInnerBorderRadius;
+        }
+        &:last-child {
+            margin-bottom: 0;
+
+            &:not(.active) > .accordion-heading > .accordion-toggle, > .accordion-body {
+                border-bottom-left-radius: $containerInnerBorderRadius;
+                border-bottom-right-radius: $containerInnerBorderRadius;
+            }
+        }
+    }
+    .presets-container {
+        display: flex;
+
+        .presets-group {
+            margin-right: $spacing;
+
+            li {
+                color: $timeRangePresetCategoryNameColor;
+                padding: 0 2px 0 calc($spacing + 4);
+                margin-left: -4px;
+                border-radius: $borderRadius;
+                text-indent: -$spacing;
+                overflow: hidden;
+
+                &.section-heading-small {
+                    margin-left: -2px;
+                }
+                > a {
+                    padding: 0 2px;
+                    border-radius: $borderRadius;
+                }
+            }
+        }
+    }
+
+    .control-group-container {
+        display: flex;
+
+        .radio {
+            @mixin radio-class-button-overlay;
+        }
+    }
+    .col-1, .col-2 {
+        width: 50%;
+        margin-bottom: 0;
+        box-sizing: border-box;
+    }
+    .col-1 {
+        padding-right: $spacingHalf;
+    }
+    .col-2 {
+        padding-left: $spacingHalf;
+    }
+
+    .input-append {
+        display: flex;
+        margin-bottom: $spacingQuarter;
+
+        input {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: 0;
+
+            &:focus {
+              position: relative;
+            }
+        }
+
+        .btn-group .btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+    }
+
+    input[type=text] {
+        margin-bottom: 2px;
+    }
+
+    .uneditable-input, .timeinput .time-advanced input[type=text]{
+        width: 100%;
+    }
+
+    .timerangepicker-range-type {
+        float: left;
+        margin-right: $spacing;
+    }
+
+    .date-range-container .time-between-dates {
+        display: flex;
+
+        input {
+            margin-bottom: 0;
+            width: 100%;
+        }
+        .control-label {
+            line-height: 30px;
+        }
+        &.only-latest > .latest_picker {
+            padding-left: 0;
+        }
+        > .col-1, > .col-2 {
+            flex: 1;
+            width: 100%;
+
+            .timeinput {
+                display: block;
+				
+				.time-container {
+					display: flex;
+					
+					.time-mdy, .time-hms {
+	                    flex: 1;
+	                }
+	                .time-mdy {
+	                    margin-right: 2px;
+	                }
+	                .time-hms {
+	                    margin-left: 2px;
+	                }
+				}
+            }
+        }
+        .help-block {
+            margin: 0;
+            line-height: 30px;
+        }
+        input[type=text], span {
+            + .help-block {
+                line-height: 24px;
+            }
+        }
+    }
+
+    .help-block-timestamp {
+        min-height: 1em;
+        line-height: 1em;
+        padding: 3px;
+        border-radius: $borderRadius;
+        background-color: $timeRangeTimestampPreviewBackgroundColor;
+        margin: 3px 0 $spacingHalf !important;
+    }
+
+    .apply-button-wrapper {
+        clear:both;
+        text-align: right;
+        padding-bottom: $spacing;
+
+        .btn-documentation {
+            margin-right: $spacingHalf;
+            padding: 2px 4px;
+            border-radius: $borderRadius;
+        }
+        &:last-child {
+            padding-bottom: 0;
+        }
+        .apply.btn {
+            min-width: 100px;
+        }
+    }
+}

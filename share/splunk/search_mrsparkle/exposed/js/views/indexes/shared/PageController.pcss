@@ -1,0 +1,59 @@
+.shared-basemanager-grid {
+    td {
+        &.index-name,
+        &.home-path,
+        &.frozen-path,
+        &.index-app {
+            word-break: break-all;
+            min-width: 80px;
+            max-width: 200px;
+        }
+        &.index-type, &.index-status {
+            white-space: nowrap;
+        }
+    }
+}
+
+@media only screen and (max-width: 1100px) and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (max-width: 1100px) {
+       .shared-basemanager-grid {
+           td {
+               &.actions > .entity-action {
+                   display: block;
+               }
+               &.index-type, &.index-status {
+                   white-space: unset;
+                   text-align: center;
+               }
+           }
+       }
+}
+
+.delete-index-dialog, .confirm-save-index-dialog, .confirm-delete-index-dialog {
+    .big-warning {
+        font-size: 4em;
+        color: $warningText;
+        padding-left: 10px;
+        padding-right: 20px;
+        vertical-align: sub;
+    }
+    .delete-text, .confirm-text {
+        width: 80%;
+        display: inline-block;
+        margin: 0;
+    }
+    .shared-waitspinner:not(.hide) {
+        display: inline-block;
+        margin: -8px 15px;
+    }
+}
+.confirm-save-index-dialog {
+    .shared-waitspinner {
+        margin: -6px 10px;
+    }
+}
+
+.warnIcon {
+    color: $warningText;
+    font-weight: bold;
+}

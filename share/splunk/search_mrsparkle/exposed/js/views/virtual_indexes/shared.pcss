@@ -1,0 +1,56 @@
+/*  Splunk: Component: Admin Content */
+/*  ================================= */
+
+/*
+	admin form for adding new vix
+*/
+
+$vixAdminContentFormWidth: 800px;
+.admin-content.dashboard-panel {
+  @mixin create-card;
+  background-color: $white;
+  padding: $spacingHalf $spacing $spacingHalf;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08) ;
+  margin: 50px auto;
+  width: $vixAdminContentFormWidth;
+
+  .form-horizontal {
+    width: $vixAdminContentFormWidth;
+  }
+
+  h5 {
+    @mixin create-section-heading;
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+
+  input,
+  textarea,
+  select {
+    margin-bottom: 0;
+  }
+
+  .control-group {
+    margin-bottom: $spacingHalf;
+  }
+
+  #basic {
+    h5 {
+      margin-top: 0;
+    }
+  }
+  .button-wrapper {
+    margin: $spacing -$spacing -$spacingHalf;
+    padding: $spacing $spacing calc($spacingDouble + $spacingHalf);
+    border-top: $borderLight;
+    border-bottom-right-radius: $borderRadius;
+    border-bottom-left-radius: $borderRadius;
+
+    .btn-primary {
+      margin-left: $spacingHalf;
+    }
+    .btn {
+      min-width: $buttonMinWidth;
+    }
+  }
+}

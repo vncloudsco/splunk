@@ -1,0 +1,42 @@
+<div class="section-header section-padded page-heading">
+    <div class="buttons-wrapper pull-right">
+    </div>
+    <h1 class="section-title"><%- pageTitle %></h1>
+    <div class="breadcrumb-placeholder"></div>
+    <%= pageDesc %>
+    <% if (docUrl) { %>
+    <a href="<%- docUrl %>" target="_blank" class="doc-link"><%- _("Learn more").t() %> <i class="icon-external"></i></a>
+    <% } %>
+    <div class="rolling-restart-warning-placeholder hide">
+        <p>
+            <i class="icon-alert"></i>
+            <%- _("Actions on this page could trigger a rolling restart in your Splunk Cloud deployment. Consider performing this action during off-peak hours.").t() %>
+            <a href="<%- restartWarningDocUrl %>" target="_blank" class="doc-link"><%- _("Learn more.").t() %> <i class="icon-external"></i></a>
+        </p>
+    </div>
+</div>
+
+<div class="main-section">
+    <div class="table-toolbar">
+        <div class="filter-container">
+            <div class="collection-count"></div>
+            <span class="custom-filter-placeholder"></span>
+            <span class="app-filter-placeholder"></span>
+            <span class="owner-filter-placeholder"></span>
+            <span class="text-name-filter-placeholder"></span>
+            <div class="select-page-count"></div>
+        </div>
+    </div>
+    <div class="table-toolbar">
+        <div class="table-controls">
+            <span class="bulk-edit-menu-placeholder"></span>
+            <div class="paginator-container pull-right"></div>
+        </div>
+    </div>
+    <div class="clearfix" />
+    <div class="grid-placeholder"></div>
+</div>
+
+
+
+

@@ -1,0 +1,44 @@
+#
+# Splunk -- It's tasty.
+#
+
+# NOTE!!! starting in Splunk 3.2, this is just a convenience script useful for
+# setting the environment variables splunk uses into your local shell.  You
+# can no longer change SPLUNK_HOME or SPLUNK_DB settings here -- see
+# ../etc/splunk-launch.conf instead
+
+# We need to find the "splunk" binary which is in the same directory as this
+# script.  Unfortunately there's no portable way of finding what path we're
+# being sourced from.  However, bash puts our exact command in $BASH_SOURCE
+# and zsh puts it in $0, so check for those here.  If you're running a
+# different shell we'll have to assume that $SPLUNK_HOME is already set
+# properly
+case "X$BASH_SOURCE" in
+X)
+	case "X$0" in
+	X*setSplunkEnv)
+		_sourced_dirname=`dirname "$0"`
+		eval `"${_sourced_dirname}/splunk" envvars`
+		unset _sourced_dirname
+		;;
+	*)
+		case "X$SPLUNK_HOME" in
+		X)
+			echo >&2 'ERROR: please set $SPLUNK_HOME first'
+			;;
+		*)
+			eval `"$SPLUNK_HOME/bin/splunk" envvars`
+			;;
+		esac
+		;;
+	esac
+	;;
+*)
+	_sourced_dirname=`dirname "$BASH_SOURCE"`
+	eval `"${_sourced_dirname}/splunk" envvars`
+	unset _sourced_dirname
+	;;
+esac
+
+[ "`basename $SHELL`" = 'bash' -a "x$SPLUNK_HOME" != 'x' ] && . $SPLUNK_HOME/share/splunk/cli-command-completion.sh 1>/dev/null 2>/dev/null
+[ $? -eq 0 ] && echo 'Tab-completion of "splunk <verb> <object>" is available.' >&2

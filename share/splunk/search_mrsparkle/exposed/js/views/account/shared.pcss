@@ -1,0 +1,396 @@
+$accountContainerWidth: 485px;
+$accountInputWidth: 200px;
+$accountInputHeight: 36px;
+$accountMessageBackgroundColor: $gray20;
+
+@define-mixin create-message-container {
+    padding: $spacing;
+    margin: $spacing 0;
+    background-color: $accountMessageBackgroundColor;
+    box-sizing: border-box;
+
+    p {
+        max-width: calc($accountContainerWidth - $spacingDouble);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    p:last-child, .alert:last-child{
+        margin-bottom: 0;
+    }
+}
+@define-mixin create-message-container-centered {
+    @mixin create-message-container;
+    text-align: center;
+}
+
+body {
+    font-size: $fontSize;
+    font-family: $fontFamily;
+    line-height: $lineHeight;
+    color: $gray96;
+    min-width: $accountContainerWidth;
+    background-color: #06070B;
+    margin: 0;
+}
+.body-default {
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+.body-default-img {
+    @if $theme == enterprise {
+        background: url("./enterprisebackground.jpg") no-repeat top center fixed;
+        background-color: #06070B;
+        background-size: auto;
+    }
+    @if $theme == lite {
+        background: url("./litebackground.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+}
+
+header {
+    line-height: 32px;
+}
+h2.title {
+    color: $white;
+    font-weight: normal;
+    font-size: $fontSizeLarge;
+    white-space: nowrap;
+}
+a {
+    color: $textGray;
+    text-decoration: none;
+
+    &:hover {
+        color: $white;
+    }
+
+    &.external {
+        white-space: nowrap;
+
+        &:after {
+            padding-left: 0.2em;
+        }
+    }
+}
+
+/*************************************************************************************************/
+/*  LOGO                                                                                         */
+/*************************************************************************************************/
+#brand{
+    font-family: "Splunk Icons";
+    color: $white;
+    font-size: 32px;
+    padding-bottom: $spacingHalf;
+    font-weight: $fontWeight;
+    text-rendering: geometricPrecision;
+
+    > span.prompt {
+        color: $brandColor;
+        font-weight: normal;
+    }
+}
+.custom-logo {
+    max-height:100px;
+    margin-bottom: 15px;
+}
+
+/*************************************************************************************************/
+/*  LAYOUT                                                                                       */
+/*************************************************************************************************/
+.account {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    flex-direction: column;
+}
+.wrapper-container {
+    min-width: $accountContainerWidth;
+    margin: 25vh auto auto;
+    transition: $transitionMargin;
+    align-self: center;
+}
+@if $theme == 'lite' {
+    .wrapper-container {
+        padding: 25px;
+        background-color: rgba(0,0,0,0.5);
+    }
+}
+.account > .wrapper-container > .content {
+    margin-bottom: $spacingDouble;
+}
+footer {
+    bottom: $spacingQuarter;
+    left: 0;
+    color: $gray60;
+    width: 100%;
+}
+p.copyright {
+    text-align: center;
+    min-width: $accountContainerWidth;
+    margin: auto;
+}
+
+/*************************************************************************************************/
+/*  FORM ELEMENTS                                                                                */
+/*************************************************************************************************/
+.loginForm {
+    margin-bottom: $spacingHalf;
+}
+fieldset {
+    clear: both;
+    position: relative;
+}
+input {
+    box-sizing: border-box;
+    border: none;
+}
+.shared-controls-textcontrol,
+.account-login-textcontrol {
+    float: left;
+    .placeholder {
+       top: 10px;
+   }
+}
+
+.control input[type=text],
+.control input[type=password] {
+    width: calc($accountInputWidth - 1);
+    height: $accountInputHeight;
+    padding: $inputPadding;
+    border: none;
+    border-radius: 0;
+    margin-right: 1px;
+    margin-bottom: 0px;
+
+    &:focus {
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        border-color: $interactiveBorderColor;
+        outline: none;
+    }
+}
+
+input[type=text]::-ms-clear,
+input[type=password]::-ms-reveal {
+     display: none;
+}
+
+[data-name="username"] input[type=text],
+[data-name="newpassword"] input[name=newpassword] {
+    border-radius: $inputBorderRadiusLeft;
+}
+
+input[type=submit] {
+    height: $accountInputHeight;
+    min-width: 85px;
+    padding: 4px 12px;
+    border-radius: $inputBorderRadiusRight;
+}
+
+/*************************************************************************************************/
+/*  MESSAGING                                                                                    */
+/*************************************************************************************************/
+.account-login-error {
+    min-width: $accountContainerWidth;
+
+    .error-messages {
+        @mixin create-message-container-centered;
+        @if $theme == 'lite' {
+            background-color: transparent;
+        }
+    }
+    p + .error-messages {
+        margin-top: 0;
+    }
+}
+p.error {
+    color: $white;
+    svg {
+        vertical-align: middle;
+        margin: -2px $spacingHalf 0 0;
+    }
+}
+.error {
+    svg .stroke-svg {
+        stroke: $errorColor;
+    }
+    svg .fill-svg {
+        fill: $errorColor;
+    }
+}
+.messaging {
+    min-height: 20px;
+    margin-bottom: 10px;
+}
+.account-passwordchange {
+    > .spl-change-password-skip {
+        margin: $spacingHalf 0;
+        &:not(.hidden) + .alerts {
+            margin-top: $spacingHalf;
+        }
+    }
+    > .alerts {
+        @mixin create-message-container-centered;
+    }
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
+.account-mfaduo .duo-loading {
+    @mixin create-message-container-centered;
+}
+.login-content{
+    max-width: 485px;           /* Width on the parent container is 485px and To wrap words inside the container */
+    word-wrap: break-word;
+}
+
+/*************************************************************************************************/
+/*  FIRST TIME LOGIN                                                                             */
+/*************************************************************************************************/
+.account-login-firsttime {
+    /* jquery slidein requires a width */
+    min-width: $accountContainerWidth;
+    @mixin create-message-container;
+
+    h2 {
+        margin-top: 0;
+        color: $textGray;
+    }
+    p, td {
+        color: $textGray;
+        max-width: calc($accountContainerWidth - $spacingDouble);
+    }
+    td {
+        padding-right: 10px;
+    }
+    table {
+        margin: $spacing 0;
+    }
+}
+
+@if $theme == 'lite' {
+    .account-login-firsttime {
+        background-color: transparent;
+
+        h2 {
+            color: $white;
+        }
+
+        p, td {
+            color: $white;
+        }
+    }
+}
+
+
+/*************************************************************************************************/
+/*  TOS                                                                                          */
+/*************************************************************************************************/
+div[data-page=tosaccept] footer {
+    position: relative;
+}
+.account[data-page=tosaccept] {
+    top: 15%;
+}
+
+.account-tosaccept {
+    .content {
+        min-width: $accountContainerWidth;
+        width: calc(100vw - 80px);
+        max-width: 1200px;
+        min-height: 100px;
+        max-height: 300px;
+        padding: $spacing;
+        margin-bottom: $spacingThreeQuarters;
+        max-height: 300px;
+        margin-bottom: 14px;
+        box-sizing: border-box;
+        overflow-y: scroll;
+    }
+    .alerts {
+        @mixin create-message-container-centered;
+
+        .alert {
+            padding: 0px;
+            margin-bottom: $spacingHalf;
+            color: $errorColorL10;
+        }
+    }
+    .icon-alert {
+        display: none;
+    }
+    label {
+        display: inline;
+    }
+    input {
+        margin-top: -1px;
+    }
+    .btn {
+        margin-top: -3px;
+        min-width: $buttonMinWidth;
+    }
+    label, input {
+        margin-right: 10px;
+    }
+}
+@if $theme == 'lite' {
+    body {
+        .btn-primary {
+            background-color: $splunkLiteColor;
+            &:hover {
+                background-color: $splunkLiteColorD20;
+            }
+            &:active {
+                background-color: $splunkLiteColorD30;
+            }
+        }
+    }
+}
+
+@media only screen and (max-height: 600px) {
+    .wrapper-container {
+        margin-top: 20vh;
+    }
+}
+@media only screen and (max-height: 400px) and (max-width: 650px){
+    .wrapper-container {
+        margin-top: $spacing;
+    }
+}
+@media only screen and (max-width: 650px) and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (max-width: 650px){
+    *:not(svg):not(footer) {
+        max-width: calc(100vw - $spacingDouble) !important;
+        min-width: calc(100% - $spacingDouble) !important;
+        margin: auto;
+    }
+    #brand {
+        text-align: center;
+        margin-bottom: $spacingQuarter;
+    }
+    input[type=text],
+    input[type=password],
+    input.splButton-primary {
+        min-width: auto;
+        width: 100% !important;
+        margin: auto auto $spacingQuarter !important;
+        border-radius: $borderRadius !important;
+        display: block;
+    }
+    .account-tosaccept {
+        .content {
+            width: calc(100vw - 40px);
+        }
+        .btn {
+            margin-top: $spacingHalf;
+        }
+    }
+    .shared-controls-textcontrol,
+    .account-login-textcontrol,
+    .accept-tos-button {
+        float: none;
+        display: block;
+    }
+}

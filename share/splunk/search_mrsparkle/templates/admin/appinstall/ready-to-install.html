@@ -1,0 +1,107 @@
+<%!
+    title = 'App Install'
+%>
+<%namespace name="lib" file="//lib.html" import="*"/>
+<%namespace name="helpers" file="//admin/_helpers.html"/>
+<%inherit file="//layout/admin.html" />
+<%
+    import splunk
+    from splunk.appserver.mrsparkle.lib import util, i18n
+    appText = util.getAppType()
+    productName = util.getProductName()
+%>
+
+<script language="JavaScript">
+    $(function() {
+        $('#installform').submit(function() {
+            if ($('button').hasClass('disabled')) {
+                $('.spl-license-warn').show();
+                return false;
+            } else {
+                $('button').attr('disabled', 'disabled');
+                $('.splButton-primary').text(${_('Processing...')|jsonify});
+                return true;
+            }
+        });
+        $('.splButton-secondary').click(function() {
+            window.location = ${jsonify(make_url(breadcrumbs[-2][1] if len(breadcrumbs)>1 else state['return_to']))};
+            return false;
+        });
+    });
+</script>
+
+<script language="JavaScript">
+    function acceptLicense(checkBox) {
+        if ($(checkBox).is(':checked')) {
+            $(checkBox).val(1);
+            $('.splButton-primary').removeClass('disabled');
+        } else {
+            $(checkBox).val(0);
+            $('.splButton-primary').addClass('disabled');
+        }
+    }
+</script>
+
+% if error:
+    <%helpers:message content="${error}" level="error"/>
+% endif
+
+<div class="spl-gdi-wrapper spl-prompt-message-layout"> 
+	<div class="jmFormOptions">
+	    <h2 class="spl-page-hdr spl-icon-success-md" data-test-name="install-header">
+	        <span> 
+	            <!-- replace with page title --> 
+	            ${_('Install from Splunkbase')}
+	            <!-- end replace with page title --> 
+	        </span>
+	    </h2> 
+	    <span class="spl-hr-solid-lite"></span> 
+	    <!-- start prompt message --> 
+	    <form id="installform" method="post" action="${install_url}">
+	    <input type="hidden" name="state" value="${state.serialize()|h}">
+        ${csrf_hidden_input()}
+        <div class="spl-prompt-message-wrapper" data-test-name="form-message-wrapper">
+            % if (appid != 'splunk_health_assistant_addon'):
+                <p class="spl-main-description">
+                        ${_('Note: Installing <strong>%(appname)s</strong> from Splunkbase might cause Splunk '
+                            '%(productName)s to restart.' % dict(appname=appname, productName=productName))}
+                </p>
+            % endif
+	        <p class="spl-main-description" data-test-name="license-directions">
+	           ${_('Accept the following license agreement to install the %(appText)s:') % dict(appText=appText)}
+	        </p>
+            <p class="spl-main-description" data-test-name="license-disclaimer">
+               ${_('The %(appText)s, and any related dependency that will be installed, may be '
+                   'provided by Splunk and/or a third party and your right to use these %(appText)s(s) '
+                   'is in accordance with the applicable license(s) provided by Splunk and/or the '
+                   'third-party licensor. Splunk is not responsible for any third-party %(appText)s '
+                   'and does not provide any warranty or support. If you have any questions, complaints '
+                   'or claims with respect to an %(appText)s, please contact the applicable licensor '
+                   'directly whose contact information can be found on the Splunkbase download page.' % dict(appText=appText))}
+            </p>
+            <p class="spl-main-description splunk-components" data-test-name="license-link">
+                ${_('<strong>%(appname)s</strong> is governed by the following license: ' % dict(appname=appname))}
+                <a href="${app_license_url}" target="_blank">${app_license}<span class="icon-external external"></span></a>
+            </p>
+            <p class="spl-main-description" data-test-name="accept-license">
+                <input type="checkbox" name="accept-license" value="0" id="accept-license" onclick="acceptLicense(this);"/>
+                <label for="accept-license">${_('I have read the terms and conditions of the license and agree to be bound by them.')}</label>
+                <p class="spl-license-warn" data-test-name="license-warn">
+                    ${_('Please accept the terms and conditions.')}
+                </p>
+            </p>
+	    </div> 
+	</div>
+    
+    <!-- Start button bar --> 
+    <div class="jmFormActions"> 
+        <button class="splButton-secondary" data-test-name="btn-cancel">
+            <span>${_('Cancel')}</span> 
+        </button> 
+        <button class="splButton-primary disabled" type="submit" data-test-name="btn-continue">
+            <span>${_('Accept and Continue')}</span> 
+        </button> 
+    </div> 
+    </form>
+</div> 
+

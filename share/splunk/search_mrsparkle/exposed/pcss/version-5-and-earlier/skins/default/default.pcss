@@ -1,0 +1,2025 @@
+/*
+ *  Glorious Splunk Skin
+ */
+
+/*************************************************************************************************/
+/*  TYPOGRAPHY                                                                                   */
+/*************************************************************************************************/
+@mixin define-font 'Proxima Nova', proxima-bold-webfont.woff, woff, bold;                     /*  Bold */
+@mixin define-font 'Proxima Nova', proxima-regular-webfont.woff;                              /*  Regular */
+@mixin define-font 'Proxima Nova', proxima-semibold-webfont.woff, woff, $fontWeightSemiBold;   /*  semi-bold */
+@mixin define-font 'Inconsolata', inconsolata-regular.woff, woff;                               /*  Monospace */
+@mixin define-font 'Architects Daughter', ArchitectsDaughter.ttf, truetype;
+@mixin define-font 'Splunk Icons', splunkicons-regular-webfont.woff;  /*  Splunk Icons :  unicode-range: U+00-FF; */
+
+body {
+    font-family: $fontFamily;
+    font-size: $fontSize;
+    color: $gray30;
+}
+input, textarea, select, optgroup {
+    font-family: $fontFamily;
+    font-size: $fontSize;
+    color: $textColor;
+}
+select {
+    @mixin interactive;
+    @mixin button-states;
+    height: 32px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMycHgiIGhlaWdodD0iOHB4IiB2aWV3Qm94PSIwIDAgMzIgOCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMzIgOCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlsaW5lIGZpbGw9IiM4MThEOTkiIHBvaW50cz0iMTMsMiAxOSwyIDE2LjAxMiw1Ljk4NCAiLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-position: right;
+    padding: 2px 25px 2px $spacingHalf;
+    text-overflow: ellipsis;
+    &:hover {
+        color: $linkColor;
+    }
+    &:focus {
+        outline: none !important;
+        outline-style: none;
+    }
+    &:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+    }
+    &::-ms-expand {
+        display: none;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  HEADINGS                                                                                     */
+/*************************************************************************************************/
+h1, h2, h3, h4 {
+    margin: calc($lineHeight / 2) 0;
+    font-family: $headingsFontFamily;
+    font-weight: $headingsFontWeight;
+    line-height: $headingsLineHeight;
+    color: $headingsColor;
+    text-rendering: optimizelegibility; /*  Fix the character spacing for headings */
+}
+
+h1 {
+    font-size: $fontSizeXXLarge;
+    font-weight: bold;
+}
+h2 {
+    font-size: $fontSizeXLarge;
+}
+
+h3 {
+    font-size: $fontSizeLarge;
+}
+h4 {
+    font-size: $fontSize;
+    color: $textColor;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* font styles */
+.splFont-mono, .SearchBar label {
+    font-family: $monoFontFamily;
+}
+
+.SearchBar textarea, .SearchBar label {
+    font-size: $fontSize;
+    box-shadow: none;
+}
+.SearchBar textarea:focus {
+    outline: 0;
+}
+
+
+/*************************************************************************************************/
+/*  LINK COLORS                                                                                  */
+/*************************************************************************************************/
+a {
+    @mixin link;
+
+    &.disabled {
+        color: $textGray;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  APPLICATION HEADER                                                                           */
+/*************************************************************************************************/
+/* app header wrapper */
+/* - this can be used to set a background for the entire header area.  */
+.appHeaderWrapper {
+    background: $navbarBackground;
+    margin: 0 !important;
+    min-height: $navbarHeight;
+
+    /*
+    use this to display the name of the app.
+    use line-height to adjust alignment with logo. if
+    if the name of the app is in the logo,  set this to display: none;
+    */
+    h1 {
+        line-height: 43px;
+    }
+}
+
+/* change the app logo here.  set the height/width for your image, as well as the path to the image */
+.appLogo {
+    height: 43px;
+    width: 80px;
+    background: url(/static/img/skins/default/splunk_logo_black.png) no-repeat 0 0;
+}
+
+
+/*************************************************************************************************/
+/*  BACKGROUND COLOR                                                                             */
+/*************************************************************************************************/
+/* default page color */
+body {
+    background-color: $bodyBackgroundColor;
+}
+
+.splTemplate-search, .splTemplate-dashboard {
+    background-color: $bodyBackgroundColor;
+}
+
+.splBackground-default, .resultsArea,
+.reportSecondPanel, .reportThirdPanel, .sidebarCollapsed,
+.SearchBar .saTypeaheadWrapper {
+    background-color: $white;
+}
+
+/* primary background - applies to search controls and primary action panels */
+.saHelpWrapper {
+    background-color: $gray98;
+}
+
+/* secondary background - sidebar, other panels */
+.splBackground-secondary, .sidebarExpanded {
+    background: $bodyBackgroundColor;
+}
+
+/* Specific overrides */
+.layoutCellInner .ResultsHeader .splHeader, .layoutCellInner .ResultsHeader .splHeader-secondary {
+    background: transparent none;
+}
+
+
+/*************************************************************************************************/
+/*  HEADERS                                                                                      */
+/*************************************************************************************************/
+.splHeader-primary {
+    border-top: $border;
+}
+
+.splHeader-secondary {
+    border-top: $border;
+    background-image: $bodyBackgroundColor;
+}
+/* navigation bar */
+.splHeader-navigation {
+    background-image: none;
+}
+
+.splHeader h2 a {
+    font-weight:normal;
+}
+
+/* Specific overrides */
+.TitleBar .splHeader, .FieldPickerPopup .splHeader-primary {
+    background-image: none;
+}
+
+.FlashTimeline {
+    background: $white url(/static/img/skins/default/overlay_bottomgradient_7.png) repeat-x bottom center;
+
+    .splHeader-primary {
+        background: $white url(/static/img/skins/default/overlay_topgradient_7.png) repeat-x;
+    }
+}
+
+.DisableRequiredFieldsButton {
+    background: $bodyBackgroundColor url(/static/img/skins/default/overlay_topgradient_32.png) repeat-x;
+}
+
+.splView-flashtimeline .ResultsHeader .splHeader-primary {
+    background: $bodyBackgroundColor url(/static/img/skins/default/overlay_topgradient_32.png) repeat-x;
+    border-color: #a4a4a4;
+    padding-top: 5px;
+}
+
+.splView-flashtimeline .ResultsHeader .splHeader-primary h2 {
+    background-color: $white;
+    border-top-left-radius: 6px;
+}
+
+
+/*************************************************************************************************/
+/*  BORDERS                                                                                      */
+/*************************************************************************************************/
+* {
+    border-color: $borderColor;
+}
+
+div.sidebarCollapsed .sidebarControl {
+    border-radius: 0 0 5px 0;
+    background: $bodyBackgroundColor url(/static/img/skins/default/overlay_topgradient_32.png) repeat-x;
+    border-top: 1px solid #A4A4A4;
+}
+
+div.sidebar .FieldPicker {
+    border-color: #a4a4a4;
+}
+
+
+/*************************************************************************************************/
+/*  DASHBOARDS                                                                                   */
+/*************************************************************************************************/
+/* dashboard headers */
+.splHeader-dashboard {
+    background-image: none;
+    background-color: transparent;
+
+    body& {
+        background-color: $bodyBackgroundColor;
+    }
+}
+.splHeader-dashboard h2,
+.dashboardContent .ServerSideInclude h2,
+.dashboardContent .GenericHeader h3 {
+    font-size: $fontSize;
+    color: $brandColor;
+    font-weight:bold;
+    background-color: transparent;
+}
+/* rounded box for dashboard modules */
+.dashboardCell {
+    position: relative;
+    background: $white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+}
+
+.dashboardContent {
+    .SimpleResultsTableResults, .EventsViewer {
+        background-image: none;
+        background: transparent;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  FORM ELEMENTS                                                                                */
+/*************************************************************************************************/
+fieldset legend {
+    color: $brandColor;
+    font-size: $fontSize;
+    font-weight: bold;
+    span {
+        color: $black;
+        font-size: 10px;
+        font-weight: normal;
+    }
+}
+
+input, textarea, select {
+    font-family: $fontFamily;
+    font-size: $fontSize;
+
+    &:focus {
+        @mixin focus-element;
+    }
+}
+label {
+    font-size: $fontSize;
+    &.disabledLabel {
+        color:$textDisabledColor;
+    }
+}
+select option[disabled] {
+    color: $textGray;
+    box-shadow: none;
+}
+input.readonly {
+    background-color: $gray60;
+    box-shadow: none;
+}
+p.exampleText {
+    color: $textGray;
+    clear: both;
+
+    em {
+        font-style: normal;
+    }
+}
+p.fieldsetHelpText {
+    color: $textGray;
+}
+input[disabled]:not([type=checkbox]){
+    background-color: $gray98;
+    color: $gray30;
+    box-shadow: none;
+}
+.splTextArea {
+    textarea, > div {
+        border: $borderDefault;
+        padding: $spacingQuarter;
+        box-sizing: border-box;
+
+        &:focus {
+            border-color: $focusColor;
+        }
+    }
+}
+
+
+/*************************************************************************************************/
+/*  TABLES                                                                                       */
+/*************************************************************************************************/
+table.splTable {
+    border-color: $tableBorderColor;
+    th {
+        border-color: $tableBorderColor;
+        a {
+            color: $textColor;
+        }
+    }
+    td {
+        border-color: $tableBorderColor;
+    }
+}
+.empty_results {
+    background: #eaeaea;
+    border: 0px !important;
+    font-size: $fontSize;
+    font-weight: normal !important;
+    padding: $spacingHalf !important;
+    border-radius: $interactiveBorderRadius;
+    color:$textGrayDark !important;
+}
+
+/* sorting */
+.splSortNone, .splSortAsc, .splSortDesc {
+    background-image: url(/static/img/skins/default/splIcons.gif);
+    background-position: -67px -446px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.splSortDesc {
+    background-position: -67px -365px;
+    &:hover {
+        background-position: -67px -385px;
+    }
+}
+.splSortAsc {
+    background-position: -67px -385px;
+    &:hover {
+        background-position: -67px -366px;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  GLOBAL ELEMENTS                                                                              */
+/*************************************************************************************************/
+.splPipe {
+    color: $textGray;
+}
+.splDivider {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+#loading  {
+    background-color:$brandColor;
+    color:$white;
+}  /* I smell a refactor here... */
+#loadingmessage {
+    font-size:18px;
+    background: url(/static/img/skins/default/loading_white.gif) no-repeat 0 0;
+}
+.popupLoading {
+    background: url(/static/img/skins/default/loading_white.gif) no-repeat 0 20px;
+    font-size:18px;
+}
+.mouseoverHighlight {
+    &, & td {
+        background-color:$warningColorL40;
+    }
+}
+
+.searchFieldGhost {
+    border-color: $gray30;
+}
+.widgeterror {
+    color: $errorColor;
+    font-weight: bold;
+}
+
+.resultStatusMessage {
+    color:$textGrayDark;
+}
+
+
+/*************************************************************************************************/
+/*  PERCENTAGE BAR GRAPH                                                                         */
+/*************************************************************************************************/
+.splBarGraph {
+    background: $bodyBackgroundColor;
+}
+.splBarGraphBar {
+    background: $brandColor url(/static/img/skins/default/overlay_gradient_28.png) repeat-x;
+}
+.graphLoading {
+    padding-bottom: 5px;
+}
+
+
+/*************************************************************************************************/
+/*  POPUPS                                                                                       */
+/*************************************************************************************************/
+.popupContainer {
+    z-index: 10000;
+    border-color: $borderColor;
+    box-shadow: $overlayBoxShadow;
+
+    /* fieldpicker popup */
+    .fieldLayers & {
+        border-color: $borderColor;
+    }
+}
+.popupContent {
+    .schedulePdfPopup & iframe {
+        border: none;
+    }
+    .wizardPopup & iframe {
+        width: 400px;
+        border: none;
+        display: block;
+    }
+    .wideTreeviewPopup & iframe {
+        width: 700px;
+        height: 433px;
+        border: none;
+        display: block;
+    }
+    .panelEditorPopup & {
+        min-width: 340px;
+        iframe {
+            width: 340px;
+            border: none;
+            display: block;
+        }
+    }
+}
+
+/* Field Value popup-specific styles */
+.fieldValuePopup {
+    border-color: $borderColor;
+    box-shadow: none;
+    border: none;
+
+    .fieldValuePopupInner {
+        border: $borderDefault;
+        background-image:url(/static/img/skins/default/bg_reversegradient_28.png);
+
+    }
+    h3 em {
+        font-size: $fontSizeSmall;
+    }
+    table {
+        th.fieldName {
+            font-weight: normal;
+
+            tr:first-child & {
+                font-weight: bold;
+            }
+        }
+        td, th {
+            color: $gray30;
+            border-bottom-style: dotted;
+            border-bottom-width: 1px;
+        }
+        tr, th {
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+        }
+        tr.fieldNameHeaderRow td {
+            font-weight: bold;
+            color: $black;
+            border-bottom: none;
+        }
+    }
+    p.reportLinks,
+    div.reportLinks {
+        border-radius: $interactiveBorderRadius;
+    }
+}
+
+.pdfPopup {
+    background: $white;
+}
+
+/* popup header bar */
+.splHeader-popup {
+    background: $white;
+    border-bottom: $borderDefault;
+
+    h2, h1 {
+        font-size: $fontSize;
+        font-weight: normal;
+    }
+    &, h2 {
+        cursor: move;
+    }
+    &, h1 {
+        cursor: move;
+    }
+}
+
+/* popup content */
+.popupContent {
+    background-color: $white;
+    position: relative;
+
+    /*iframe loading*/
+    .popup-loading {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        text-indent: -1000em;
+        direction: ltr;
+        background: $white url('/static/img/skins/default/loading_white.gif') no-repeat center center;
+    }
+}
+.error {
+    .popupContent &, .wizard & {
+        font-size: $fontSize;
+        background: $errorColor;
+        margin: $spacingHalf $spacingHalf 0;
+        border-radius: $interactiveBorderRadius;
+    }
+}
+
+/* popup footer (button container) */
+.popupFooter {
+    border-top: $borderDefault;
+    background: $white;
+}
+
+.wizard {
+    .scheduledView {
+        .error,
+        .info {
+            margin: 0px 0px $spacingHalf;
+        }
+        .disabled {
+            cursor: not-allowed;
+        }
+    }
+}
+
+
+/*************************************************************************************************/
+/*  OVERLAYS AND SHADOWS                                                                         */
+/*************************************************************************************************/
+.splOverlay, .splOverlay-white {
+    background-color: $black;
+    opacity:0.5;
+    filter:alpha(opacity=50);
+}
+.splOverlay-white {
+    background-color:$white;
+}
+.splShadow {
+    background: url(/static/img/skins/default/shadow_soft.png) no-repeat bottom right;
+    border-top-right-radius:17px;
+    border-bottom-left-radius:17px;
+}
+
+
+/*************************************************************************************************/
+/*  BUTTONS                                                                                      */
+/*************************************************************************************************/
+.splButton-primary,
+.splButton-secondary,
+.splButton-tertiary,
+.splRadio-control {
+    @mixin base-input $buttonPadding, auto;
+    @mixin button-padding;
+    cursor: pointer;
+    font-size: $fontSize;
+    font-family: $fontFamily;
+    border-radius: $interactiveBorderRadius;
+    @mixin interactive;
+
+    button& span {
+        position: relative;
+        bottom: 1px;
+    }
+}
+
+.splButton-primary {
+    @mixin button-padding-primary;
+    font-weight: $fontWeightSemiBold;
+    border: none;
+
+    @mixin interactive-primary;
+    @mixin button-states interactive-primary-hover, interactive-primary-active, interactive-primary-disabled, interactive-primary $primaryBackgroundColor;
+
+    span.splMenuIcon {
+        background-position: 0 -300px;
+    }
+}
+.splButton-secondary,
+.splButton-tertiary,
+.splRadio-control {
+    border: $interactiveBorder;
+    @mixin button-states;
+    span.splMenuIcon {
+        background-position: -13px -300px;
+    }
+    &.selected, &.s-active {
+        @mixin interactive-hover;
+    }
+}
+.splButton-disabled {
+    &, &:hover, &:focus {
+        background: $interactiveBackgroundColorDisabled;
+        filter: none;
+        border-color: $borderColor;
+        cursor: not-allowed;
+        color: $textGray;
+        text-shadow: none;
+        opacity: 0.65;
+    }
+    .splButtonIcon {
+        opacity:0.5;
+    }
+}
+
+
+/*************************************************************************************************/
+/*  BUTTON GROUPS                                                                                */
+/*************************************************************************************************/
+.splButtonGroup {
+    .splButton-primary,
+    .splButton-secondary,
+    .splButton-tertiary {
+        border-radius: 0;
+        margin:0;
+
+        &:first-child {
+            border-radius: $inputBorderRadiusLeft;
+        }
+        &:last-child {
+            border-radius: $inputBorderRadiusRight;
+        }
+    }
+    .splButton-disabled {
+        border-left-color: #bbb;
+        cursor:not-allowed;
+    }
+}
+
+
+/* Iconic Links
+---------------------------------*/
+.splIconicLinkIcon, .splButtonIcon, span.splMenuIcon {
+    background-image: url(/static/img/skins/default/sprite_button_icons.png);
+    background-position: 0 0;
+}
+
+.splIconicLinkIcon {
+    margin-top:2px;
+}
+.splIconicLinkLabel {
+    font-size: $fontSizeSmall;
+}
+.splIcon-export {
+    background-position: -26px -660px;
+}
+.splIcon-options {
+    background-position: -26px -680px;
+}
+.splIconicLinkDisabled  {
+    background-image: none;
+    color: $textGray;
+
+    .splIconicLinkIcon {
+        opacity: 0.45;
+        color: $textGray;
+        border-radius: 3px;
+    }
+    .splIcon-export {
+        background-position: -13px -660px;
+    }
+}
+
+
+/* Splunk search button */
+input.searchButton {
+    @mixin search-icon-background;
+    background-position: 3px 2px;
+    width: 32px !important;
+    height: 32px !important;
+    cursor: pointer;
+    color: $textColor;
+    border: $interactiveBorder;
+    border-radius: $inputBorderRadiusRight;
+    @mixin interactive;
+    @mixin button-states;
+}
+
+/* button wrapper */
+.splButtonWrapper {
+    border-top: $border;
+}
+
+/* icons
+---------------------------------*/
+.splIcon {
+    background-image: url(/static/img/skins/default/splIcons.gif);
+    background-color: $gray60;
+}
+
+/*-- external link icon --*/
+.spl-icon-external-link-xsm {
+    vertical-align: middle;
+    white-space: nowrap;
+    &:before {
+        display: inline-block;
+        padding: 0 4px;
+        content: "\EC13";
+        font-family: 'Splunk Icons';
+        vertical-align: middle;
+    }
+}
+.spl-icon-external-link-xsm.inline-icon {
+	margin-left: 0px;
+}
+
+/*-- sidebar collapse icon --*/
+.splIcon-sidebar-open .splIconicLinkIcon { background-position: -26px -320px; }
+.splIcon-sidebar-closed .splIconicLinkIcon { background-position: -26px -340px; }
+
+/*-- linear and log scale buttons --*/
+div.FlashTimeline a.linLogToggle {
+    color:$black;
+}
+
+div.FlashTimeline a.linLogToggle:focus {
+   background-color: $gray80;
+}
+
+div.FlashTimeline a.linLogToggle .splIcon-triangle-4-s {
+	background-position: -67px -367px;
+}
+
+
+
+/*-- clear buttons --*/
+.splIcon-clear {    border-radius: 5px;
+    background-position: 0px 0px;
+}
+.splIcon-clear:hover { background-position: -20px 0px; }
+
+/*-- close icons --*/
+.splIcon-close { background-position: 0px 0px; }
+.splIcon-close:hover { background-position: -20px 0px; }
+
+/*-- arrow icons --*/
+.splIcon-arrow-n, .splIcon-arrow-e, .splIcon-arrow-s, .splIcon-arrow-w {
+    background-color: $gray60;
+}
+
+.splIcon-arrow-n { background-position: 0px -100px; }
+.splIcon-arrow-e { background-position: 0px -140px; }
+.splIcon-arrow-s { background-position: 0px -120px; }
+.splIcon-arrow-w { background-position: 0px -160px; }
+.splIcon-arrow-n:hover { background-position: -20px -100px; }
+.splIcon-arrow-e:hover { background-position: -20px -140px; }
+.splIcon-arrow-s:hover { background-position: -20px -120px; }
+.splIcon-arrow-w:hover { background-position: -20px -160px; }
+
+/*-- results view buttons --*/
+.splIcon-events-list, .splIcon-events-table, .splIcon-results-table, .splIcon-results-chart {
+    background-image: url(/static/img/skins/default/sprite_button_icons.png);
+}
+.splIcon-events-list { background-position: -26px -740px; }
+.splIcon-events-table { background-position: -26px -760px; }
+.splIcon-results-table { background-position: -26px -780px; }
+.splIcon-results-chart { background-position: -26px -800px; }
+.splIcon-events-list:hover { background-position: -39px -740px; }
+.splIcon-events-table:hover { background-position: -39px -760px; }
+.splIcon-results-table:hover { background-position: -39px -780px; }
+.splIcon-results-chart:hover { background-position: -39px -800px; }
+
+/* triangles */
+/* Note: to separate color from implementation, we're using a numbering system to differentiate colors.
+   1=grey,2=white,3=green,4=black,5=blue.  If the icon sprite changes, the number mapping to colors would be different */
+.splIcon-triangle,
+.splIcon-triangle-1-n, .splIcon-triangle-1-s, .splIcon-triangle-1-e, .splIcon-triangle-1-w,
+.splIcon-triangle-2-n, .splIcon-triangle-2-s, .splIcon-triangle-2-e, .splIcon-triangle-2-w,
+.splIcon-triangle-3-n, .splIcon-triangle-3-s, .splIcon-triangle-3-e, .splIcon-triangle-3-w,
+.splIcon-triangle-4-n, .splIcon-triangle-4-s, .splIcon-triangle-4-e, .splIcon-triangle-4-w,
+.splIcon-triangle-5-n, .splIcon-triangle-5-s, .splIcon-triangle-5-e, .splIcon-triangle-5-w {
+    background-color:transparent;
+}
+.splIcon-triangle-large {
+    background-color:transparent;
+}
+
+/* grey */
+.splIcon-triangle-1-n { background-position: -7px -386px; }
+.splIcon-triangle-1-s { background-position: -7px -367px; }
+.splIcon-triangle-1-e { background-position: -7px -407px; }
+.splIcon-triangle-1-w { background-position: -7px -427px; }
+/* white */
+.splIcon-triangle-2-n { background-position: -27px -386px; }
+.splIcon-triangle-2-s { background-position: -27px -367px; }
+.splIcon-triangle-2-e { background-position: -27px -407px; }
+.splIcon-triangle-2-w { background-position: -27px -427px; }
+/* green */
+.splIcon-triangle-3-n { background-position: -47px -386px; }
+.splIcon-triangle-3-s { background-position: -47px -367px; }
+.splIcon-triangle-3-e { background-position: -47px -407px; }
+.splIcon-triangle-3-w { background-position: -47px -427px; }
+/* black */
+.splIcon-triangle-4-n { background-position: -67px -386px; }
+.splIcon-triangle-4-s { background-position: -67px -367px; }
+.splIcon-triangle-4-e { background-position: -67px -407px; }
+.splIcon-triangle-4-w { background-position: -67px -427px; }
+/* blue */
+.splIcon-triangle-5-n { background-position: -87px -386px; }
+.splIcon-triangle-5-s { background-position: -87px -367px; }
+.splIcon-triangle-5-e { background-position: -87px -407px; }
+.splIcon-triangle-5-w { background-position: -87px -427px; }
+
+/* state interaction
+_________________________________*/
+
+.fatal, .error, .warn, .info, .persistent {
+    font-weight: bold;
+}
+
+.fatal, .error {
+    background-color: $errorColor;
+    color: $white;
+}
+.warn, .persistent {
+   background-color: $warningColor;
+   color: $white;
+}
+.info {
+   background-color: $infoColor;
+   color: $white;
+}
+
+
+.fatal .remove, .error .remove, .warn .remove, .info .remove, .persistent .remove {
+    border-radius: $interactiveBorderRadius;
+}
+
+.fatal .remove, .error .remove {
+    background-color: $errorColor;
+}
+.warn .remove, .persistent .remove {
+   background-color: $warningColor;
+}
+.info .remove {
+   background-color: $infoColor;
+}
+
+
+/* menu classes
+---------------------------------*/
+
+.splMenu {
+    font-size: $fontSizeSmall;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* primary menu - white */
+.splMenu-primary, .splMenu-primary a {
+    color: $gray30;
+}
+.splMenu-primary li.disabled a {
+    color: $textGray;
+}
+.splMenu-primary ul {
+    background-color: $white;
+}
+.splMenu-primary .actionsMenuDivider {
+}
+
+/* primary menu hover styles */
+.splMenu-primary li:hover {
+    background: #ddd;
+}
+.splMenu-primary ul li.htmlBlock:hover {
+    background-color: transparent;
+}
+
+/* secondary menu - black */
+.splMenu-secondary, .splMenu-secondary a {
+    color: $gray80;
+}
+.splMenu-secondary li.disabled a {
+    color: $textGray;
+}
+.splMenu-secondary ul {
+    background-color: $black;
+    border-color: $gray30;
+}
+
+/* primary menu hover styles */
+.splMenu-secondary li:hover {
+    background-color: #7b9059;
+}
+.splMenu-secondary a:hover {
+    color: $white;
+}
+.splMenu-secondary ul li.htmlBlock:hover {
+    background-color: transparent;
+}
+
+/* Tab styles
+-------------------------------*/
+
+.tabsWrapper {
+    background-color: #bdbdb7;
+}
+ul.tabs li {
+    background: #666 url(/static/img/skins/default/tab_switcher_rounded_corners.gif) no-repeat 0 -68px;
+}
+ul.tabs li a {
+    background: #666 url(/static/img/skins/default/tab_switcher_rounded_corners.gif) no-repeat right -102px;
+    color: $white;
+    font-size: $fontSize;
+}
+/* on state */
+ul.tabs li.selected {
+    background-color: $white;
+    background: $white url(/static/img/skins/default/tab_switcher_rounded_corners.gif) no-repeat 0 0;
+}
+ul.tabs li.selected a {
+    color: $gray30;
+    background: $white url(/static/img/skins/default/tab_switcher_rounded_corners.gif) no-repeat right -34px;
+}
+
+/* jquery ui styles
+_______________________________*/
+
+/* datepicker styles */
+.ui-datepicker {
+    border: 1px solid $borderColor;
+    background: $white;
+}
+.ui-datepicker a {
+    color: $gray30;
+}
+.ui-datepicker-inline {
+    border-style: solid;
+    border-width: 1px;
+}
+.ui-datepicker-header {
+    background: $bodyBackgroundColor url(/static/img/skins/default/overlay_gradient_28.png) repeat-x scroll 0 -5px;
+}
+.ui-datepicker-header a {
+    background-image: url(/static/img/skins/default/splIcons.gif);
+    background-repeat: no-repeat;
+}
+.ui-datepicker-prev {
+    background-position: -67px -418px;
+}
+.ui-datepicker-next {
+    background-position: -67px -398px;
+}
+.ui-datepicker-current-day {
+    background-color: $warningColorL40;
+}
+
+/* resizable styles */
+.ui-resizable-s {
+    background:#cdcdcd url(/static/img/skins/default/bg_resizer.gif) center no-repeat !important;
+}
+
+.ui-resizable-helper {
+	border: 1px dashed $borderDarkColor;
+}
+
+/* TimeSpinner styles */
+.TimeSpinner {
+	border: 1px solid $borderColor;
+}
+
+/***********************************
+    Module styles
+************************************/
+
+/* Dev note: putting these in here for now, figuring out what refactoring can be done later */
+
+
+/*** Gandalf ***/
+
+/* TimeRangeBinning */
+.TimeRangeBinning .trbToggle {
+    font-size: $fontSize;
+}
+.TimeRangeBinning .trbToggle span.splIcon-triangle {
+    background-position: -87px -407px;
+    background-color: transparent;
+}
+.TimeRangeBinning .trbOn span.splIcon-triangle {
+    background-position: -87px -367px;
+}
+
+/*** Jobs ***/
+
+/* Job Status */
+
+.JobStatus {
+	background-image: $bodyBackgroundColor;
+}
+
+.JobStatus .output .scanned,
+.JobStatus .output .results {
+    font-style:normal;
+    font-size: $fontSize;
+}
+.JobStatus .output .running h2,
+.JobStatus .output .runningReport h2,
+.JobStatus .output .finalizing h2 {
+    background: url(/static/img/skins/default/loader_green_on_grey.gif) left no-repeat;
+    /* use loader.gif for green on white */
+}
+
+.JobStatus .output .complete h2 {
+    background: url(/static/img/skins/default/bg_job_status.png) 0 -13px  no-repeat;
+}
+
+.JobStatus .output .paused h2 {
+    background: url(/static/img/skins/default/bg_job_status.png) 0 8px no-repeat;
+}
+
+.autoPauseText > strong {
+	color: $errorColor;
+}
+
+/* link icons */
+
+
+
+.save  .splButtonIcon {
+    background-position: 0 -160px;
+}
+
+.create  .splButtonIcon {
+    background-position: 0 -180px;
+}
+.inspector  .splButtonIcon {
+    background-position: -13px -120px;
+}
+
+.print  .splButtonIcon {
+    background-position: -13px -140px;
+}
+
+.background  .splButtonIcon{
+    background-position: -13px -20px;
+}
+
+.finalize .splButtonIcon {
+    background-position: -13px -80px;
+}
+
+.pause .splButtonIcon {
+    background-position: -13px -60px;
+}
+
+.unpause  .splButtonIcon{
+    background-position: -13px -40px;
+}
+
+.cancel  .splButtonIcon{
+    background-position: -13px -100px;
+}
+
+.schedulepdf .splButtonIcon{background-position:-13px -560px;}
+.renderpdf .splButtonIcon{background-position:-13px -820px;}
+.move .splButtonIcon{background-position:0 -580px;}
+.add .splButtonIcon{background-position:-13px  -640px;}
+.permissions .splButtonIcon{background-position:-13px  -600px;}
+.xml .splButtonIcon{background-position:-13px  -620px;}
+
+.JobStatus .autoPauseTip {
+    color: $errorColor;
+}
+.JobStatus .autoPauseTip a {
+    color: #3e83bd;
+}
+
+/*** Nav ***/
+
+/* AppBar */
+ul.appBarNav li a:hover,
+ul.appBarNav li a.menuOpen {
+    background: url(/static/img/skins/default/overlay_white_28.png) repeat-x 0 0;
+}
+ul.appBarNav li a {
+    font-size: $fontSizeSmall;
+    font-weight: bold;
+}
+.splMenu-primary ul li.splUserCreated {
+    background-image: url(/static/img/skins/default/greendot.gif);
+    background-repeat: no-repeat;
+    background-position: 4px 10px;
+}
+
+/* BreadCrumb */
+.BreadCrumb {
+    font-size:14px;
+}
+.BreadCrumb .gt {
+    color:#888;
+}
+
+/* TitleBar */
+.TitleBar div.menuOpen, .TitleBar a.menuOpen {
+    background-color: $gray80;
+}
+.TitleBar h2 em {
+    font-style:normal; /* wtf? */
+}
+.TitleBar .splPipe {
+    font-size: $fontSize;
+}
+
+/*** Results header ***/
+h2 .timeRangeStr {
+    font-weight: normal;
+}
+
+
+/*** Message ***/
+.Message ol {
+    font-size: 0px;
+    line-height: 1;
+}
+.Message ol li {
+	font-size: $fontSizeSmall;
+	line-height: $lineHeight;
+	padding: 6px 10px;
+}
+
+/*** Paginator ***/
+
+.Paginator a {
+    @mixin button-padding calc($buttonPaddingVertical + 1px); /*  note the vertical padding will be funky unless it's block, inline-block, or floated */
+    float: left;
+    line-height: $lineHeight;
+    border: 1px solid transparent;
+    border-radius: $interactiveBorderRadius;
+
+    @mixin interactive none, transparent, none, $pillTextColor;
+    @mixin button-states link-style $linkColor, link-style, link-style $textDisabledColor, link-style-underline $linkColor;
+}
+.Paginator .active a,
+.Paginator .active a:hover {
+    cursor: default;
+    color: $accentColor;
+    border: $border $accentColor;
+}
+
+/*** Prototypes ***/
+
+/* SimpleEventsViewer */
+
+.SimpleEventsViewer {
+    background-color:$white;
+}
+.SimpleEventsViewer span.searchTermHighlight {
+    background-color:$warningColorL40;
+}
+.SimpleEventsViewer .eventFields {
+    color: LightSlateGrey;
+}
+.SimpleEventsViewer .eventFields .value {
+    color: $black;
+}
+
+/*** Results ***/
+
+/* EventsViewer */
+
+.EventsViewer, .SimpleResultsTableResults {
+}
+
+.EventsViewerScroller {
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+.EventsViewer .header {
+	font-weight:normal;
+	font-size: $fontSizeSmall;
+	color:$gray30;
+}
+.EventsViewer .header em {
+	font-weight:bold;
+	font-style:normal;
+}
+
+.EventsViewer .tb {
+	border:1px solid $errorColor;
+}
+.EventsViewer .tb h2 {
+	font-size: $fontSizeSmall;
+	font-weight:bold;
+}
+.EventsViewer .tb h3 {
+	font-size:10px;
+	font-weight:bold;
+}
+.EventsViewer .tb td:first-child {
+	color:$textGrayDark;
+}
+.EventsViewer .default .pos {
+	font-style:normal;
+	font-size: $fontSizeSmall;
+	color:#bbb;
+}
+.EventsViewer .default .time {
+	font-style:normal;
+	font-size: $fontSizeSmall;
+	color:$textGrayDark;
+    /* SPL-56751 prevent dates breaking*/
+    white-space: nowrap;
+}
+.EventsViewer .default .audit {
+    font-style:normal;
+    display:block;
+    padding:2px 0px 4px 20px;
+    color:$textGrayDark;
+}
+/* BEGIN NOTICE: decoration_audit_ class names currently have no indirection, do not change! */
+.EventsViewer .default .decoration_audit_valid {
+    background:url(/static/img/skins/default/audit_valid.gif) no-repeat;
+}
+.EventsViewer .default .decoration_audit_gap {
+    background:url(/static/img/skins/default/audit_gap.gif) no-repeat;
+}
+.EventsViewer .default .decoration_audit_tampered {
+    background:url(/static/img/skins/default/audit_tampered.gif) no-repeat;
+}
+.EventsViewer .default .decoration_audit_cantvalidate {
+    background:url(/static/img/skins/default/audit_cantvalidate.gif) no-repeat;
+}
+/* END NOTICE: decoration_audit_ class names currently have no indirection, do not change! */
+.EventsViewer .default .event {
+	font-family: $monoFontFamily;
+	font-size: $fontSize;
+	color:$gray30;
+}
+.EventsViewer .default .a, .EventsViewer .default .h, .EventsViewer .default .fields .v:hover, .EventsViewer .default .fields .tg:hover, .EventsViewer .default .time:hover {
+	background-color:$warningColorL40;
+}
+.EventsViewer .default .showinline {
+	color:#4D9BB3;
+}
+.EventsViewer .default .fields li {
+	color:#778899;
+}
+.EventsViewer .default .fields em {
+	font-style:normal;
+}
+.EventsViewer .default .fields .k {
+	color: $textGray;
+}
+.EventsViewer .default .fields .v {
+	color:$gray30;
+}
+.EventsViewer .default .fields .tg {
+	color: $textGray;
+	font-style:italic;
+}
+.EventsViewer .default .fields .fm {
+	background: url(/static/img/skins/default/splIcons.gif) no-repeat -67px -364px;
+	color:$white;
+}
+.actions .splButtonIcon {
+    background-position: 13px -280px;
+}
+
+
+.results-table-help {
+	font-size: $fontSize;
+}
+
+/* BEGIN: tag field popup styles */
+.tagfieldpopup {
+	background:$white;
+}
+.tagfieldpopup input {
+	font-size: $fontSizeSmall;
+	color:$gray30;
+}
+
+
+
+/* FancyChartTypeFormatter */
+.FancyChartTypeFormatter .chartTypeTitle {
+    font-size: $fontSize;
+}
+.FancyChartTypeFormatter .chartTypeActivator {
+    border-style: solid;
+    border-width: 1px;
+    background: url(/static/img/skins/default/overlay_gradient_28.png) repeat-x 0 0;
+}
+.FancyChartTypeFormatter .chartTypeActivator span {
+    background: url(/static/img/skins/default/arrows.gif) no-repeat 0 0 ;
+}
+.FancyChartTypeFormatter .chartTypeMenu ul {
+    background-color:$white;
+    border-style: solid;
+    border-width: 1px;
+}
+.FancyChartTypeFormatter .chartTypeMenu li:hover {
+    background-color: #f3ecbb;
+}
+.FancyChartTypeFormatter .chartTypeActivator a,
+.FancyChartTypeFormatter .chartTypeMenu li a {
+    color:$gray30;
+    text-decoration:none;
+    font-size: $fontSize;
+    background-image:url(/static/img/skins/default/chart_type_icons.gif);
+    background-repeat:no-repeat;
+    background-position: 5px -45px;
+}
+.FancyChartTypeFormatter .chartTypeMenu li.column a,
+.FancyChartTypeFormatter .chartTypeActivator a.column {
+    background-position: 5px 3px;
+}
+.FancyChartTypeFormatter .chartTypeMenu li.line a,
+.FancyChartTypeFormatter .chartTypeActivator a.line {
+    background-position: 5px -45px;
+}
+.FancyChartTypeFormatter .chartTypeMenu li.area a,
+.FancyChartTypeFormatter .chartTypeActivator a.area {
+    background-position: 5px -94px;
+}
+.FancyChartTypeFormatter .chartTypeMenu li.bar a,
+.FancyChartTypeFormatter .chartTypeActivator a.bar {
+    background-position: 5px -144px;
+}
+
+/* Timeline */
+/*
+  background-color -> controls bgcolor
+  border-left-color -> controls foregroundColor
+  color -> controls fontColor
+  border-right-color -> controls seriesColor
+*/
+
+
+/**********************************
+Timeline and charts
+***********************************/
+
+div.FlashTimeline,
+div.FlashTimeline .splHeader {
+    background-color: $white;
+
+    /* Color of the chart lines */
+    border-left-color: $black;
+
+    /* Color of the columns */
+    border-right-color: $brandColor;
+
+    color: $black;
+}
+
+div.FlashTimeline a.splIconicLinkDisabled {
+   color: $textGray;
+}
+
+div.FlashTimeline .splHeader {
+/*  background-image: none;*/
+	border-top-width: 0;
+}
+
+
+div.FlashTimeline a.hideshow .splIconicLinkIcon {
+	background-position: -26px -400px;
+}
+
+div.FlashTimeline .minimized a.hideshow .splIconicLinkIcon {
+	background-position: -26px -420px;
+}
+
+
+.TimelineContainer,
+.FlashWrapperContainer {
+    padding-bottom: 7px;
+}
+
+.FlashTimeline .zoomIn .splIconicLinkIcon {
+	background-position: -26px -480px;
+}
+
+.FlashTimeline .zoomOut .splIconicLinkIcon {
+	background-position: -26px -500px;
+}
+
+.FlashTimeline .selectAll .splIconicLinkIcon {
+	background-position: -26px -520px;
+}
+.FlashTimeline .splIconicLinkDisabled.zoomIn .splIconicLinkIcon {
+	background-position: -13px -480px;
+}
+
+.FlashTimeline .splIconicLinkDisabled.zoomOut .splIconicLinkIcon {
+	background-position: -13px -500px;
+}
+
+.FlashTimeline .splIconicLinkDisabled.selectAll .splIconicLinkIcon {
+	background-position: -13px -520px;
+}
+
+
+
+/* FlashChart */
+/*
+  background-color -> controls bgcolor
+  border-left-color -> controls foregroundColor
+  color -> controls fontColor
+*/
+div.FlashChart {
+    background-color: $white;
+    border-left-color: $black;
+    color: $black;
+}
+
+/* JSChart:
+ *
+ * JSChart will adopt the same styles as FlashChart, this allows backwards compatibility with any styling
+ * applied to FlashChart in an application.css file
+ */
+
+/* MultiFieldViewer + SuggestedFieldViewer */
+.MultiFieldViewer .fieldTabs .mouseoverHighlight,
+.MultiFieldViewer .fieldTabs .selected,
+.SuggestedFieldViewer .fieldTabs .mouseoverHighlight,
+.SuggestedFieldViewer .fieldTabs .selected {
+    background-color:#d1d1d1;
+}
+
+.MultiFieldViewer .fieldTabs .mouseoverHighlight a,
+.SuggestedFieldViewer .fieldTabs .mouseoverHighlight a {
+    background-image: url(/static/img/skins/default/graph_icon.png);
+    background-repeat: no-repeat;
+    background-position: right 3px;
+}
+
+.MultiFieldViewer .valueCount,
+.SuggestedFieldViewer .valueCount {
+	color: $textGray;
+}
+
+.MultiFieldViewer .iconNumeric,
+.SuggestedFieldViewer .iconNumeric,
+.MultiFieldViewer .iconString,
+.SuggestedFieldViewer .iconString {
+	font-family: "Times New Roman", Georgia, Times, serif;
+	color: $textGray;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 13px;
+	line-height: 12px;
+}
+
+/* Count */
+.Count label, .Count select {
+    font-size: $fontSizeSmall;
+}
+
+.pageControls .Count .perPageLabel{
+	color: $gray30;
+}
+
+/* EnablePreview */
+.pageControls .EnablePreview label {
+    font-size: $fontSizeSmall;
+}
+
+/* ResultsActionsButtons */
+.ResultsActionButtons {
+    background-image: $bodyBackgroundColor;
+}
+
+/* SimpleResultsTable */
+table.simpleResultsTable td.pos,
+table.simpleResultsTable th.pos {
+    color: #bbb;
+    border: none;
+}
+table.simpleResultsTable td.lowValue {
+    border: 1px solid blue;
+}
+table.simpleResultsTable td.highValue {
+    border: 1px solid $errorColor;
+}
+
+/* SingleValue */
+.SingleValueHolder {
+    font-size: 14px;
+    font-weight: bold;
+}
+.SingleValue .singleResult {
+    font-size: 28px;
+    vertical-align: -4px;
+    margin: 0px 6px;
+}
+.SingleValue .severe .singleResult {
+    color: #ff1f24;
+}
+.SingleValue .high .singleResult {
+    color: #ff7e00;
+}
+.SingleValue .elevated .singleResult {
+    color: #ffb800;
+}
+.SingleValue .guarded .singleResult {
+    color: #4da6df;
+}
+.SingleValue .low .singleResult {
+    color: #00b932;
+}
+.SingleValue .None .singleResult {
+    color: $textGray;
+}
+.singleLabel {
+    color: $textGray;
+}
+
+
+/*** Search ***/
+
+/* Field Picker */
+
+.FieldPickerPopup .fpUpdateFields, .FieldPickerPopup .fpUpdateFieldsUpdate {
+    color: #E5F2F5;
+}
+.FieldPickerPopup li.fpSelFieldsNotPresent {
+    color: $textGray;
+}
+.FieldPickerPopup .fpAddTermCell span.splIcon-arrow-e {
+    background-color:  $brandColor;
+}
+.FieldPickerPopup li.fpSelFieldsNotPresent span {
+    background-color: $gray80;
+}
+.FieldPickerPopup .fpFilterFields label {
+    font-weight: bold;
+    font-size: $fontSizeSmall;
+}
+.FieldPickerPopup .fpFieldListContainerOuter {
+}
+.FieldPickerPopup .fpFieldListContainerOuter thead tr {
+    background-position: left -5px;
+}
+.FieldPickerPopup .fpFieldListContainerOuter th span {
+    background-color: transparent;
+    background-position:  -67px -441px;
+}
+.FieldPickerPopup .fpFieldListContainerOuter
+.headerSortUp span {
+    background-position:  -67px -379px;
+}
+.FieldPickerPopup .fpFieldListContainerOuter th.headerSortDown span {
+    background-position:  -67px -360px;
+}
+.FieldPickerPopup .fpFieldList tr.fieldSelected td.fpFieldTerm {
+    color: $textGray;
+}
+.FieldPickerPopup .fpFieldList tr.fieldSelected td.fpAddTermCell span {
+    background-color: $gray80;
+}
+
+.FieldPickerPopup .splHeader {
+    border-top: none;
+}
+
+.fpFieldList .splHeader {
+    background-image: url(/static/img/skins/default/overlay_gradient_28.png);
+}
+
+/* adding this class on hover via jquery, handles row highlighting and graph icon */
+.FieldPickerPopup .fpFieldList tbody tr:hover, .FieldPickerPopup .fpFieldList tbody tr.mouseoverHighlight {
+    background-color: $warningColorL40;
+}
+.FieldPickerPopup .fpFieldList tbody tr:hover .fpFieldListSecond a,
+.FieldPickerPopup .fpFieldList tbody tr.mouseoverHighlight .fpFieldListSecond a {
+    background: url(/static/img/skins/default/graph_icon.png) no-repeat center right;
+}
+
+
+
+
+/*** SearchBar for DEFAULT.CSSS ***/
+
+table .SearchBar .searchFieldWrapper {
+}
+
+table.mainSearchControlsTable .SearchBar .searchFieldWrapper {
+	border: 1px solid #5e8d3d;
+	background-color: #5e8d3d;
+
+    border-right-width: 0;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background:  $brandColor url(/static/img/skins/default/search_bar.png);
+}
+
+.SearchBar .searchFieldWrapperInner {
+	border-color: #a0c288;
+}
+
+.SearchBar label {
+    color: #bbb;
+}
+
+.SearchBar .assistantActivator {
+    background-color:#689549;
+    background-repeat: repeat-x;
+}
+.SearchBar .assistantEnabled span.assistantAutoOpener {
+	color: $white;
+}
+.SearchBar .assistantEnabled span.saHandle {
+	background:transparent url(/static/img/skins/default/bg_resizer_white.png) center no-repeat;
+}
+.SearchBar h4 {
+    color: $brandColor;
+}
+.sakeywordCount{
+    background-color: $white;
+    color: $gray30;
+}
+.saKeywordSelected {
+    background-color: $warningColorL40;
+}
+.saKeywordSelected .sakeywordCount{
+    background-color: $warningColorL40;
+}
+
+.sakeyword:hover {
+    background-image: $bodyBackgroundColor;
+}
+.sakeyword:hover .sakeywordCount{
+    background-image: $bodyBackgroundColor;
+}
+.splSearchControls-inline {
+	background-repeat: repeat-x;
+	background-position: bottom;
+}
+.SearchBar .assistantWrapperEnabled {
+	box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.4);
+	border-top:1px solid #A0C288 ;
+}
+
+.SearchBar .assistantInner {
+	background: $bodyBackgroundColor url(/static/img/skins/default/bg_search_assistant.png) left top repeat-y;
+	zoom:1;
+}
+.SearchBar .assistantInnerHelpOnly {
+	background-image: $bodyBackgroundColor;
+	background-image: none;
+}
+
+
+.SearchBar .assTab .splIcon {
+    background-position: 0 -582px;
+    background-color: transparent;
+}
+.SearchBar .assistantWrapperEnabled  .assTab .splIcon {
+    background-position: 0 -562px;
+}
+
+
+.SearchBar .saHelpWrapper {
+    border-left-color: $white;
+}
+.SearchBar .sakeyword em {
+    font-style: normal;
+    font-weight: bold;
+    color: $linkColor;
+}
+.SearchBar .saNotice {
+    background-color: $warningColorL40;
+    border-color: $borderColor  !important;
+}
+.SearchBar .error {
+    background-color: $warningColorL40;
+    border-color: $borderColor  !important;
+    color: $errorText;
+    background-image: none;
+}
+
+.introstep {
+  color: $gray30;
+}
+.intro code {
+  color: $brandColor;
+}
+.SearchBar .intro ul li{
+    list-style-type: disc;
+}
+
+.splView-flashtimeline .JobStatus {
+	background:  url('/static/img/skins/default/overlay_bottomgradient_32.png') repeat-x bottom left;
+	border-bottom-color: #a4a4a4;
+}
+
+
+.splView-flashtimeline .ChartTypeFormatter {
+	border-bottom: 1px solid $borderColor;
+}
+
+.splView-flashtimeline .ShowHideHeader div.secondary h2 {
+	font-size: $fontSize;
+}
+.splView-flashtimeline .ShowHideHeader {
+	border-top-width: 2px;
+}
+
+
+div.splSearchFormatChart-tabs ul li.selected .linkSwitcherSelectedIcon {
+    background: transparent url(/static/img/skins/default/splIcons.gif) -68px -346px no-repeat;
+}
+
+/* TimeRangePicker */
+.TimeRangePicker .timeRangeActivatorWrapper {
+    background-image: url(/static/img/skins/default/overlay_topgradient_white.png);
+    background-repeat: repeat-x;
+    background-color:#d5d5d1;    border-radius: 5px;
+}
+
+
+table.mainSearchControlsTable .TimeRangePicker .timeRangeActivator {
+    padding-top: 3px;
+}
+
+table.mainSearchControlsTable .TimeRangePicker .timeRangeActivatorWrapper  {
+	@mixin interactive-primary;
+
+	border-left-width: 0;
+	border-radius: 0;
+	font-size: $fontSize;
+	height: 26px;
+	border-left: none;
+}
+
+table.mainSearchControlsTable .TimeRangePicker .timeRangeActivatorWrapper:hover {
+	@mixin interactive-primary-hover;
+}
+
+
+table.mainSearchControlsTable .TimeRangePicker .timeRangeActivatorWrapper:focus {
+    @mixin focus-element;
+}
+
+table.mainSearchControlsTable .TimeRangePicker .timeRangeActivatorWrapper .dropDown {
+	background-position: -27px -367px;
+	margin-top: 11px;
+}
+
+
+.trpCustomDateTime .rangeType {
+    border-bottom: 1px solid $borderColor;
+}
+.trpCustomDateTime input.disabled {
+    background-color: #DDD;
+    border-color:#DDD;
+    color:$textGrayDark;
+}
+.trpCustomDateTime .earliestDateTime,
+.trpCustomDateTime .latestDateTime {
+    border: 1px solid $borderColor;
+}
+.trpCustomDateTime .dateTimeDisabled {
+    background-color: $gray98;
+    border-color:$gray98;
+    color:$textGrayDark;
+}
+.trpCustomDateTime .dateTimeDisabled input {
+    background:transparent;
+}
+.trpCustomDateTime input.customDate {
+    border: none;
+    background: transparent;
+}
+.trpCustomDateTime div.outputString {
+    background-color: $gray98;
+    border: 1px solid $gray98;
+    color:$gray30;
+}
+
+
+/*** Report builder ***/
+
+.report_builder_format_report .viewHeader {
+    border: 0;
+}
+
+.report_builder_format_report .JobStatus {
+    border: 0;
+}
+.ShowHideHeader {
+    border-top-width: 1px;
+    border-top-style: solid;
+}
+
+/*** Advanced charting ***/
+
+.splView-charting .ResultsHeader .splHeader-primary {
+    background-image: none;
+}
+
+/*** Switchers ***/
+
+/* ButtonSwitcher */
+.ButtonSwitcher ul li.selected .splIcon-events-list {
+    background-position: -13px -740px;
+    opacity: 0.75;
+}
+.ButtonSwitcher ul li.selected .splIcon-events-table {
+    background-position: -13px -760px;
+    opacity: 0.75;
+}
+.ButtonSwitcher ul li.selected .splIcon-results-table {
+    background-position: -13px -780px;
+    opacity: 0.75;
+}
+.ButtonSwitcher ul li.selected .splIcon-results-chart {
+    background-position: -13px -800px;
+    opacity: 0.75;
+}
+.ButtonSwitcher ul li.disabled .splIcon-events-list {
+    background-position: -13px -740px;
+    opacity: 0.4;
+}
+.ButtonSwitcher ul li.disabled .splIcon-events-table {
+    background-position: -13px -760px;
+    opacity: 0.4;
+}
+.ButtonSwitcher ul li.disabled .splIcon-results-table {
+    background-position: -13px -780px;
+    opacity: 0.4;
+}
+.ButtonSwitcher ul li.disabled .splIcon-results-chart {
+    background-position: -13px -800px;
+}
+.ButtonSwitcher ul li.disabled a,
+.ButtonSwitcher ul li.selected a {
+	cursor:default;
+}
+
+
+.ButtonSwitcher ul li {
+    border-color: $white;
+    border-radius: 3px;
+}
+
+.ButtonSwitcher ul li:hover {
+    background-color: #e2e2e2;
+
+}.ButtonSwitcher ul li.disabled:hover {
+    background-color: transparent;
+    cursor:default;
+}
+
+.ButtonSwitcher ul li.selected, .ButtonSwitcher ul li.selected:hover {
+    background-color: #e2e2e2;
+    color: $textGray;
+}
+
+/* Link Switcher */
+.LinkSwitcher a {
+    font-size: $fontSize;
+}
+.LinkSwitcher ul li.selected a {
+    color:$gray30;
+    font-weight: bold;
+    text-decoration:none;
+}
+
+/* ShowHideHeader */
+.ShowHideHeader div.secondary {
+    background-image: none;
+}
+.ShowHideHeader h2 span.splIcon-triangle {
+    background-position: -67px -367px;
+}
+.ShowHideHeader div.secondary h2 {
+    font-size: $fontSizeSmall;
+    font-weight: normal;
+}
+.ShowHideHeader div.secondary h2 span.splIcon-triangle {
+    background-position: -87px -367px;
+}
+.ShowHideHeader div.secondary h2:hover {
+    text-decoration:underline;
+}
+.ShowHideHeader h2.closed span.splIcon-triangle {
+    background-position:  -67px -407px;
+}
+.ShowHideHeader div.secondary h2.closed span.splIcon-triangle {
+    background-position: -87px -407px ;
+}
+
+/* TabSwitcher */
+.TabSwitcher {
+    background-color: #bdbdb7;
+}
+.TabSwitcher ul li {
+    background: #666 url(/static/img/skins/default/tab_switcher_rounded_corners.gif) no-repeat 0 -68px;
+}
+.TabSwitcher ul li a {
+    font-size: $fontSize;
+    background: #666 url(/static/img/skins/default/tab_switcher_rounded_corners.gif) no-repeat right -102px;
+    color: $white;
+}
+.TabSwitcher ul li.selected {
+    background-color: $white;
+    background: $white url(/static/img/skins/default/tab_switcher_rounded_corners.gif) no-repeat 0 0;
+}
+.TabSwitcher ul li.selected a {
+    color: $gray30;
+    background: $white url(/static/img/skins/default/tab_switcher_rounded_corners.gif) no-repeat right -34px;
+}
+
+/* progress bar */
+
+.JobProgressIndicator .splBarGraph {
+    background-image:url(/static/img/skins/default/overlay_innershadow_4.png);
+}
+
+.JobProgressIndicator .splBarGraphBar {
+    background-image:url(/static/img/skins/default/overlay_gradient_4.png);
+}
+
+/* PAYWALL */
+.section-paywall {
+    padding: 10px 20px 20px;
+    min-height: 500px;
+    font-family: $fontFamily;
+}
+
+.section-paywall .section-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 200;
+    line-height: 29px;
+    color: $gray30;
+    text-rendering: optimizelegibility;
+}
+.section-paywall #paywall-content {
+    margin: 10px 0;
+    font-size: $fontSize;
+    line-height: $lineHeight;
+}
+/* one off button override for consistancy */
+.section-paywall a.splButton-primary {
+    line-height: $lineHeight;
+    vertical-align: middle;
+    padding: 4px 12px;
+    border-radius:$interactiveBorderRadius;
+    background-color: $brandColor;
+    background-repeat: repeat-x;
+    border-color: #4E802A #426D24 #32521B;
+    border-left: 1px solid #426D24;
+    border-right: 1px solid #426D24;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+    color: $white;
+    text-shadow: 0 -1px 0 rgba(51, 51, 51, 0.7);
+    display: inline-block;
+    height: auto;
+}
+.section-paywall a.splButton-primary ,
+.section-paywall a.splButton-primary span
+{
+    min-width: 0;
+    float: none !important;
+}
+.section-paywall a.splButton-primary span
+{
+    display: inline !important;
+}

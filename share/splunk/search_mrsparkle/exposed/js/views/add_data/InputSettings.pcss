@@ -1,0 +1,129 @@
+.input-settings-main {
+  padding: $spacing;
+  @mixin create-card;
+  @mixin clearfix;
+  width: $bodyMinWidth;
+  margin: $spacing auto;
+}
+
+.input-settings-form-horizontal .control-label {
+  text-align: right;
+width: 100px;
+}
+
+.input-settings-form-horizontal .controls {
+  margin-left: 16px;
+}
+
+.input-settings-title {
+  font-size: 24px;
+  font-weight: 200;
+}
+
+.input-settings-subheader {
+  clear: both;
+  padding-top: 20px;
+}
+
+.input-settings-subheader-title {
+  width: 100%;
+  font-size: $fontSizeLarge;
+}
+
+.input-settings-desc {
+  margin-top:5px;
+  margin-bottom:20px;
+}
+
+.input-settings-subheader-desc {
+  width: 400px;
+  padding-right: 40px;
+  float: left;
+  margin-top:10px;
+}
+
+.input-settings-subheader-body {
+  margin-right: $spacing;
+  float: left;
+  padding-bottom: 10px;
+}
+
+.input-settings-subheader-props {
+  float: left;
+  margin-top:25px;
+
+  .index_section {
+    .shared-waitspinner {
+      float: right;
+      margin-left: 10px;
+    }
+  }
+}
+
+.hidden-button > .btn:nth-child(2) {
+  margin-left: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.input-settings-subheader-props .control-group {
+    > * {
+      display: inline-block;
+    }
+    > .controls > .btn-group {
+        max-width: 360px;
+    }
+}
+
+.input-settings-subheader-props * .control-label {
+  width: 115px;
+  text-align: right;
+  vertical-align: top;
+  margin-top:5px;
+}
+
+.input-settings-sourcetype-subheader {
+  display: none;
+}
+
+#index_placeholder {
+  display: inline-block;
+
+  .dropdown-menu:not(.up) {
+    margin-bottom: $spacing;
+  }
+}
+
+.newindex_link {
+  padding: 5px 15px;
+  display: inline-block;
+  vertical-align: middle;
+  > a {
+    display: inline-block;
+  }
+}
+
+.input-settings-main + .faq {
+	margin: 20px 0;
+}
+
+#indexRefreshLink {
+  display: block;
+}
+
+#sourcetype_placeholder .shared-knowledgeobjects-sourcetypemenu {
+  margin-left: 135px;
+  margin-top: 20px;
+}
+
+.input-settings-subheader-props input[type="text"] {
+  width: 250px;
+}
+
+.input-container .shared-findinput {
+    text-align: center;
+    margin: 5px;
+    .search-query {
+        width: 100%;
+    }
+}

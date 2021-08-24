@@ -1,0 +1,3 @@
+.dashboardPanel {
+    background-color: $dashboardPanelBackgroundColor;
+}

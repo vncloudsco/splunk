@@ -1,0 +1,133 @@
+.trigger-actions {
+    padding-bottom: 20px; /*  workaround for SPL-110625 */
+
+    .add-action-btn {
+        margin-bottom: 10px;
+    }
+
+    .table {
+        background-color: $interactiveBackgroundColor;
+    }
+
+    .table-hover {
+        > tbody {
+            > tr.active-action {
+                &:hover > td {
+                    /* need the !important keyword to overwrite the base table in pcss/base/tables.pcss line 246 that
+                       uses the !important keyword */
+                    background-color: $interactiveBackgroundColorHover !important;
+                }
+            }
+            > tr.active-action.expanded {
+                &:hover > td {
+                    /* need the !important keyword to overwrite the base table in pcss/base/tables.pcss line 246 that
+                       uses the !important keyword */
+                    background-color: $popupBackgroundColor !important;
+                }
+            }
+            > tr.more-info {
+                &:hover > td {
+                    /* need the !important keyword to overwrite the base table in pcss/base/tables.pcss line 246 that
+                       uses the !important keyword */
+                    background-color: $popupBackgroundColor !important;
+                }
+            }
+        }
+    }
+
+    .table-row-expanding {
+        border-right: $borderLight;
+        border-left: $borderLight;
+        td.expands {
+            border-right: $borderLight;
+            &:hover:not(.disabled) {
+                /* need the !important keyword to overwrite the base table in pcss/base/tables.pcss line 470 that
+                   uses the !important keyword */
+                border-right: $borderLight !important;
+            }
+        }
+        .active-action {
+            td {
+                border-bottom: $borderDefault;
+            }
+            &:nth-last-child(2) {
+                td {
+                    border-bottom: $borderLight;
+                }
+            }
+        }
+        .active-action.expanded {
+            td {
+                background-color: $popupBackgroundColor;
+                &:nth-last-of-type(1) {
+                    border-bottom: none;
+                }
+                &:nth-last-of-type(2) {
+                    border-bottom: none;
+                }
+            }
+        }
+        .more-info {
+            background-color: $popupBackgroundColor;
+            td {
+                border-bottom: $borderDefault;
+            }
+            &:last-child {
+                td {
+                    border-bottom: $borderLight;
+                }
+            }
+        }
+    }
+
+    .table-row-expanding td.expands {
+        width: 35px;
+        &.disabled {
+            &:hover {
+                border-right-color: transparent !important;
+            }
+            a {
+                opacity: 0.1;
+                cursor: default;
+            }
+        }
+    }
+    .table-row-expanding .expandable td.action-title {
+        cursor: pointer;
+    }
+    .alert-actions-control-group {
+        .active-action {
+            &:first-child {
+                td {
+                    border-top: $borderLight;
+                }
+            }
+            td {
+                line-height: 24px;
+                img {
+                    width: 24px;
+                    height: 24px;
+                    padding: 0 5px 0 0;
+                }
+            }
+        }
+    }
+    .control-group > .controls > .input-xlarge {
+        width: 270px;
+    }
+}
+.add-alert-action-dropdown {
+    li {
+        > a.unselected-action {
+            padding-left: 34px;
+            min-height: 25px;
+            > img {
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+}

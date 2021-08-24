@@ -1,0 +1,89 @@
+/*  Search Input */
+/*  ============ */
+
+/* search input main form
+
+*/
+.shared-searchbarinput {
+    position: relative;
+    padding: 0;
+
+    span.placeholder {
+        display: none;
+        padding: 8px 0 ;
+        line-height: 20px;
+        display: block;
+        position: absolute;
+        z-index: 1;
+        margin: 0;
+        top: 0;
+        left: 9px;
+        color: $textGray;
+        cursor: text;
+        z-index: 3;
+    }
+    textarea[disabled="disabled"] {
+        background-color: $gray92;
+    }
+    textarea.search-field {
+        width: 100%;
+        display: block;
+        line-height: 20px;
+        min-height: 40px;
+        margin: 0;
+        overflow: hidden;
+        resize: none;
+        box-sizing: border-box;
+        border-radius: $interactiveBorderRadius;
+        position: relative;
+        font-family: $monoFontFamily;
+        color: $textColor;
+        padding-top:8px;
+        padding-bottom:8px;
+        max-width: 100%;
+    }
+
+    textarea.search-field:not(:focus) {
+        border: 1px solid $interactiveBorderColor;
+        /* border-top-color: $interactiveBorderTopColor; */
+        /*border-bottom-color: $interactiveBorderBottomColor; */
+    }
+
+    /*  search assistant rounding and resizing */
+    &.search-assistant-open {
+        .search-field-wrapper {
+            textarea.search-field {
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+                border-bottom-color: $borderColor;
+            }
+        }
+    }
+}/* .input */
+
+/*  Print */
+/*  -------------------------------------------------- */
+
+ @media print {
+    .search-bar {
+        width: 100%;
+            display: block;
+
+        td, tbody, tr {
+            display: block;
+            width:100%;
+        }
+    }
+
+    .search-field {
+        display: none !important;
+    }
+
+    .shadowTextarea {
+        width: 100% !important;
+        left: auto !important;
+        top: auto !important;
+        position: static !important;
+        border-color: transparent !important;
+    }
+} 

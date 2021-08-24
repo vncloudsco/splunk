@@ -1,0 +1,115 @@
+/*  Splunk: Component: Pivot Elements */
+/*  ================================= */
+
+/* pivot elements
+
+	markup missing ...
+
+*/
+/*  helper for repeated markup */
+/*  TODO: does this need to be a mixin? or just a common class */
+@define-mixin element-mixin {
+	float: left;
+	width: 170px;
+	margin: 0 $spacingQuarter $spacingQuarter 0;
+
+	.element-label {
+		width: 130px;
+		text-align: left;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		box-sizing: border-box;
+	}
+}
+
+/*  main elements wrapper */
+.pivot-pivotelementsdisplay {
+	position: relative;
+
+
+	.add-button {
+		font-size: 20px;
+	}
+
+	.config-table {
+		border-radius: 0;
+		table-layout: fixed;
+		margin-bottom: 0;
+		border-color: $white;
+		border-bottom: none;
+
+		td, th {
+			border-top: none;
+			border-color: $white;
+			&:first-child {
+				padding-left: $spacing;
+				border-left: 0
+			}
+		}
+
+		tr:last-child td {
+			padding-bottom: $spacingQuarter;
+		}
+
+		tr + tr td h6 { /*  The second row of headers needs no margin */
+			margin-top:  0;
+		}
+	}
+
+	.element-list {
+		/*  give this element a min-height so it provides a better target for dragging/dropping */
+		min-height: 50px;
+		min-width: 200px;
+
+		&.ui-sortable-drop-acceptor {
+
+			.list-header {
+				color: $successColor;
+			}
+		}
+	}
+
+	.element {
+		@mixin element-mixin;
+	}
+
+	.list-header {
+		margin: $spacingQuarter 0;
+		font-size: $fontSize;
+		font-weight: normal;
+	}
+
+	.timerange-picker-wrapper {
+		display: inline-block;
+
+		a:hover {
+			text-decoration: none;
+		}
+	}
+
+	.table-help-link {
+		position: absolute;
+		top: $spacingQuarter;
+		right: $spacing;
+	}
+
+}
+
+/*  draggable elements are appended to the body, styles have to be global */
+.draggable-element {
+	@mixin element-mixin;
+
+	.element-label {
+		cursor: move;
+		text-indent: $spacingQuarter;
+	}
+
+	&.ui-sortable-drop-to-remove > .btn {
+		@mixin interactive-error;
+
+		&:hover {
+			@mixin interactive-error-hover;
+		}
+	}
+}

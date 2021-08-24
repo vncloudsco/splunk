@@ -1,0 +1,3 @@
+.healthBadge {
+    font-size: $fontSizeLarge;
+}

@@ -1,0 +1,12 @@
+.ManagerBar {
+    padding: 15px 20px;
+    clear: both;
+    overflow: hidden;
+    _float:left;
+}
+
+.ManagerBar .breadcrumb {
+    font-size: 14px;
+    line-height: 1;
+    margin-top: 5px;
+}

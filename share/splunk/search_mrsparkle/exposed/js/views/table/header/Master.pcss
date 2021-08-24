@@ -1,0 +1,52 @@
+@import '../variables.pcss';
+
+.table-header {
+    background-color: $gray92;
+    display: flex;
+    flex: 0 0 calc($titleBarHeight - 1px);
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    h1 {
+        margin-left: 8px;
+        font-size: 24px;
+        font-weight: 200;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .table-header-tablename {
+        padding-left: 10px;
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .btn-container {
+        padding-right: 10px;
+        display: flex;
+        white-space: nowrap;
+        flex: 1;
+        justify-content: flex-end;
+    }
+
+    .save, .save-as, .pivot-btn {
+        user-select: none;
+    }
+
+    .nav-tabs {
+        background: transparent;
+        margin-bottom: -1px;
+        font-size: $fontSize;
+
+         > li:not(.active) > a:before {
+            background-color: $gray80;
+         }
+    }
+}
+
+.modal-btn-cancel.pull-right {
+    margin-right: 10px;
+}

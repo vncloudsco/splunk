@@ -1,0 +1,51 @@
+<style>
+    /*  Fonts */
+    /*  ----------- */
+
+    /*  Regular */
+    @font-face {
+        font-family: 'Splunk Platform Sans';
+        src: url('<%- make_url("static/fonts/proxima-regular-webfont.woff") %>') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    /*  semibold */
+    @font-face {
+        font-family: 'Splunk Platform Sans';
+        src: url('<%- make_url("static/fonts/proxima-semibold-webfont.woff") %>') format('woff');
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    /*  Bold */
+    @font-face {
+        font-family: 'Splunk Platform Sans';
+        src: url('<%- make_url("static/fonts/proxima-bold-webfont.woff") %>') format('woff');
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    .navSkip {
+        position: absolute;
+        margin: 1px 0px 0px 10px;
+        top: 0;
+        left: -1000px;
+        width: 150px;
+        height: 32px;
+        text-align: center;
+        line-height: 32px;
+        background-color: #171D21;
+        color: #C3CBD4;
+        z-index: 1040;
+    }
+
+    .navSkip:focus {
+        left: 0px;
+    }
+</style>
+<a aria-label="<%- _('Screen reader users, click here to skip the navigation bar').t() %>"
+    class="navSkip" href="#navSkip" tabIndex="1"><%- _('Skip Navigation').t() %> &gt;
+</a>
+<header></header>
+<div id="navSkip"></div>

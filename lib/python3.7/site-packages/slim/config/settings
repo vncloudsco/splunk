@@ -1,0 +1,6 @@
+[logger]
+level = STEP
+[option]
+configuration_spec_path = %(SLIM_HOME)s/config/conf-specs
+repository_path = ~/.config/slim/repository
+temp_directory_path = ~/.config/slim/repository

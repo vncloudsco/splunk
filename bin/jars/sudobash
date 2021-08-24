@@ -1,0 +1,200 @@
+#!/bin/bash
+
+#Command transformation script
+
+# Hadoop's hadoop jar command invokes RunJar which copies all the class files into a  temp dir.
+# This leads to increase in the startup time. Hence,  the command  is invoked manually in the form of
+# $HADOOP_HOME/bin/hadoop <splunk_main_class>. The splunk jar is exported into HADOOP_CLASSPATH
+# If the sudobash is not the typical hadoop command , the command formed  will be : /bin/bash <rest of the args>
+# The scipts also  takes care of executing under MAPREDUCE_USER  when it is present in the env
+
+
+OLD_SPLUNK_JAR1_NAME=SplunkMR-s6.0-h1.0.jar
+OLD_SPLUNK_JAR2_NAME=SplunkMR-s6.0-h2.0.jar
+OLD_SPLUNK_JAR3_NAME=SplunkMR-s6.0-hy2.0.jar
+
+# ERP-695 delete old SplunkMR jars at the first time of upgrading Hunk
+function deleteOldSplunkMRJars() {
+	SPLUNKMR_OLD_JAR1="$SPLUNK_HOME/bin/jars/$OLD_SPLUNK_JAR1_NAME"
+	SPLUNKMR_OLD_JAR2="$SPLUNK_HOME/bin/jars/$OLD_SPLUNK_JAR2_NAME"
+	SPLUNKMR_OLD_JAR3="$SPLUNK_HOME/bin/jars/$OLD_SPLUNK_JAR3_NAME"
+
+	if [ -f $SPLUNKMR_OLD_JAR1 ]; then
+		log "Deleting an old version of SplunkMR jar: $SPLUNKMR_OLD_JAR1"
+		rm -f $SPLUNKMR_OLD_JAR1
+	fi
+
+	if [ -f $SPLUNKMR_OLD_JAR2 ]; then
+		log "Deleting an old version of SplunkMR jar: $SPLUNKMR_OLD_JAR2"
+		rm -f $SPLUNKMR_OLD_JAR2
+	fi
+
+	if [ -f $SPLUNKMR_OLD_JAR3 ]; then
+		log "Deleting an old version of SplunkMR jar: $SPLUNKMR_OLD_JAR3"
+		rm -f $SPLUNKMR_OLD_JAR3
+	fi
+}
+
+deleteOldSplunkMRJars
+
+# ERP-695 replace old SplunkMR jar name to the new one
+function replaceOldSplunkMRJar() {
+	s=$1
+	s=${s//$OLD_SPLUNK_JAR1_NAME/SplunkMR-h1\.jar}
+	s=${s//$OLD_SPLUNK_JAR2_NAME/SplunkMR-h2\.jar}
+	s=${s//$OLD_SPLUNK_JAR3_NAME/SplunkMR-hy2\.jar}
+	echo $s
+}
+
+ARGS="$@"
+ARGS="$(replaceOldSplunkMRJar "$ARGS")"
+
+#DEFAULT COMMAND
+COMMAND="/bin/bash $ARGS"
+
+#Hadoop Command
+HADOOP_COMMAND=$1
+
+#Splunk Jar Name
+SPLUNK_JAR="$(replaceOldSplunkMRJar $3)"
+
+function log() {
+    timestamp=""
+    if [ "$SPLUNK_LOG_INCLUDE_TIMESTAMP" != "" ]; then
+        timestamp=`date "+%Y-%m-%d %H:%M:%S.%3N %z "`
+    fi
+    # leaving no space between the possible timestamp and log level.
+    # Hunk will treat lines that doesn't start with a log level as an error.
+    log_level="DEBUG"
+    if [ "$2" != "" ]; then
+        log_level="$2"
+    fi
+    echo "$timestamp""$log_level " $1 >&2
+}
+
+function log_error() {
+    log "$1" "ERROR"
+}
+
+log "MAPREDUCE_USER=$MAPREDUCE_USER, SPLUNK_HOME=$SPLUNK_HOME, HADOOP_CLASSPATH=$HADOOP_CLASSPATH"
+
+#####
+# Check if this is the usual command, else do not construct command
+function checkSplunkMR() {
+        if [[ $HADOOP_COMMAND =~ .*hadoop$ ]]; then
+                if [[ "$2" == "jar" ]]; then
+                        if [[ "$3" =~ SplunkMR.*jar$ ]]; then
+                                if [[ "$4" == "com.splunk.mr.SplunkMR" ]]; then
+                                        echo "true"
+                                fi
+                        fi
+
+                fi
+        fi
+}
+
+# Decrypt AWS access and secret keys.
+function decrypt_aws_creds {
+    S3_CREDS_FILE="$1"
+    SPLUNK_SECRET_FILE="$2"
+    GPG_BIN=${GPG_BIN:-/usr/bin/gpg}
+    CREDS=$(mktemp)
+    $GPG_BIN --no-use-agent --yes --batch --decrypt --passphrase-file "$SPLUNK_SECRET_FILE" --output ${CREDS} "$S3_CREDS_FILE" > /dev/null 2>&1
+    source ${CREDS}
+    rm -f ${CREDS}
+}
+
+# Mask AWS keys
+function mask_aws_keys {
+    local SECRET_MASK="s/fs\.s3a\.secret\.key=[^ ]*/fs\.s3a\.secret\.key=\*\*\*\*/g"
+    MASKED_COMMAND=$(echo "$1" | sed -e "$SECRET_MASK")
+}
+
+# Get AWS credentials
+function get_aws_creds {
+    PARAMS=()
+    for ARG in "$@"; do
+        if [[ -n $(echo "$ARG" | grep "\-Dfs\.s3a\.access\.key\=") ]]; then
+            ACCESS_KEY=$(echo "$ARG" | cut -d= -f2)
+        elif [[ -n $(echo "$ARG" | grep "\-Dfs\.s3a\.secret\.key\=") ]]; then
+            SECRET_KEY=$(echo "$ARG" | cut -d= -f2)
+        elif [[ -n $(echo "$ARG" | grep "encrypted_aws_creds") ]]; then
+            ENCRYPTED_AWS_CREDS=$(echo "$ARG" | cut -d= -f2)
+        elif [[ -n $(echo "$ARG" | grep "splunk_secret") ]]; then
+            SPLUNK_SECRET=$(echo "$ARG" | cut -d= -f2)
+        else
+            PARAMS+=("$ARG")
+        fi
+    done
+    if [[ -n "$ACCESS_KEY" && -n "$SECRET_KEY" ]]; then
+        PARAMS+=("-Dfs.s3a.access.key=$ACCESS_KEY" "-Dfs.s3a.secret.key=$SECRET_KEY")
+    elif [[ -n "$ENCRYPTED_AWS_CREDS" && -n "$SPLUNK_SECRET" ]]; then
+        decrypt_aws_creds "$ENCRYPTED_AWS_CREDS" "$SPLUNK_SECRET"
+        PARAMS+=("-Dfs.s3a.access.key=$AWS_ACCESS_KEY_ID" "-Dfs.s3a.secret.key=$AWS_SECRET_ACCESS_KEY")
+    fi
+}
+
+######
+#Check if the hadoop RunJar is intended purpose, else exit 1
+function checkIfHadoopRunJar(){
+    if [[ $(checkSplunkMR $ARGS) != "true" ]]; then
+        echo "false"
+    else
+        #Construct the command, $4 is the main class we need to call and args following $4 are args to the main class.
+        get_aws_creds "${@:4}"
+        echo "$HADOOP_COMMAND ${PARAMS[@]}"
+    fi
+}
+#####
+
+# add third party jars to classpath
+if [[ "$HUNK_THIRDPARTY_JARS" != "" ]]; then
+     ADD_TO_CLASSPATH=`eval echo ${HUNK_THIRDPARTY_JARS//,/:}`
+#else
+#     TP_COM_DIR_PREFIX="$SPLUNK_HOME/bin/jars/thirdparty/common"
+#     TP_HIV_DIR_PREFIX="$SPLUNK_HOME/bin/jars/thirdparty/hive"
+#     ADD_TO_CLASSPATH="$TP_COM_DIR_PREFIX/avro-1.7.4.jar:$TP_COM_DIR_PREFIX/avro-mapred-1.7.4.jar:$TP_COM_DIR_PREFIX/commons-compress-1.5.jar:$TP_COM_DIR_PREFIX/commons-io-2.1.jar:" \
+#                      "$TP_COM_DIR_PREFIX/libfb303-0.9.0.jar:$TP_COM_DIR_PREFIX/parquet-hive-bundle-1.5.0.jar$TP_COM_DIR_PREFIX/snappy-java-1.0.5.jar:" \
+#                      "$TP_HIV_DIR_PREFIX/hive-exec-0.12.0.jar:$TP_HIV_DIR_PREFIX/hive-metastore-0.12.0.jar:$TP_HIV_DIR_PREFIX/hive-serde-0.12.0.jar"
+fi
+
+# add aws related jars to the classpath if the hunk oem app is installed
+# this app should only be installed on the AMI
+if [ -d "$SPLUNK_HOME/etc/apps/splunk_emr/" ] ; then
+   ADD_TO_CLASSPATH="$ADD_TO_CLASSPATH:$SPLUNK_HOME"'/bin/jars/thirdparty/aws/*'
+fi
+
+RUNJAR_CMD=$(checkIfHadoopRunJar $ARGS)
+if [[ "$RUNJAR_CMD"   != "false" ]]; then
+        ADD_TO_CLASSPATH=$ADD_TO_CLASSPATH:$SPLUNK_JAR
+	log "Adding SplunkMR jar to classpath ..."
+
+	COMMAND=$RUNJAR_CMD
+fi
+
+mask_aws_keys "$COMMAND"
+
+export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$ADD_TO_CLASSPATH
+if [[ "$HADOOP_USER_CLASSPATH_FIRST" != "" ]]; then
+    export HADOOP_USER_CLASSPATH_FIRST="$HADOOP_USER_CLASSPATH_FIRST"
+fi
+log "HADOOP_USER_CLASSPATH_FIRST=$HADOOP_USER_CLASSPATH_FIRST"
+
+log "HADOOP_CLASSPATH=$HADOOP_CLASSPATH"
+
+log "Invoking command: $MASKED_COMMAND"
+
+#Start process as MAPREDUCE_USER
+if [[ $MAPREDUCE_USER != "" ]]; then
+       	log "sudo -E -u $MAPREDUCE_USER  $MASKED_COMMAND "
+       	sudo -E -u $MAPREDUCE_USER  $COMMAND
+else
+        $COMMAND
+fi
+
+rc=$?
+
+if [ $rc != 0 ]; then
+	log_error "Error while invoking command: $MASKED_COMMAND - Return code: $rc"
+	exit $rc
+fi

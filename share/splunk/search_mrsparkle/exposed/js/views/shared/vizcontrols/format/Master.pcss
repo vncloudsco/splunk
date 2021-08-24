@@ -1,0 +1,270 @@
+/*  Splunk: Component: Visulization Editor */
+/*  ====================================== */
+/*  FIXME: how does this work with viz-controls but there viz controls here? */
+
+/* viz editor controls
+
+	missing markup ...
+
+*/
+
+
+.visualization-controls {
+
+	.popdown {
+		width: 88px; /* TODO: Fix css so this width is not set and right side of btn-pill is not clipped */
+	}
+
+	.popdown-toggle {
+		cursor: pointer;
+		margin-left: 5px;
+	}
+}
+
+.shared-vizcontrols-format.btn-group {
+    margin-left: 0;
+
+    .link-label {
+        margin-left: 4px;
+    }
+}
+
+/* viz editor wrapper
+
+	missing markup ...
+
+*/
+$tabbableDialogWidth: 420px;
+$tabsLabelWidth: 90px;
+$noTabsDialogWidth: 300px;
+$noTabsLabelWidth: 100px;
+$tabsLeftWidth: 98px;
+$labelLeftSpace: 10px;
+
+.delta-time-range.delta-time-range-amount {
+  flex-basis: 40%;
+
+  > input {
+    width: 100%;
+  }
+}
+
+.delta-time-range.delta-time-range-unit {
+  flex-basis: 60%;
+
+  .btn {
+	width: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+	margin-left: -1px;
+  }
+}
+
+
+.single-value-radio-icon-group label {
+	margin-top: 3px;
+}
+
+/*  choropleth map color bin preview */
+
+.color-bin-container {
+
+    margin-left: 120px;
+    padding-top: 5px;
+    margin-bottom: 10px;
+
+    .color-bin {
+        border-width: 1px;
+        border-style: solid;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.input-append .btn-link {
+	font-size: $fontSize;
+	vertical-align: middle;
+	margin: 5px;
+}
+
+.shared-vizcontrols-format-dialog, .form-horizontal
+{
+  .label-rotation-alignment {
+    vertical-align: baseline;
+  }
+  .delta-time-range-mode {
+	margin-bottom: 10px;
+	flex-basis: 100%;
+
+	> .btn {
+		width: 100%;
+	}
+  }
+
+  .min-max-color-control {
+    .color-square-standalone {
+      margin-top: 0;
+    }
+  }
+}
+
+.shared-vizcontrols-format-dialog {
+    .control-group > .controls > .control {
+        &.control-focused {
+            z-index: $zindexFocus;
+        }
+        &[data-name="static-legend-placement"] {
+            margin-top: 2px;
+        }
+        &.shared-vizcontrols-customcontrols-choroplethcolormodecontrol > .btn {
+            width: 100%;
+        }
+    }
+    .url span {
+        &.uneditable-input.uneditable-input-multiline[disabled] {
+            display: inline-block !important;
+        }
+    }
+}
+
+.color-mode-radio-icon-container {
+	float: left;
+	display: flex;
+
+  &.shared-controls-syntheticradiocontrol {
+    width: auto;
+  }
+
+	.icon-placeholder {
+	  &:not(last-child) {
+      margin-right: $spacing;
+    }
+	  .radio-icon {
+		font-size: 14px;
+		display: inline-block;
+		font-weight: bold;
+		.radio-icon-value-container {
+		  margin: 7px 10px;
+		}
+		.svg-radio-icon-value-container {
+		  svg.icon-svg {
+			margin: 0px auto;
+			display: block;
+		  }
+		  	padding-top: 2px;
+		  .radio-icon-value {
+			text-align: center;
+		  }
+		}
+	  }
+	  .color-mode-radio-icon {
+		border: 1px $inputBorderColor solid;
+		width: 40px;
+		margin-left: 10px;
+	  }
+	  .indicator-radio-icon {
+		width: 30px;
+		margin-left: 5px;
+	  }
+	}
+	input[type="radio"] {
+		margin: 14px 4px;
+		font-size: 10px;
+		height: $fontSizeSmall;
+    box-shadow: none;
+    opacity: 0.01; /* Hiding element but not completely so selenium can find it */
+
+    + .btn-radio {
+      margin: 6px 0 0 -19px;
+    }
+    &:focus + .btn-radio:before {
+      @mixin focus-element;
+    }
+	}
+	.radio-label {
+	  font-size: 12px;
+	  margin-left: 30px;
+	  padding-bottom: 10px;
+  }
+}
+
+
+/*  Custom styles for locales where we may have long words as labels for tabs and controls (SPL-83062). */
+$(wideTextLocaleSelector) {
+    .shared-vizcontrols-format-dialog .tabbable {
+        /*  Increase the width of the tabs and the control labels, make sure the total dialog with is increased by that amount. */
+        $largerTabWidth: 150px;
+        $largerLabelWidth: 100px;
+        $largerDialogWidth: calc($tabbableDialogWidth + ($largerTabWidth - $tabsLeftWidth) + ($largerLabelWidth - $tabsLabelWidth));
+
+        width: $largerDialogWidth;
+
+        .nav-tabs-left {
+            max-width: $largerTabWidth;
+            width: $largerTabWidth;
+        }
+		.non-tabbable {
+		  width: calc($noTabsDialogWidth + ($largerLabelWidth - $noTabsLabelWidth));
+		}
+        .control-label {
+            max-width: $largerLabelWidth;
+            width: $largerLabelWidth;
+        }
+        .controls {
+            margin-left: calc($largerLabelWidth + $labelLeftSpace);
+        }
+
+    }
+}
+
+/* web components */
+.shared-vizcontrols-format-dialog splunk-control-group {
+    display: block;
+    .btn-group {
+        display: block;
+        display: flex;
+        flex-direction: row;
+        .btn {
+            width: auto;
+        }
+    }
+    .btn {
+        width: 100%;
+        box-sizing: border-box;
+        flex: auto;
+    }
+    input[type="text"], .uneditable-input {
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 26px;
+        display: block;
+    }
+    textarea {
+        width: 100%;
+        max-width: 100%;
+        min-height: 2em;
+        resize: vertical;
+        box-sizing: border-box;
+    }
+    input {
+        box-sizing: border-box;
+        min-height: 26px;
+        flex: auto;
+    }
+    input[type="radio"] {
+        margin: 8px;
+    }
+    select {
+        width: 100%;
+    }
+    splunk-text-input:not(:first-child) {
+        flex: 1;
+
+        input[type="text"] {
+            border: $inputBorder;
+            border-radius: $inputBorderRadius;
+            margin-top: 3px;
+        }
+    }
+}

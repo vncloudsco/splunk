@@ -1,0 +1,173 @@
+
+.search-results-wrapper {
+  z-index: 99;
+  clear: none;
+}
+
+
+
+.source-label {
+	font-weight: bold;
+}
+
+/* remove extra bottom border from static header */
+.header-table-static .header-table-wrapper {
+  border: 0;
+}
+
+/* settings advanced panel */
+.datapreview-settings-advanced input[type="text"]{
+    width:80%;
+}
+.datapreview-settings-advancedfields > .elements {
+    input[type="text"]{
+       width:100%;
+    }
+    .template {
+        > td {
+            vertical-align: top;
+            > .shared-controls-singleinputcontrol {
+                width: 195px;
+            }
+            > .control, > #value {
+                margin-left: 5px;
+            }
+             > .close-row {
+                margin-left: 10px;
+             }
+        }
+    }
+}
+
+.datapreview {
+  @mixin application-layout 440px;
+  @mixin display-flex column;
+  flex-grow: 1;
+
+  height: 100%;
+  background-color: $white;
+
+  .section-header {
+      margin: $spacing $spacing 0 $spacing;
+
+  }
+
+  .secondaryHeader {
+    @mixin create-heading-extra-large;
+  }
+
+  .layoutColRight {
+    border-left: 1px solid  $borderColor;
+  }
+
+  .layoutBodyColumns{
+    border-top: 1px solid  $borderColor;
+  }
+}
+
+.settings-wrapper {
+  height: 100%;
+}
+
+/* START eventsummary view */
+
+.linecountDistributionTable{
+  width:200px;
+}
+
+.linecountDistributionTable td{
+  padding-bottom:4px;
+  text-align: center;
+}
+/* END eventsummary view */
+
+/* overrides base style form label widths */
+.datapreview-settings .form-horizontal .control-label {
+  width: 90px;
+}
+
+.datapreview-settings .form-horizontal {
+    .controls, .help-block {
+        margin-left: 100px;
+    }
+}
+
+/* settings advanced panel */
+.datapreview-settings-advanced input[type="text"] {
+  width:80%;
+}
+
+/* START eventsummary view */
+
+.linecountDistributionTable {
+  width:200px;
+}
+
+.linecountDistributionTable td {
+  padding-bottom:4px;
+}
+/* END eventsummary view */
+
+/*copy to clipboard dialog*/
+.copyToClipboardDialog textarea {
+  width: 85%;
+  height: 200px;
+}
+
+.settingsPanels {
+	border-top: $borderDefault;
+	border-bottom: $borderDefault;
+}
+
+/* Accordion */
+.accordion .accordion-group.active .accordion-toggle:hover {
+	background-color: $pillBackgroundColorHover;
+	cursor: pointer;
+}
+
+
+/* Select Source */
+
+.datapreview-results .alerts {
+  margin-left: 20px;
+}
+
+.input-container .shared-findinput {
+    text-align: center;
+    margin: 5px;
+    .search-query {
+        width: 190px;
+    }
+}
+
+
+.jqtree-closed > ul {
+  display: none;
+ }
+
+.noEventsMessage{
+  margin:20px;
+  display: none;
+}
+
+.datapreview-settings .shared-flashmessages{
+  width:auto;
+  word-wrap: break-word;
+}
+
+.datapreview-save .shared-flashmessages{
+  width:auto;
+  word-wrap: break-word;
+}
+
+.datapreview-save .control-group {
+  clear: both;
+}
+
+.datapreview-save .control-label {
+  float: left;
+  width: 30%;
+  margin-right: 20px;
+  text-align: right;
+  line-height: 2;
+}

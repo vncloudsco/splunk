@@ -1,0 +1,227 @@
+--- OpenSSL/ssl/connection.c.orig	2015-04-22 11:18:55.291032441 -0700
++++ OpenSSL/ssl/connection.c	2015-04-22 08:07:00.906782927 -0700
+@@ -438,9 +438,9 @@
+         return NULL;
+ #endif
+
+-    MY_BEGIN_ALLOW_THREADS(self->tstate)
++    MY_BEGIN_ALLOW_THREADS(self->context)
+     ret = SSL_write(self->ssl, buf, len);
+-    MY_END_ALLOW_THREADS(self->tstate)
++    MY_END_ALLOW_THREADS(self->context)
+
+ #if PY_VERSION_HEX >= 0x02060000
+     PyBuffer_Release(&pbuf);
+@@ -495,9 +495,9 @@
+ #endif
+
+     do {
+-        MY_BEGIN_ALLOW_THREADS(self->tstate)
++        MY_BEGIN_ALLOW_THREADS(self->context)
+         ret = SSL_write(self->ssl, buf, len);
+-        MY_END_ALLOW_THREADS(self->tstate)
++        MY_END_ALLOW_THREADS(self->context)
+         if (PyErr_Occurred())
+         {
+             flush_error_queue();
+@@ -550,9 +550,9 @@
+     if (buf == NULL)
+         return NULL;
+
+-    MY_BEGIN_ALLOW_THREADS(self->tstate)
++    MY_BEGIN_ALLOW_THREADS(self->context)
+     ret = SSL_read(self->ssl, PyBytes_AsString(buf), bufsiz);
+-    MY_END_ALLOW_THREADS(self->tstate)
++    MY_END_ALLOW_THREADS(self->context)
+
+     if (PyErr_Occurred())
+     {
+@@ -644,9 +644,9 @@
+         return NULL;
+     }
+
+-    MY_BEGIN_ALLOW_THREADS(self->tstate);
++    MY_BEGIN_ALLOW_THREADS(self->context);
+     ret = SSL_renegotiate(self->ssl);
+-    MY_END_ALLOW_THREADS(self->tstate);
++    MY_END_ALLOW_THREADS(self->context);
+
+     if (PyErr_Occurred()) {
+         flush_error_queue();
+@@ -670,9 +670,9 @@
+     if (!PyArg_ParseTuple(args, ":do_handshake"))
+         return NULL;
+
+-    MY_BEGIN_ALLOW_THREADS(self->tstate);
++    MY_BEGIN_ALLOW_THREADS(self->context);
+     ret = SSL_do_handshake(self->ssl);
+-    MY_END_ALLOW_THREADS(self->tstate);
++    MY_END_ALLOW_THREADS(self->context);
+
+     if (PyErr_Occurred())
+     {
+@@ -887,9 +887,9 @@
+     if (!PyArg_ParseTuple(args, ":shutdown"))
+         return NULL;
+
+-    MY_BEGIN_ALLOW_THREADS(self->tstate)
++    MY_BEGIN_ALLOW_THREADS(self->context)
+     ret = SSL_shutdown(self->ssl);
+-    MY_END_ALLOW_THREADS(self->tstate)
++    MY_END_ALLOW_THREADS(self->context)
+
+     if (PyErr_Occurred())
+     {
+--- OpenSSL/ssl/context.c.orig	2015-04-22 11:20:21.509206954 -0700
++++ OpenSSL/ssl/context.c	2015-04-22 14:01:24.309629825 -0700
+@@ -89,7 +89,7 @@
+      * we invoke might segfault or blow up the sun.  The reverse will be done
+      * before returning.
+      */
+-    MY_END_ALLOW_THREADS(ctx->tstate);
++    MY_END_ALLOW_THREADS(ctx);
+
+     /* The Python callback is called with a (maxlen,verify,userdata) tuple */
+     argv = Py_BuildValue("(iiO)", maxlen, verify, ctx->passphrase_userdata);
+@@ -144,7 +144,7 @@
+     /*
+      * This function is returning into OpenSSL.  Release the GIL again.
+      */
+-    MY_BEGIN_ALLOW_THREADS(ctx->tstate);
++    MY_BEGIN_ALLOW_THREADS(ctx);
+     return len;
+ }
+
+@@ -170,7 +170,7 @@
+     ssl = (SSL *)X509_STORE_CTX_get_app_data(x509_ctx);
+     conn = (ssl_ConnectionObj *)SSL_get_app_data(ssl);
+
+-    MY_END_ALLOW_THREADS(conn->tstate);
++    MY_END_ALLOW_THREADS(conn->context);
+
+     cert = new_x509(X509_STORE_CTX_get_current_cert(x509_ctx), 0);
+     errnum = X509_STORE_CTX_get_error(x509_ctx);
+@@ -190,7 +190,7 @@
+         c_ret = 0;
+     }
+
+-    MY_BEGIN_ALLOW_THREADS(conn->tstate);
++    MY_BEGIN_ALLOW_THREADS(conn->context);
+     return c_ret;
+ }
+
+@@ -215,7 +215,7 @@
+      * we invoke might segfault or blow up the sun.  The reverse will be done
+      * before returning.
+      */
+-    MY_END_ALLOW_THREADS(conn->tstate);
++    MY_END_ALLOW_THREADS(conn->context);
+
+     argv = Py_BuildValue("(Oii)", (PyObject *)conn, where, _ret);
+     ret = PyEval_CallObject(conn->context->info_callback, argv);
+@@ -233,7 +233,7 @@
+     /*
+      * This function is returning into OpenSSL.  Release the GIL again.
+      */
+-    MY_BEGIN_ALLOW_THREADS(conn->tstate);
++    MY_BEGIN_ALLOW_THREADS(conn->context);
+     return;
+ }
+
+@@ -262,7 +262,7 @@
+      * we invoke might segfault or blow up the sun.  The reverse will be done
+      * before returning.
+      */
+-    MY_END_ALLOW_THREADS(conn->tstate);
++    MY_END_ALLOW_THREADS(conn->context);
+
+     argv = Py_BuildValue("(O)", (PyObject *)conn);
+     ret = PyEval_CallObject(conn->context->tlsext_servername_callback, argv);
+@@ -272,7 +272,7 @@
+     /*
+      * This function is returning into OpenSSL.  Release the GIL again.
+      */
+-    MY_BEGIN_ALLOW_THREADS(conn->tstate);
++    MY_BEGIN_ALLOW_THREADS(conn->context);
+     return result;
+ }
+
+@@ -591,9 +591,9 @@
+     if (!PyArg_ParseTuple(args, "s|i:use_privatekey_file", &keyfile, &filetype))
+         return NULL;
+
+-    MY_BEGIN_ALLOW_THREADS(self->tstate);
++    MY_BEGIN_ALLOW_THREADS(self);
+     ret = SSL_CTX_use_PrivateKey_file(self->ctx, keyfile, filetype);
+-    MY_END_ALLOW_THREADS(self->tstate);
++    MY_END_ALLOW_THREADS(self);
+
+     if (PyErr_Occurred())
+     {
+--- OpenSSL/ssl/ssl.c.orig	2015-04-22 11:21:00.325285480 -0700
++++ OpenSSL/ssl/ssl.c	2015-04-22 12:23:19.114774084 -0700
+@@ -40,8 +40,6 @@
+ void **crypto_API;
+ #endif
+
+-int _pyOpenSSL_tstate_key;
+-
+ /* Exceptions defined by the SSL submodule */
+ PyObject *ssl_Error,                   /* Base class              */
+          *ssl_ZeroReturnError,         /* Used with SSL_get_error */
+@@ -278,13 +276,6 @@
+     if (!init_ssl_connection(module))
+         goto error;
+
+-#ifdef WITH_THREAD
+-    /*
+-     * Initialize this module's threading support structures.
+-     */
+-    _pyOpenSSL_tstate_key = PyThread_create_key();
+-#endif
+-
+     PyOpenSSL_MODRETURN(module);
+
+ error:
+--- OpenSSL/ssl/ssl.h.orig	2015-04-22 11:21:35.358356320 -0700
++++ OpenSSL/ssl/ssl.h	2015-04-22 08:22:39.423480767 -0700
+@@ -37,10 +37,6 @@
+
+ #define ssl_API_pointers          2
+
+-#ifdef WITH_THREAD
+-extern int _pyOpenSSL_tstate_key;
+-#endif /* WITH_THREAD */
+-
+ #ifdef SSL_MODULE
+
+ extern ssl_Context_New_RETURN    ssl_Context_New    ssl_Context_New_PROTO;
+--- OpenSSL/util.h.orig	2015-04-22 12:52:30.345236193 -0700
++++ OpenSSL/util.h	2015-04-22 08:41:03.180520385 -0700
+@@ -43,19 +43,19 @@
+  * in this thread can get it, if it needs to restore the threadstate to run
+  * some Python.
+  */
+-#  define MY_BEGIN_ALLOW_THREADS(ignored)                               \
+-    PyThread_delete_key_value(_pyOpenSSL_tstate_key);			\
+-    PyThread_set_key_value(_pyOpenSSL_tstate_key, PyEval_SaveThread());
++#  define MY_BEGIN_ALLOW_THREADS(context)                               \
++    PyThread_delete_key_value((context)->tstate);			\
++    (context)->tstate = PyEval_SaveThread();
+
+ /*
+  * Get the previous Python threadstate and restore it.
+  */
+-#  define MY_END_ALLOW_THREADS(ignored)                                 \
+-    PyEval_RestoreThread(PyThread_get_key_value(_pyOpenSSL_tstate_key));
++#  define MY_END_ALLOW_THREADS(context)                                 \
++    PyEval_RestoreThread((context)->tstate);
+
+ #else
+-#  define MY_BEGIN_ALLOW_THREADS(st)
+-#  define MY_END_ALLOW_THREADS(st)      { st = NULL; }
++#  define MY_BEGIN_ALLOW_THREADS(context)
++#  define MY_END_ALLOW_THREADS(context)      { (context)->tstate = NULL; }
+ #endif
+
+ #if !defined(PY_MAJOR_VERSION) || PY_VERSION_HEX < 0x02000000

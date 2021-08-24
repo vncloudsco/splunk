@@ -1,0 +1,115 @@
+.paddingTopNone {
+    padding-top: 0px;
+}
+
+.mainSection {
+    background-color: white;
+    padding: 20px;
+}
+
+.preFlightCheckHeading {
+    margin-top: 0px;
+}
+
+.preFlightCheckSettingsPageMsg {
+    display: inline-block;
+}
+
+.preFlightCheckSettingsPageMsg div {
+    float: left;
+}
+
+.preFlightCheckSettingsPageMsg button {
+    float: left;
+    margin-top: 4px;
+}
+
+.preFlightCheckMenuBtn {
+    pointer-events: none !important;
+}
+
+.categoryCardContainer {
+    text-align: center;
+}
+
+.categoryCard {
+    height: 130px;
+    margin: 0px 20px 20px 0px;
+}
+
+.categoryCard:last-child {
+    margin-right: 0px;
+}
+
+.categoryCardBody {
+    width: 280px;
+    clear: both;
+}
+
+.categoryCardBody .categoryCardBodyDiv {
+    width: 49%;
+    text-align: center;
+    float: left;
+}
+
+.categoryCardBody .categoryCardBodyDiv .categoryCardValue {
+    display: inline-block;
+    width: 110px;
+    font-size: $fontSizeXXLarge;
+    font-weight: bold;
+}
+
+.categoryCardBody .categoryCardBodyDiv .categoryCardText {
+    white-space: nowrap;
+    font-size: $fontSizeSmall;
+}
+
+.poolUpdateCPUWeight {
+    margin-bottom: 0px;
+}
+
+.dynamicAllocated {
+    margin-left: 163px;
+    padding-top: 0px !important;
+    font-weight: normal;
+}
+
+.miscHelpTxt {
+    font-size: $fontSizeSmall;
+    font-weight: normal;
+}
+
+.table {
+    padding-bottom: 40px;
+}
+
+.table td {
+    word-break: break-all;
+}
+
+.link {
+    color: $linkColor;
+
+    &:not([disabled]) {
+        &:hover {
+            background-color: transparent;
+        }
+
+        &:focus {
+            background-color: transparent;
+            box-shadow: none;
+        }
+    }
+}
+
+.successIcon {
+    color: $successColorL10;
+}
+
+.errorIcon {
+    color: $errorColorL10;
+}
+
+.displayNone {
+    display: none;
+}

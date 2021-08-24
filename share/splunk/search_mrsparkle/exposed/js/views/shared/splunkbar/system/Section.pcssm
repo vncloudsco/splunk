@@ -1,0 +1,27 @@
+.view {
+    width: 200px;
+    padding: $spacingHalf;
+    color: $textColor;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.heading {
+    @mixin create-section-heading-small;
+    margin: 0 0 2px;
+}
+
+.list {
+    margin: 0;
+}
+
+.link {
+    @mixin link;
+    display: inline-block;
+    margin-left: -2px;
+    padding: $linkPadding $linkPadding $linkPadding calc($spacingHalf + $linkPadding);
+    line-height: calc($lineHeight - $linkPadding);
+    text-indent: -$spacingHalf;
+    border-radius: $borderRadius;
+    box-shadow: none;
+}

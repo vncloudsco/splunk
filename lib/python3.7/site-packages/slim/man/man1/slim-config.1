@@ -1,0 +1,43 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "CONFIG" "1" "September 2017" "Splunk, Inc." "Splunk Packaging Toolkit"
+.
+.SH "NAME"
+\fBconfig\fR \- get, set, or unset user or system options
+.
+.SH "SYNOPSIS"
+\fBslim\fR \fBconfig\fR [(\fB\-h\fR|\fB\-\-help\fR)] [(\fB\-l\fR|\fB\-\-location=\fR)(\fBsystem\fR|\fBuser\fR)] [(\fB\-g\fR|\fB\-\-get=\fR)<name> [<name>\.\.\.]] [(\fB\-s\fR|\fB\-\-set=\fR)<name> <value> [<name> <value>\.\.\.]] [(\fB\-u\fR|\fB\-\-unset=\fR)<name> [<name>\.\.\.]]
+.
+.SH "DESCRIPTION"
+Gets and sets user or system options\.
+.
+.SH "OPTIONS"
+\fB\-h\fR, \fB\-\-help\fR
+.
+.br
+Print help message and exit\.
+.
+.P
+\fB\-l\fR (\fBsystem\fR|\fBuser\fR), \fB\-\-location\fR (\fBsystem\fR|\fBuser\fR)
+.
+.br
+When writing settings: write to the named configuration file (default: user); when reading settings: read only from the named configuration file rather than from \fBsystem\fR and \fBuser\fR\.
+.
+.P
+\fB\-g\fR [<name> [<name>\.\.\.]], \fB\-\-get=\fR[<name> [<name>\.\.\.]]
+.
+.br
+Get the values for all settings (using \'*\'), all settings in a section (using \'<section>[\.*]\'), or the named settings, where the name of each setting is its section and option name separated by a dot (\'<section>\.<option>\')\.
+.
+.P
+\fB\-s\fR <name> <value> [<name> <value>\.\.\.], \fB\-\-set=\fR<name> <value> [<name> <value>\.\.\.]
+.
+.br
+Set the value for the named setting, where the name of the setting is its section and option name separated by a dot (<section>\.<option>)\.
+.
+.P
+\fB\-u\fR [<name> [<name> \.\.\.]], \fB\-\-unset=\fR[<name> [<name> \.\.\.]]
+.
+.br
+Remove the named settings, where the name of each setting is its section and option name separated by a dot (<section>\.<option>)\.

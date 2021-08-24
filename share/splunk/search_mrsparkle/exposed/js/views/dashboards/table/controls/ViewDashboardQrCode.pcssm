@@ -1,0 +1,34 @@
+/*  Splunk: Component: View Dashboard QR Code */
+/*  =============================== */
+/*  view QR code dialog */
+
+.qrBox {
+    display: flex;
+    justify-content: space-around;
+}
+
+.qrImageBox {
+    width: 60%;
+    position: relative;
+    padding-top: 60%;
+    float: left;
+}
+
+.qrImage {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #aaaaaa;
+}
+
+.downloadButtonsBox {
+    width: 40%;
+    margin-top: 20px;
+    margin-left: 6px;
+}
+
+.downloadButton {
+    width: 100%;
+    margin-bottom: 13px;
+}

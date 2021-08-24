@@ -1,0 +1,24 @@
+.description {
+    @mixin reset block;
+    margin: 0 0 20px;
+}
+
+.content {
+    @mixin reset block;
+    @mixin clearfix;
+}
+
+.title {
+    @mixin reset block;
+    width: 124px;
+    text-align: right;
+    float: left;
+    padding: 6px 0;
+}
+
+.theme {
+    margin-bottom: 15px;
+    & > div {
+        margin-left: 144px;
+    }
+}

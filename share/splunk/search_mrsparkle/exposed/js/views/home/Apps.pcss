@@ -1,0 +1,163 @@
+$sidebarColor: $gray30;
+$sidebarTextColor: $gray80;
+$titleHeight: 50px;
+$appIconSize: 36px;
+
+@define-mixin sidebarLink {
+    display: block;
+    color: $sidebarTextColor;
+    transition: background-color 0.15s linear, color 0.15s linear;
+    background-color: $sidebarColor;
+
+    &:hover {
+        background-color: $gray45;
+        color: $white;
+        text-decoration: none;
+    }
+
+    &:focus {
+        @mixin focus-element-inset $sidebarColor;
+    }
+}
+
+.home-apps {
+    flex: 0 0 270px;
+    display: flex;
+    flex-direction: column;
+}
+.apps-title {
+    position: relative;
+    flex: 0 0 $titleHeight;
+    margin: 0;
+    padding-left: $spacingOneAndAHalf;
+    background-color: $sidebarColor;
+
+    color: $sidebarTextColor;
+    font-weight: $fontWeightSemiBold;
+    font-size: $fontSizeXLarge;
+    line-height: $titleHeight;
+}
+
+.manage-apps {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: $sidebarTextColor;
+    font-size: $fontSizeXXLarge;
+    line-height: $titleHeight;
+    height: $titleHeight;
+    padding: 0 $spacingThreeQuarters;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: none;
+
+    &:hover {
+        color: $white;
+        background-color: $gray45;
+    }
+    &:focus {
+        color: $white;
+        @mixin focus-element-inset $sidebarColor;
+    }
+}
+
+.scrolling-bar {
+    overflow-y: auto;
+    width: 100%;
+    background-color: $sidebarColor;
+    flex: 1 0 0;
+    border-top: 1px solid $gray20;
+}
+.icon-error {
+    display:inline-block;
+}
+
+
+.app {
+    position: relative;
+    background-color: $sidebarColor;
+    border-bottom: 1px solid $gray20;
+    @mixin clearfix;
+}
+
+.app-link {
+    @mixin sidebarLink;
+
+    display: flex;
+    min-height: $appIconSize; /* icon size */
+    padding: $spacingHalf $spacingHalf $spacingHalf calc($spacing + $spacingQuarter);
+    position: relative;
+
+    .drag-handle {
+        position: absolute;
+        left: 8px;
+        top: 14px;
+        width: 8px;
+        bottom: 14px;
+        opacity: 0;
+        @mixin draggable-handle-background E1E6EB;
+        transition: opacity 0.15s linear;
+        cursor: more;
+        cursor: ns-resize;
+    }
+
+    &:hover {
+        .drag-handle {
+            opacity: 0.4;
+        }
+    }
+}
+.app-update-link {
+    @mixin sidebarLink;
+    @mixin button-size $buttonPaddingVerticalMini, calc($buttonPaddingSides / 2), -1px;
+
+    border: 1px solid $gray45;
+    font-size: $fontSizeXSmall;
+
+    float: right;
+    margin: 5px 14px;
+
+    border-radius: 2px;
+
+    &:focus {
+        @mixin focus-element;
+    }
+}
+
+.app-icon-wrapper {
+    padding: 2px;
+    flex: 0 0 $appIconSize;
+    height: $appIconSize;
+}
+
+.app-icon {
+    display: block;
+    height: $appIconSize;
+    width: $appIconSize;
+}
+
+.add-more-apps {
+    @mixin sidebarLink;
+
+    border-bottom: 1px solid $gray20;
+    display: block;
+    text-align: center;
+    line-height: 64px;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.app-icon img {
+    vertical-align: middle;
+}
+.app-name {
+    align-self: center;
+    margin-left: $spacingThreeQuarters;
+
+    width: 170px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}

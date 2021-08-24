@@ -1,0 +1,56 @@
+.job-status {
+    position: relative;
+    flex: 0 0 auto;
+    background-color: $white;
+    border-bottom: 1px solid $borderColor;
+
+    .job-status-alert {
+        margin: 0 10px;
+    }
+
+    .table-resultscontainer-jobstatus-count, .summary-count {
+        float: left;
+        margin-right: 5px;
+    }
+
+    .summary-count {
+        .warning-no-results {
+            margin-top: -5px;
+        }
+    }
+
+    .shared-jobcontrols, .shared-timerangepicker {
+        float: right;
+    }
+
+    .btn-group >.btn-pill {
+        font-size: $fontSizeSmall
+    }
+
+    .status, .table-count {
+        line-height: 27px;
+        padding-left: 10px;
+
+        .icon-warning, .icon-warning-paused {
+            color: $warningColor;
+            font-size: 200%;
+            display: inline-block;
+            margin-right: 3px;
+            vertical-align: middle;
+            line-height: 16px;
+        }
+
+        .icon-alert {
+            color: $errorColor;
+            font-size: 200%;
+            display: inline-block;
+            margin-right: 3px;
+            vertical-align: middle;
+            line-height: 16px;
+        }
+
+        .icon-check {
+            color: $successColor;
+        }
+    }
+}

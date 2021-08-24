@@ -1,0 +1,178 @@
+/*  Splunk: Page: Dashbaords */
+/*  ======================== */
+/*  dashboard listing page */
+
+.dashboards-table > .table {
+    @mixin create-card-table;
+    margin-bottom: $spacing;
+}
+
+/*  TODO: make this common */
+.section-description {
+	margin-bottom: 0;
+}
+
+.col-actions {
+	width: 100px;
+}
+
+.col-app, .col-owner {
+	width: 140px;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}
+
+.col-sharing {
+	width: 70px;
+}
+
+p.dashboard-description {
+	word-wrap: break-word;
+}
+
+td.app, td.owner {
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+
+.expanded td.app, .expanded td.owner {
+	white-space: normal;
+	word-break: break-all;
+}
+
+
+.search-query-control {
+	position: relative;
+}
+
+.alert, .alert-error {
+	word-wrap: break-word;
+}
+
+input.search-query {
+	padding-right: 20px;
+}
+
+.search-query-clear {
+	position: absolute;
+	right: 7px;
+	top: 3px;
+	line-height: 22px;
+	font-size:18px;
+	color: $textGray;
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+.add-dashboard-controls {
+  padding-top: 2px;
+}
+
+.dashboard-source-type {
+  color: $textGray;
+  float: right;
+}
+
+.dashboards-table-tablerow > .expands > {
+	&:focus {
+		@mixin focus-element-inset;
+	}
+}
+
+
+/*  Tiles */
+/*  ------------------------------- */
+.dashboards-tiles {
+	color: $textColor;
+}
+
+.dashboards-tiles-dashboardtilelist {
+	padding: 0px 40px;
+}
+
+.dashboards-tiles-dashboardtile {
+	display: inline-block;
+	vertical-align: top;
+	margin: 6px;
+
+	.tile-shape {
+		position: relative;
+		width: 230px;
+		height: 280px;
+		border-radius: 2px;
+		background-color: $gray30;
+		color: $white;
+	}
+
+	.tile-name {
+		position: absolute;
+		top: 40px;
+		left: 20px;
+		right: 20px;
+		max-height: 80px;
+		overflow: hidden;
+		font-size: 14px;
+		text-align: center;
+	}
+
+	.tile-actions {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		right: 0px;
+
+		.action-edit {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			color: $textTileColor;
+			text-decoration: none;
+
+			.caret {
+				font-size: 8px;
+			}
+		}
+
+		.action-edit:hover {
+			color: $white;
+		}
+
+		.action-buttons {
+			position: absolute;
+			bottom: 14px;
+			right: 10px;
+
+			.btn {
+				margin: 3px;
+				border-color: $borderColor !important;
+				background-color: $gray30;
+				color: $textTileColor;
+				box-shadow: none;
+				text-shadow: none;
+			}
+
+			.btn:hover {
+				border-color: $white !important;
+				color: $white;
+			}
+		}
+	}
+}
+
+.dashboards-tiles-emptytile {
+	display: inline-block;
+	vertical-align: top;
+	margin: 6px;
+	cursor: pointer;
+
+	.tile-shape {
+		width: 230px;
+		height: 280px;
+		background-image: url("./empty_tile_bg.png");
+		background-position: center center;
+		background-repeat: no-repeat;
+	}
+}

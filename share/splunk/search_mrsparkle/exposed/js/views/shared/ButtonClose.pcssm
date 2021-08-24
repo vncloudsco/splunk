@@ -1,0 +1,14 @@
+/*  Splunk: Buttons */
+/*  =============== */
+
+
+.pill {
+    composes: pill from './Button.pcssm';
+    color: $pillTextColor;
+    font-size: $modalHeadingFontSize;
+    padding: 0;
+    height: $buttonSquareSize;
+    width: $buttonSquareSize;
+    line-height: $buttonSquareSize;
+    text-align: center;
+}

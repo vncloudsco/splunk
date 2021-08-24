@@ -1,0 +1,263 @@
+@import '../variables.pcss';
+
+.table-commandsidebar {
+    $sidebarColor: $gray30;
+    $sidebarWidth: 180px;
+    $sidebarColorHover: $gray45;
+    $commandColor: $gray45;
+    $commandColorHover:  $gray60;
+    $commandColorActive: $accentColor;
+    $commandColorActiveHover: $accentColorL10;
+    $commandColorError:  $errorColorD50;
+    $commandColorErrorHover: $errorColorD30;
+    $commandColorActiveError:  $errorColor;
+    $commandColorActiveErrorHover: $errorColorL20;
+
+    z-index: 2;
+
+    @define-mixin focus-dark {
+        background-color:  $accentColorD10;
+        box-shadow: none;
+        outline: none;
+    }
+
+    @mixin display-flex column;
+    flex: 0 0 $sidebarWidth;
+
+    box-sizing: border-box;
+    background-color: $sidebarColor;
+    font-size: $fontSizeSmall;
+    position: relative;
+    overflow: hidden;
+
+    > h3, > .nav, > .btn-group-radio {
+        flex: 0 0 auto;
+    }
+
+    h3 {
+        color: $white;
+        line-height: 40px;
+        padding: 0 10px;
+        margin: 0;
+        flex: 0 0 auto;
+    }
+
+    p {
+        padding: 5px 10px 0 10px;
+        margin: 0;
+    }
+
+    > .nav {
+        margin: 0;
+        width: $sidebarWidth;
+        flex: 0 1 auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+    }
+
+    &.collapsed {
+        flex: 0 0 $collapsedSidebarWidth;
+        cursor: pointer;
+
+        h3, > .btn-group-radio, .commandsidebar-collapse {
+            opacity: 0;
+        }
+
+        .commandsidebar-expand {
+            opacity: 1.0;
+            pointer-events: auto;
+        }
+
+        .nav > li a {
+            color: transparent;
+        }
+
+        &:hover {
+            color: $white;
+            background-color: $sidebarColorHover;
+
+            .nav > li a {
+                background-color: $commandColorHover;
+                &.active {
+                    background-color: $commandColorActiveHover;
+                }
+                &.error {
+                    background-color: $commandColorErrorHover;
+                }
+                &.active.error {
+                    background-color: $commandColorActiveErrorHover;
+                }
+            }
+        }
+
+
+        /*  Hide controls to prevent click actions*/
+        .control,
+        .commandsidebar-collapse {
+            display:none;
+        }
+    }
+
+    /*  Hide commandsidebar-expand to prevent click actions*/
+    &:not(.collapsed) .commandsidebar-expand {
+        display:none;
+    }
+
+    .icon-toggle {
+        position: absolute;
+        line-height: 40px;
+        text-align: center;
+        color: $white;
+        text-decoration: none;
+        right: 0;
+        top: 0;
+        width: 40px;
+        z-index: 20;
+    }
+
+    .commandsidebar-collapse {
+        width: 40px;
+        margin-left: -41px;
+
+        &:focus {
+            @mixin focus-dark;
+        }
+    }
+
+    .commandsidebar-expand {
+        width: 30px;
+        margin-left: -31px;
+
+        opacity: 0;
+        font-size: 15px;
+
+        &:focus {
+            @mixin focus-dark;
+        }
+    }
+
+    > .btn-group-radio {
+        display: flex;
+        width: $sidebarWidth;
+        padding-bottom: 1px;
+
+        > .btn {
+            border: none;
+            border-radius: 0;
+            border-bottom: transparent 3px solid;
+            background: none;
+            line-height: 16px;
+            color: $white;
+            box-shadow: none;
+            padding: 10px;
+
+            &:first-child {
+                flex: 1 1 auto;
+            }
+
+            &:last-child {
+                flex: 1 0 auto;
+            }
+
+            &.active, &:hover {
+                color: $white;
+                background: none;
+                box-shadow: none;
+                border-top-left-radius: 0px;
+                border-top-right-radius: 0px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+            &:hover:not(.active) {
+                border-bottom: $gray60 3px solid;
+            }
+            &.active {
+                font-weight: $fontWeightSemiBold;
+                border-bottom: $infoColor 3px solid;
+            }
+            &:focus {
+                @mixin focus-element;
+            }
+        }
+    }
+
+    li {
+        position: relative;
+
+        .btn-command {
+            background-color: $commandColor;
+            color: $white;
+            padding: 5px 30px 5px 10px;
+            line-height: $lineHeight;
+            word-wrap: break-word;
+            cursor: pointer;
+
+            &:hover:not(.active):not(.disabled) {
+                background-color: $commandColorHover;
+                cursor: pointer;
+            }
+
+            &.active {
+                background-color: $commandColorActive;
+            }
+
+            &.error {
+                background-color: $commandColorError;
+
+                &:hover:not(.active):not(.disabled) {
+                    background-color: $commandColorErrorHover;
+                }
+            }
+
+            &.active.error {
+                background-color: $errorColor;
+            }
+
+            &:focus {
+                @mixin focus-dark;
+            }
+
+            &.disabled {
+                cursor: not-allowed;
+            }
+        }
+
+        .btn-remove {
+            position: absolute;
+            display: inline-block;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            overflow: hidden;
+            width: 30px;
+            line-height: 30px;
+            color: $white;
+            text-align: center;
+
+            &:focus {
+                @mixin focus-dark;
+            }
+
+            &:hover {
+                background-color: color($white a(20%))
+            }
+
+        }
+    }
+
+    li + li {
+        margin-top: 1px;
+    }
+
+    .pulse {
+        animation: pulsate 0.7s ease-out;
+        animation-iteration-count: 1;
+    }
+
+    .search-link {
+        margin: 0px auto;
+        font-size: 12px;
+        padding: 5px;
+    }
+}

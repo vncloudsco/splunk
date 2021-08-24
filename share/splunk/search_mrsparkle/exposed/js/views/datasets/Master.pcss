@@ -1,0 +1,71 @@
+.datasets-results-table > .table {
+    @mixin create-card-table;
+    margin-bottom: $spacing;
+}
+
+.section-description {
+	margin-bottom: 0;
+	max-width: 700px;
+}
+
+.datasets-help-link {
+	display: inline-block;
+	margin-top: 5px;
+    margin-right: 10px;
+}
+
+.col-type {
+	width: 120px;
+}
+
+.col-accelerate {
+    width: 15px;
+}
+
+.col-actions {
+	width: 150px;
+}
+
+.edit:not(:empty) {
+    display: inline-block;
+}
+
+.shared-datasetcontrols-exploremenu, .shared-datasetcontrols-editmenu {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.col-app, .col-owner {
+	width: 140px;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}
+
+.col-sharing {
+	width: 70px;
+}
+
+
+p.description {
+	word-wrap: break-word;
+}
+
+td.app, td.owner {
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+
+.expanded td.app, .expanded td.owner {
+	white-space: normal;
+	word-break: break-all;
+}
+
+.app-download-container {
+    display: inline-block;
+}
+
+.icon-lightning-selected {
+    color: $warningColor;
+    text-shadow: 0 1px 0 $warningColorD20;
+}

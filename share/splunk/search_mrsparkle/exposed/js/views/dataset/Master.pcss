@@ -1,0 +1,134 @@
+.explorer-page {
+    overflow-x: hidden;
+}
+
+.section-header {
+    @mixin display-flex;
+    justify-content: space-between;
+    padding: 10px 20px 4px 20px;
+}
+
+.dataset-header-title {
+    flex: 1 0 0;
+    min-width: 30%;
+    word-break: break-word;
+}
+
+.shared-summarytable {
+    .scroll-table-wrapper {
+        margin-top: 0px;
+    }
+}
+
+.table-preview {
+    margin-bottom: 0px;
+}
+
+.shared-datasettable-tableheader {
+    width: 100%;
+    height: 36px;
+}
+
+.shared-summarytable-tableheader {
+    width: 100%;
+    height: 41px;
+}
+
+.shared-summarytable-docking-header > .header-table-docked {
+    background-color: $gray60;
+}
+
+.shared-summarytable > .scroll-table-wrapper {
+    overflow-y: hidden;
+    height: auto;
+}
+
+.job-status-container {
+    min-height: 33px;
+    border-bottom: 1px solid $borderColor;
+
+    .shared-jobstatus {
+        padding-right: 0px;
+    }
+}
+
+.more-info > .popdown-dialog {
+    width: 400px;
+
+    .popdown-dialog-body {
+        padding: 10px 20px 20px 20px;
+    }
+}
+
+.edit-info-section {
+    display: inline-block;
+}
+
+.shared-timerangepicker {
+    height: 25px;
+    padding-left: 20px;
+}
+
+.dataset-flash-messages {
+    padding-top: 50px;
+    padding-left: 25px;
+}
+
+.timerange > .controls > .btn {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.explorer-page .shared-summarytable {
+    /* for some reason, flex-direction: column has weird effects on the explorer page
+       so resetting it back to the default, row
+     */
+    flex-direction: row;
+}
+
+.summary-table-column {
+    background-color: white;
+}
+
+.btn-group-summary {
+    min-width: 30%;
+}
+
+.btn-group-tabs .btn {
+    border: none;
+    border-bottom: transparent 4px solid;
+    background: none;
+    line-height: 16px;
+    box-shadow: none;
+    position: relative;
+
+    &.active, &.active:focus, &.active:hover, &:hover {
+        box-shadow: none;
+        background: none;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    &:hover {
+        border-bottom: $gray60 4px solid;
+    }
+
+    &.active {
+        border-bottom: $infoColor 4px solid;
+    }
+}
+
+.edit-info-section {
+    display: inline-block;
+}
+
+.dataset-explore-menu {
+    margin: 0 6px 0 3px;
+}
+
+.icon-lightning-selected {
+    color: $warningColor !important;
+    text-shadow: 0 1px 0 $warningColorD20;
+}

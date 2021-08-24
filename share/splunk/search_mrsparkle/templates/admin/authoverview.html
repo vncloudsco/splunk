@@ -1,0 +1,374 @@
+<%!
+    title = 'Splunk Admin Authentication Control'
+%>
+<%namespace name="lib" file="//lib.html" import="*"/>
+<%namespace name="helpers" file="_helpers.html"/>
+<%inherit file="//layout/admin.html"/>
+<%
+import splunk
+from splunk.appserver.mrsparkle.lib import util, i18n
+sessionId = cherrypy.session.id
+
+isCloud = util.isCloud()
+authModeText = 'Splunk'
+if(authmode == "LDAP"):
+    authModeText += " and LDAP"
+elif(authmode == "SAML"):
+    authModeText += " and SAML"
+
+mfamode = 'none'
+if(duoConfig['enabled']):
+    mfamode = 'duo'
+elif(rsaConfig['enabled']):
+    mfamode = 'rsa'
+%>
+<style>
+    h1 {
+        margin-bottom: 15px;
+        margin-top: 15px;
+    }
+    p {
+        font-size: 14px;
+    }
+
+    .licenseWrapper {
+        width: 900px;
+    }
+    .licenseWrapper > p:first-child {
+        margin-top: 0;
+    }
+    .control-block{
+        margin: 30px 0px;
+    }
+    .control-block::after{
+        clear:both;
+    }
+    .control-block .control{
+        margin-left:120px;
+        position: relative;
+    }
+    .control-block .heading{
+        float: left;
+        width: 110px;
+        text-align: right;
+    }
+
+    .entityEditForm input {
+        width: auto;
+    }
+    .entityEditForm label {
+        margin-left: 10px;
+    }
+    .duoSaveLabel{
+        font-size: 12px;
+        color: #63A637;
+        font-weight: bold;
+    }
+    .icon-check-circle::before{
+        content: "\ECD3";
+        font-family: "Splunk Icons";
+        font-style: normal;
+        font-weight: normal;
+        display: inline-block;
+        min-width: 15px;
+        padding-right: 5px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 18px;
+    }
+    .splButtonWrapper {
+        padding: 10px 0px 0px 0px !important;
+    }
+</style>
+
+<script type="text/javascript">
+    function handleEditFormSubmit(frm) {
+        var answer = confirm(_("Are you sure you want to switch authentication systems?"))
+        if (answer){
+            var eai = Splunk.EAI.getInstance();
+            if (!eai)
+                return false; // page not yet loaded?
+            eai.saveForm($(frm));
+            return false;
+        }else{
+            return false;
+        }
+    }
+    
+     function initEAIForm() {
+        var eai = Splunk.EAI.getInstance(
+                {"authType": {"elementName": "authType", "showInView": ["list", "create", "edit"], "type": "hidden", "value": "Splunk", "label": "Auth Type"}, "helptext": {"helpText": "${_('Click the Save button to enable Splunk authentication.') |h}", "elementName": "helptext", "showInView": ["create", "edit"], "type": "helpstring", "value": null}}, // eaicfg
+                "authentication/providers/Splunk", // endpoint_base
+                {"optionalFields": ["authType"], "requiredFields": []} // eai_attributes
+            );
+            eai.handleAdminReady("search", "Splunk");
+        }
+
+        // Make sure the form is initialized at page load for /manager
+        // initEAIForm() is called explicitly if loaded as a popup
+        $(initEAIForm);
+</script>
+<div class="entityEditForm">
+	<div class="licenseWrapper">
+        <p>${_('Select an authentication method. Splunk supports native authentication as well as the following external methods:')}</p>
+
+        <div class="internal-auth control-block">
+            <span class="heading">${_('Internal')}</span>
+            <div class="control">
+                <input type="checkbox" id="SplunkCheckbox" tabToShow="Splunk" class="authRadio" name="authMethod" checked="checked" disabled="disabled" />  <label for="SplunkCheckbox">${_('Splunk Authentication (always on)')}</label>
+            </div>
+        </div>
+
+        <div class="external-auth control-block" style="overflow: auto">
+            <span class="heading" id="externalAuth">${_('External')}</span>
+            <div class="control" role="group" aria-labelledby="externalAuth">
+                <input type="radio" id="NoneRadio" class="authRadio" name="authMethod"  />  <label for="NoneRadio">${_("None")} </label><br/>
+                <input type="radio" id="LDAPRadio" tabToShow="LDAP" class="authRadio" name="authMethod"  ${' checked="checked"' if authmode=='LDAP' else ''} />  <label for="LDAPRadio">${_("LDAP")} </label><br/>
+                <input type="radio" id="SAMLRadio" tabToShow="SAML" class="authRadio" name="authMethod"  ${' checked="checked"' if authmode=='SAML' else ''} />  <label for="SAMLRadio">${_("SAML")} </label><br/><br>
+                <a class="splButton-primary btn-switch-splunk" href="#" onclick="$('#formSubmitBtn').click();" style="display: none;">
+                    <span>${_('Switch to Splunk authentication')}</span>
+                </a>
+                <a class="btn-config-ldap" href="${make_url(['manager', namespace, 'authentication', 'providers', 'LDAP'])}" onclick="" style="display:none;">
+                    <span class="ldap-btn-label">${_('Configure Splunk to use LDAP')}</span>
+                </a>
+                <a class="btn-config-saml" href="${make_url(['manager', namespace, 'saml'])}" onclick="" style="display:none;">
+                    <span class="saml-btn-label">${_('Configure Splunk to use SAML')}</span>
+                </a>
+            </div>
+        </div>
+
+    % if not isCloud:
+        <h2 id="mfaAuth">${_('Multifactor Authentication')}</h2>
+        <p>${_('Not available with external authentication such as SAML.')}</p>
+        <div class="mfa">
+            <div class="control-block">
+                <div class="control" role="group" aria-labelledby="mfaAuth">
+                    <input type="radio" id="none2faRadio" class="mfaRadio" name="mfa" ${' checked="checked"' if not duoConfig["enabled"] and not rsaConfig["enabled"] else ''} /><label for="none2faRadio">${_("None")}</label><br/>
+                    <input type="radio" id="duoSecurityRadio" class="mfaRadio" name="mfa"  ${' checked="checked"' if duoConfig["enabled"] else ''} /><label for="duoSecurityRadio">${_("Duo Security")}</label><br/>
+                    <input type="radio" id="rsaSecurityRadio" class="mfaRadio" name="mfa"  ${' checked="checked"' if rsaConfig["enabled"] else ''} /><label for="rsaSecurityRadio">${_("RSA Security")}</label><br><br>
+                    <span class="duoSaveLabel icon-check-circle" style="display:none;">${_('Saved')}</span>
+                    <span class="rsaSaveLabel icon-check-circle" style="display:none;">${_('Saved')}</span>
+                    <a class="splButton-primary btn-disable-duo" href="#" style="display:none;">
+                        <span>${_('Disable Duo Multifactor Authentication')}</span>
+                    </a>
+                    <a class="btn-config-duo" href="${make_url(['manager', namespace, 'admin', 'Duo-MFA','_new'],{'action':'edit'})}" onclick="" style="display:none;">
+                        <span class="btn-config-duo-label">${_('Configure Duo Security')}</span>
+                    </a>
+                    <a class="btn-update-duo" href="${make_url(['manager', namespace, 'admin', 'Duo-MFA', 'duo-mfa'],{'action':'edit','uri':'/servicesNS/nobody/system/admin/Duo-MFA/duo-mfa'})}" onclick="" style="display:none;">
+                        <span class="btn-update-duo-label">${_('Update Duo Security settings')}</span>
+                    </a>
+                    <p class="duoSaveError"></p>
+                    <a class="splButton-primary btn-disable-rsa" href="#" style="display:none;">
+                        <span>${_('Disable RSA Multifactor Authentication')}</span>
+                    </a>
+                    <a class="btn-config-rsa" href="${make_url(['manager', namespace, 'admin', 'Rsa-MFA','_new'],{'action':'edit'})}" onclick="" style="display:none;">
+                        <span class="btn-config-rsa-label">${_('Configure RSA Security')}</span>
+                    </a>
+                    <a class="btn-update-rsa" href="${make_url(['manager', namespace, 'admin', 'Rsa-MFA',
+'rsa-mfa'],{'action':'edit','uri':'/servicesNS/nobody/' + namespace + '/admin/Rsa-MFA/rsa-mfa'})}" onclick="" style="display:none;">
+                        <span class="btn-update-rsa-label">${_('Update RSA Security settings')}</span>
+                    </a>
+                    <p class="rsaSaveError"></p>
+                </div>
+            </div>
+        </div>
+   % endif 
+
+        <div class="splButtonWrapper">
+            <a class="splButton-secondary" href="#" onclick="resync_auth()">
+                <span><%doc>TRANS: Clicked to reload authentication configuration</%doc>${_('Reload authentication configuration')}</span>
+            </a>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<div id="Splunk">
+    <form name="authentication/providers/Splunk" class="entityEditForm" method="post" action="${make_url(["manager", namespace, "/authentication/providers/Splunk", "Splunk"])}" onsubmit="return(handleEditFormSubmit(this))" id="eaiform">
+        <input type="hidden" name="__ns" value="search">
+        <input type="hidden" name="__redirect" value="">
+        <input type="hidden" name="authType" id="item-authType" value="Splunk" />
+        ${csrf_hidden_input()}
+        <input type="hidden" name="spl-ctrl_redirectionPath" id="item-spl-ctrl_redirectionPath" value="authoverview" />
+        <input type="hidden" name="__uri" value="/services/authentication/providers/Splunk/Splunk">
+        <button type="submit" id="formSubmitBtn" style="display:none;"></button>
+    </form>
+
+    <form name="disableDuoMFAForm" class="disableDuoForm" method="post" action="${make_url(['manager', namespace, 'admin', 'Duo-MFA','multidelete'])}" id="disableDuoMFAForm">
+        ${csrf_hidden_input()}
+        <input type="hidden" name="__redirect" value="${make_url(["manager", namespace, "/authentication/providers/Splunk", "Splunk"])}">
+        <input type="hidden" name="ctrl" id="ctrl" value="remove"/>
+        <input type="hidden" name="ctrl_link" id="ctrl_link" value="/servicesNS/nobody/system/admin/Duo-MFA/duo-mfa"/>
+        <input type="hidden" name="ctrl_name" id="ctrl_name" value="duo-mfa"/>
+    </form>
+    
+    <form name="disableRsaMFAForm" class="disableRsaForm" method="post" action="${make_url(['manager', namespace, 'admin', 'Rsa-MFA','multidelete'])}" id="disableRsaMFAForm">
+        ${csrf_hidden_input()}
+        <input type="hidden" name="__redirect" value="${make_url(["manager", namespace, "/authentication/providers/Splunk", "Splunk"])}">
+        <input type="hidden" name="ctrl" id="ctrl" value="remove"/>
+        <input type="hidden" name="ctrl_link" id="ctrl_link" value="${'/servicesNS/nobody/' + namespace + '/admin/Rsa-MFA/rsa-mfa'}"/>
+        <input type="hidden" name="ctrl_name" id="ctrl_name" value="rsa-mfa"/>
+    </form>
+</div>
+<script type="text/javascript">
+    function hideAllRsa() {
+        $('.btn-disable-rsa').hide();
+        $('.btn-config-rsa').hide();
+        $('.btn-update-rsa').hide();
+    }
+    function hideAllDuo() {
+        $('.btn-disable-duo').hide();
+        $('.btn-config-duo').hide();
+        $('.btn-update-duo').hide();
+    }
+    function setupAuthSwitching(authmode, mfamode) {
+        $('#' + authmode + "Radio").prop('checked', true); //assure the right checkbox is checked
+
+        if (authmode == 'LDAP') {
+            $('.ldap-btn-label').text(_('LDAP Settings'));
+            $('.btn-config-ldap').show();
+
+        } else if (authmode == 'SAML') {
+            $('.saml-btn-label').text(_('SAML Settings'));
+            $('.btn-config-saml').show();
+            $('#duoSecurityRadio').prop('disabled',true);
+            $('#rsaSecurityRadio').prop('disabled',true);
+        } else {
+            $('#NoneRadio').prop('checked', true);
+        }
+        
+        if (authmode == 'LDAP' || authmode == 'SAML') {
+            $('#Splunk').show();
+        }
+
+        if (mfamode === "duo") {
+            $('#duoSecurityRadio').prop('checked', true);
+            $('#rsaSecurityRadio').prop('disabled', true);
+            $('#SAMLRadio').prop('disabled', true);
+            $('.btn-update-duo').show();
+        } else if (mfamode === "rsa") {
+            $('#rsaSecurityRadio').prop('checked', true);
+            $('#duoSecurityRadio').prop('disabled', true);
+            $('#SAMLRadio').prop('disabled', true);
+            $('.btn-update-rsa').show();
+        } else {
+            $('#none2faRadio').prop('checked', true);
+            $('#SAMLRadio').prop('disabled', false);
+        }
+
+        $('.authRadio').click(function(e){
+            // checkbox switch: [LDAP | SAML] - control blocks visibility
+            var target = e.currentTarget;
+
+            $('.btn-config-ldap').hide();
+            $('.btn-config-saml').hide();
+            $('.btn-switch-splunk').hide();
+
+            if (target.id == 'LDAPRadio') {
+                $('#SAMLRadio').prop('checked', false);
+                $('#LDAP').show();
+                $('.btn-config-ldap').show();
+
+            } else if (target.id == 'SAMLRadio') {
+                $('#LDAPRadio').prop('checked', false);
+                $('#SAML').show();
+                $('.btn-config-saml').show();
+                // hide duo configuration
+                $('#duoSecurityRadio').prop('disabled', true);
+                $('#rsaSecurityRadio').prop('disabled', true);
+            } else if (target.id == 'NoneRadio' && (authmode == 'LDAP' || authmode == 'SAML')) {
+                $('.btn-switch-splunk').show();
+            }
+            // enable duo & rsa
+            if (target.id !== 'SAMLRadio' && authmode !== 'SAML') {
+                $('#duoSecurityRadio').prop('disabled', false);
+                $('#rsaSecurityRadio').prop('disabled', false);
+            }
+        });
+
+        $('.mfaRadio').click(function(e){
+            var target = e.currentTarget;
+
+            if (target.id == 'duoSecurityRadio') {
+                $('#SAMLRadio').prop('disabled', true);
+                $('.btn-disable-duo').hide();
+                hideAllRsa();
+
+                if (mfamode === "duo"){
+                    $('.btn-update-duo').show();
+                }else{
+                    $('.btn-config-duo').show();
+                }
+            } else if (target.id == 'rsaSecurityRadio') {
+                $('#SAMLRadio').prop('disabled', true);
+                $('.btn-disable-rsa').hide();
+                hideAllDuo();
+
+                if (mfamode === "rsa"){
+                    $('.btn-update-rsa').show();
+                }else{
+                    $('.btn-config-rsa').show();
+                }
+            } else if (target.id == 'none2faRadio' && mfamode === "duo") {
+                $('.btn-disable-duo').show();
+                $('.btn-config-duo').hide();
+                $('.btn-update-duo').hide();
+            } else if (target.id == 'none2faRadio' && mfamode === "rsa") {
+                $('.btn-disable-rsa').show();
+                $('.btn-config-rsa').hide();
+                $('.btn-update-rsa').hide();
+            } else {
+                hideAllRsa();
+                hideAllDuo();
+                $('#SAMLRadio').prop('disabled', false);
+            }
+
+        });
+
+        $('.btn-disable-duo').click(function(e){
+
+            var answer = confirm(_("Are you sure you want to disable Duo multifactor authentication?"));
+            if (answer) {
+                var form = $('#disableDuoMFAForm');
+                $.post(form.attr('action'), form.serialize())
+                    .done(function(){
+                        $('.btn-disable-duo').hide();
+                        $('.duoSaveLabel').show().delay(2500).fadeOut('fast');
+                        mfamode = 'none';
+                        $('#SAMLRadio').prop('disabled', false);
+                        $('#rsaSecurityRadio').prop('disabled', false);
+                    })
+                    .fail(function(req, status, errorThrown){
+                        $('.btn-disable-duo').hide();
+                        $('.duoSaveError').text(_("Unable to disable Duo multifactor authentication. Status: ") + status + ", error:" + errorThrown);
+                    });
+
+            }
+        });
+
+        $('.btn-disable-rsa').click(function(e){
+
+            var answer = confirm(_("Are you sure you want to disable RSA multifactor authentication?"));
+            if (answer) {
+                var form = $('#disableRsaMFAForm');
+                $.post(form.attr('action'), form.serialize())
+                    .done(function(){
+                        $('.btn-disable-rsa').hide();
+                        $('.rsaSaveLabel').show().delay(2500).fadeOut('fast');
+                        mfamode = 'none';
+                        $('#SAMLRadio').prop('disabled', false);
+                        $('#duoSecurityRadio').prop('disabled', false);
+                    })
+                    .fail(function(req, status, errorThrown){
+                        $('.btn-disable-rsa').hide();
+                        $('.rsaSaveError').text(_("Unable to disable RSA multifactor authentication. Status: ") + status + ", error:" + errorThrown);
+                    });
+
+            }
+        });
+    }
+    $(function(){
+        setupAuthSwitching("${authmode}","${mfamode}");
+    });
+
+</script>

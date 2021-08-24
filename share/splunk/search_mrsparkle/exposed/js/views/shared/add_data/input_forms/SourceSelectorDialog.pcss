@@ -1,0 +1,114 @@
+.shared-adddata-inputforms-sourceselectordialog {
+	.modal-body {
+	    position: relative;
+    	padding: 0;
+        height: 100vh; /*overridden by max-height */
+	}
+
+	.shared-flashmessages {
+		padding: 10px 20px;
+		margin: 0;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+    .filepath {
+    	padding: 10px 20px;
+    	margin: 0;
+    	position: absolute;
+    	bottom: 0;
+    	left: 0;
+    	right: 0;
+    	background-color: $formActionsBackground;
+    	min-height: $lineHeight;
+        border-bottom: $borderDefault;
+
+    	.uneditable-input {
+    		width: 747px;
+    		margin-bottom: 0;
+    	}
+    }
+}
+
+.treeview {
+   border-top: $borderDefault;
+   border-bottom: $borderDefault;
+   overflow:auto;
+   position: absolute;
+   top: 0;
+   bottom: 41px;
+   left: 0;
+   right: 0;
+
+    ul {
+        list-style-type: none;
+        margin: 0 0 0 17px;
+
+        ul {
+           margin: 0 0 0 24px;
+        }
+    }
+
+    > ul {
+       margin-bottom: -1px;
+    }
+
+    .jqtree-element {
+        border-bottom: 1px solid $borderLightColor;
+        line-height: 20px;
+        padding-left: 24px;
+        position: relative;
+    }
+
+
+    a.jqtree-toggler {
+        color: transparent;
+        width: 14px;
+        overflow: hidden;
+        text-decoration: none;
+        display: inline-block;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: $linkColor;
+        border-radius:2px;
+        line-height: 14px;
+        position: absolute;
+        left: 3px;
+        top: 3px;
+
+        &:before {
+           display: inline-block;
+           color: $white;
+           content: "\02C5";
+           font-family: "Splunk Icons";
+           padding-right: 20px;
+           vertical-align: middle;
+           text-align: center;
+           width: 14px;
+        }
+
+        &:hover {
+           background-color: $linkColorHover;
+        }
+
+        &.jqtree-closed:before {
+            content: "\203A";
+        }
+    }
+
+    .jqtree-title {
+       display: block;
+       color: $linkColor;
+       cursor: pointer;
+    }
+
+    .jqtree-selected {
+        background-color: $tableBackgroundFocus;
+    }
+
+    .selectedPath {
+        width: 650px;
+    }
+}

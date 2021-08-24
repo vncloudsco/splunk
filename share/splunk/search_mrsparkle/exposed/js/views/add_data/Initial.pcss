@@ -1,0 +1,206 @@
+.adddata-initial,
+#gdi-overview-main-container,
+#bottom {
+  @mixin display-flex column;
+  flex-grow: 1;
+}
+
+#gdi-overview-main-container {
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.adddata-initial {
+    width: 960px;
+    margin: 20px auto;
+
+    .section-header {
+        padding: $spacing;
+    }
+    #top {
+        padding: 0 $spacing;
+        margin-bottom: $spacing;
+    }
+    #bottom {
+        padding: $spacing;
+    }
+}
+
+
+.gdi-overview-section {
+    @mixin create-card;
+    margin-bottom: 20px;
+}
+
+
+.inner-container {
+    position: relative;
+}
+
+
+.type-container {
+    display: inline-block;
+    text-align: center;
+    width: 33%;
+    vertical-align: top;
+}
+
+.type-btn {
+    display: block;
+    cursor: pointer;
+    padding-bottom: $spacingQuarter;
+    margin-bottom: $spacingQuarter;
+    border-radius: $borderRadius;
+    transition: $transitionBackgroundColor;
+
+	svg {
+		fill: none;
+	}
+
+	.stroke {
+		stroke: $brandColor;
+		stroke-width: 2px ;
+	}
+
+	.fill {
+		fill: $brandColor;
+	}
+
+	&:hover {
+	  background-color: $gray98;
+	}
+
+    &:focus {
+        @mixin focus-element;
+    }
+}
+
+.type-text1 {
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.type-text3 {
+  font-size: $fontSizeSmall;
+  line-height: 16px;
+  color: $textGray;
+}
+
+#examples {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#examples-title {
+  @mixin create-heading-medium;
+  margin-bottom:30px;
+}
+
+#sources-title {
+  @mixin create-heading-medium;
+}
+
+.example-icon-styling {
+  float: left;
+  height:20px;
+  width:20px;
+}
+
+@for $index from 1 to 9 {
+  .example$(index) {
+        float: left;
+        height: 20px;
+        width: 20px;
+        background-image: url(./images/gdi-example-$index.svg);
+        margin-top: 2px;
+    }
+}
+
+#examples-title {
+    max-width: 550px;
+}
+
+.example-row {
+  width:550px;
+  margin-bottom: 25px;
+}
+.example-group {
+  width:180px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: $fontSizeSmall;
+}
+
+.example-group-header {
+    @mixin create-section-heading-small;
+    margin-left:30px;
+    margin-bottom: 5px;
+}
+
+.example-group-item {
+  margin-bottom:5px;
+  margin-left:30px;
+}
+
+#sources-and-faq {
+  display: inline-block;
+  width:290px;
+  margin-left: 50px;
+  vertical-align: top;
+}
+
+.sources-and-faq-description {
+  font-size: $fontSizeSmall;
+  margin-top: 10px;
+}
+
+.sources-and-faq-help {
+  margin-top: 5px;
+}
+
+.apps-row {
+  margin-top: 10px;
+}
+
+.app {
+  display: inline-block;
+  margin-right: 20px;
+  width: 67px;
+  height: 67px;
+  cursor: pointer;
+}
+
+#unix-app {
+  background: url('images/app_unix.png') no-repeat center;
+}
+
+#windows-app {
+  background: url('images/app_windows.png') no-repeat center;
+}
+
+#dbconnect-app {
+  background: url('images/app_dbconnect.png') no-repeat center;
+}
+
+#rest-api-app {
+  background: url('images//app_rest_api.png') no-repeat center;
+  background-size:100%;
+}
+
+#jmx-app {
+  background: url('images/app_jmx.png') no-repeat center;
+}
+
+#cisco-security-app {
+  background: url('images/app_cisco_security.png') no-repeat center;
+}
+
+#juniper-firewall-app {
+  background: url('images/app_juniper_firewall.png') no-repeat center;
+  background-size:100%;
+}
+
+#faq-title {
+    @mixin create-heading-medium;
+    margin-top: 50px;
+}

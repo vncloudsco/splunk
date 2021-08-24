@@ -1,0 +1,10 @@
+.view {
+    composes: view from '../../ModalLocalClassNames.pcssm';
+    margin-left: -425px;
+    width: 850px;
+}
+
+.bodyScrollingPadded {
+    composes: bodyPadded from '../../ModalLocalClassNames.pcssm';
+    padding: 0px;
+}

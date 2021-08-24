@@ -1,0 +1,29 @@
+<% if(!navData.submenu){return "";}%>
+<% if(needsBack){%>
+<li>
+    <a data-role="back" href="#"> <%-_("Back").t()%>
+    </a>
+</li>
+<%}%>
+<% _.each(navData.submenu, function(i, index) { %>
+<% if(i.label || i.divider) { %>
+<li class="<%=i.divider ? css.divider:''%> <%= needsBack && index === 0 ? css.startGroup :''%>" <%= i.divider ? 'data-role="divider"':''%> data-target-view="<%= i.viewName %>">
+    <% if(!i.divider){ %>
+        <% if(i.submenu && i.submenu.length>0){ %>
+            <a href="#" data-index="<%=index%>" data-has-children="true"
+                <% _.each(i.submenu, function(j) { %>
+                    <% if (active === j.viewName) { %>data-selected="selected"<% } %>
+                <%});%>
+            >
+            <span class="<%=css.submenuIcon%>" data-role='submenu-icon'></span><%- _.unescape(_(i.label).t()) %></a>
+        <%} else if (i.hasOwnProperty('reportUri')) { %>
+            <% var dispatchView = i.hasOwnProperty('dispatchView') && i.dispatchView === 'pivot' ? 'pivot' : 'search' %>
+            <a href="<%=i.reportUri%>" <% if (active === i.viewName) { %>data-selected="selected"<% } %> class="<%=css.primaryLink%>" data-dispatch-view="<%= dispatchView %>"><%- _.unescape(_(i.label).t()) %></a>
+            <a href="<%=i.uri%>" class="<%-css.secondaryLink%>" data-role="secondary-report-link" data-dispatch-view="<%= dispatchView %>"></a>
+        <%} else { %>
+            <a href="<%=i.uri%>" <% if (active === i.viewName) { %>data-selected="selected"<% } %><% if (i.external) { %> class="external" target="_blank" rel="noopener"<% } %>><%- _.unescape(_(i.label).t()) %></a>
+        <%}%>
+    <%}%>
+</li>
+<% } %>
+<% }); %>

@@ -1,0 +1,53 @@
+<table class="table table-chrome table-striped table-hover <%- hasMoreInfo ? 'table-row-expanding' : '' %> entities-grid">
+    <colgroup>
+        <% if (hasMoreInfo) { %>
+        <col class="col-info">
+        <% } %>
+        <% if (enableBulkEdit) { %>
+        <col class="col-entity-select">
+        <% } %>
+        <% _.each(columns, function(col, ix) {  %>
+        <col class="col-flex col-<%- col.id %>">
+            <% if (ix==0) { %>
+        <col class="col-slim col-actions">
+            <% } %>
+        <% }); %>
+    </colgroup>
+    <thead>
+    <tr>
+        <% if (hasMoreInfo) { %>
+        <th class="col-info">
+            <i class="icon-info"></i>
+        </th>
+        <% } %>
+        <% if (enableBulkEdit) { %>
+            <th class="col-entity-select-all"></th>
+        <% } %>
+        <% _.each(columns, function(col, ix) {  %>
+            <% if (_.isFunction(col.visible) && !col.visible.call(that)) { return; } %>
+            <% if (col.noSort) { %>
+				<th><%- col.title %><%= col.html %>
+					<% if (col.tooltip) { %>
+					<a href="#" class="tooltip-link" id="<%-col.id %>-tooltip">?</a>
+					<% } %>
+				</th>
+            <% } else { %>
+				<th class="<%- sortCellClass %>" <%- sortKeyAttribute %>="<%- col.id %>">
+					<div>	
+						<a href="#" class="<%- col.id %>-sort-link"><%- col.title %><%= col.html %><i class="icon-sorts"></i></a>
+						<% if (col.tooltip) { %>
+						<a href="#" class="tooltip-link" id="<%-col.id %>-tooltip">?</a>
+						<% } %>
+					</div>
+				</th>
+            <% } %>
+            <% if (ix==0) { %>
+            <th class="col-actions"><%= _('Actions').t() %></th>
+            <% } %>
+        <% }); %>
+    </tr>
+    </thead>
+
+    <tbody class="grid-table-body">
+    </tbody>
+</table>

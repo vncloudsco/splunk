@@ -1,0 +1,36 @@
+/*  Spinners */
+/*  ---------------------------- */
+
+.view {
+    background-position: left top;
+
+}
+
+.spinnersmall {
+    composes: view;
+	background-image: url("./loading_small.png");
+    width: 14px;
+    height: 14px;
+    background-size: 280px 14px;
+}
+
+
+.spinnermedium {
+    composes: view;
+	background-image: url("./loading_medium.png");
+	background-position: left top;
+	width: 19px;
+	height: 19px;
+	background-size: 380px 19px;
+}
+
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	.spinnersmall {
+		background-image: url("./loading_small_2x.png");
+	}
+
+	.spinnermedium {
+		background-image: url("./loading_medium_2x.png");
+	}
+}

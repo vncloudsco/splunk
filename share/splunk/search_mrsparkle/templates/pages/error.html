@@ -1,0 +1,18 @@
+<%inherit file="base.html"/>
+<div class="preload">
+    <div id="placeholder-app-bar"></div>
+    <div id="placeholder-main-section-body"> 
+    ${_('Loading...')}
+    </div>               
+</div>
+<script>
+    % if error_status:
+        __error_status__ = ${json_decode(error_status)};
+    % endif
+</script>
+% if 'status' in error_status:
+    <p class="status" style="display:none">${error_status.get('status') | h}</p>
+% endif
+% if 'message' in error_status:
+    <h1 class="msg" style="display:none">${error_status.get('message') | h}</h1>
+% endif

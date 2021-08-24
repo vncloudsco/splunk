@@ -1,0 +1,213 @@
+.popdown-dialog-draggable {
+
+	@define-mixin form-reset $labelWidth {
+		.control-label{
+			width: $labelWidth;
+			max-width: $labelWidth;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.alert-viz-control {
+			margin-left: 12px;
+			margin-bottom: 0px;
+			padding-right: 0px;
+			margin-top: -10px;
+		}
+
+		.controls{
+			margin-left: calc($labelWidth + $labelLeftSpace);
+
+			.btn [class^="icon-"], .btn [class*=" icon-"] {
+				line-height: inherit;
+			}
+
+			.btn-group-2 button {
+			width: 79px;
+			}
+
+			.btn-group-3 button {
+			width: 53px;
+			}
+
+			.btn-group-4 button {
+			width: 34px;
+			}
+			+ .help-block {
+				margin-left: calc($labelWidth + $labelLeftSpace);
+			}
+		}
+        .title-input-width input[type="text"] {
+            width: 118px;
+        }
+	}
+
+	$tabbableDialogWidth: 520px;
+	$tabsLabelWidth: 110px;
+	$noTabsDialogWidth: 370px;
+	$noTabsLabelWidth: 120px;
+	$tabsLeftWidth: 110px;
+	$labelLeftSpace: 10px;
+
+	.popdown-dialog-body{
+	    .vizformat-message{
+		  .icon{
+			color:$warningBorder;
+			position:absolute;
+			top: 10px;
+			left:10px;
+			font-size:200%;
+		  }
+		  .message-text{
+			margin-left: 20px;
+		  }
+		  color:$textColor;
+		  position:relative;
+		  font-size:$fontSize;
+		  padding:10px;
+		  margin:0px;
+		  border-bottom:1px solid $borderColor;
+		}
+		border-radius: 4px;
+
+		.drag-handle {
+			$handleHeight: 8px;
+			$closeButtonWidth: 8px;
+
+			height: calc($handleHeight - 2);
+			padding: $spacingQuarter;
+			cursor: move;
+			z-index: 3;
+			background: $interactiveBackgroundColor;
+			border-bottom: 1px solid $interactiveBorderColor;
+            border-radius: 3px 3px 0 0;
+
+			.close {
+				height: $handleHeight;
+				width: $closeButtonWidth;
+				position: absolute;
+				right: $spacingQuarter;
+
+				&:before {
+					line-height: $handleHeight;
+					font-size: 15px;
+				}
+			}
+
+			.handle-inner {
+				@mixin draggable-handle-background;
+				height: $handleHeight;
+				max-width: 80px;
+                margin: 0 auto;
+			}
+		}
+	}
+
+    .non-tabbable {
+        width: $noTabsDialogWidth;
+
+        .non-tabbable-content {
+            padding: 10px 10px 0;
+            .form {
+                @mixin form-reset $noTabsLabelWidth;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+	.tabbable {
+        width: $tabbableDialogWidth;
+        display: flex;
+
+        .tab-content {
+            flex: 1;
+		    min-height: 200px;
+            background-color: $tabContentColor;
+            overflow: visible;
+            padding: $spacingHalf;
+            @mixin clearfix;
+
+            .message-single{
+                margin:0px;
+            }
+            .form {
+                @mixin form-reset $tabsLabelWidth;
+                float: left; /*  new context */
+                width: 100%;
+                margin-bottom: 0;
+            }
+            & > .alerts {
+                padding-left: 5px;
+
+                .alert {
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+
+	.nav-tabs-left {
+        flex: 0 0 $tabsLeftWidth;
+		cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        background-color: $tabHeaderColor;
+        border-right: $tabHeaderBorder;
+
+        > li  {
+            position: relative;
+
+            > a {
+                padding: $spacingHalf $spacing;
+                color: $interactiveTextColor;
+                text-overflow: ellipsis;
+                overflow: hidden;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: calc(100% - $spacing);
+                    top: $spacingHalf;
+                    right: 0;
+                    background-color: $tabHeaderActiveColor;
+                    transition: width $transitionTime;
+                }
+
+                &:hover:before {
+                    width: $appBarUnderlineWidth;
+                }
+
+                &:focus {
+                    @mixin focus-element-inset $tabHeaderColorHover;
+                }
+            }
+        }
+
+        .active > a {
+            font-weight: $fontWeightSemiBold;
+            color: $textColor;
+
+            &:before {
+                background-color: $accentColor;
+                width: $appBarUnderlineWidth;
+            }
+        }
+	}
+
+	.form-horizontal.error input{
+			border-color: $errorBorder !important;
+	}
+
+    .populate-button-container {
+        margin-left: 12%;
+        padding: 10px;
+        text-align: center;
+    }
+
+     .divider {
+        	border-top: 1px solid $borderColor;
+        	margin: 0;
+        	padding-bottom: 15px;
+	}
+}

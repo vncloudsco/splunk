@@ -1,0 +1,13 @@
+# Python compiled code files
+__pycache__
+*.py[co]
+
+# JetBrains project files
+.idea
+.iml
+
+# OS X desktop services store
+.DS_Store
+
+# Windows thumbnail image cache
+Thumbs.db

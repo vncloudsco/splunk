@@ -1,0 +1,43 @@
+$dropzoneTextHeight: 26px;
+
+.dropzone {
+    height: 190px;
+    margin-top: 20px;
+
+    &.dropzone-small {
+        height: 140px;
+    }
+}
+
+.dropzone-box {
+	  border: $border $gray92;
+    border-radius: $borderRadius;
+    height: calc(100% - $dropzoneTextHeight);
+    transition: $transitionBorder;
+
+    .drop-zone-drag-over > & {
+        border-color: $accentColorL10;
+    }
+}
+
+.dropzone-text {
+    text-align: center;
+
+    h2 {
+        position: relative;
+        bottom: calc($dropzoneTextHeight / 2);
+        display: inline-block;
+        height: $dropzoneTextHeight;
+        box-sizing: border-box;
+        background-color: $white;
+        color: $textGrayDark;
+  	    font-size: calc($fontSizeXXLarge - 2px);
+  	    font-weight: $fontWeight;
+        transition: $transitionTextColor;
+        padding: $spacingQuarter $spacing;
+        margin: 0;
+    }
+    .drop-zone-drag-over > & > h2 {
+        color: $accentColor;
+    }
+}

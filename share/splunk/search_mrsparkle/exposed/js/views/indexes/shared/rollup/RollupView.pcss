@@ -1,0 +1,34 @@
+/* Matches definitions in Sidebar.pcss */
+$rollupModalHeight: 495px;
+$rollupSideBarContentWidth: 169px; /* 170px - 1px to overlap borders */
+$rollupSideBarLeftPadding: 15px;
+$rollupSideBarWidth: calc($rollupSideBarContentWidth + $rollupSideBarLeftPadding);
+
+.rollup-view {
+    display: flex;
+    height: $rollupModalHeight;
+}
+
+.roll-up-sidebar-placeholder {
+    $sidebarPaddingTop: 20px;
+
+    margin: 0px;
+    display: inline-block;
+    vertical-align: top;
+    width: $rollupSideBarContentWidth;
+    min-width: $rollupSideBarContentWidth;
+    height: calc(100% - $sidebarPaddingTop);
+    padding: $sidebarPaddingTop 0 0 $rollupSideBarLeftPadding;
+    overflow: visible;
+    flex: 0 1 auto;
+}
+
+.roll-up-content {
+    display: flex;
+    flex-direction: column;
+    vertical-align: top;
+    margin: 0;
+    overflow-y: scroll;
+    border-left: 1px solid $borderLightColor;
+    width: 100%;
+}

@@ -1,0 +1,38 @@
+/* Matches definitions in RollupView.pcss */
+$rollupSideBarContentWidth: 169px; /* 170px - 1px to overlap borders */
+$rollupSideBarLeftPadding: 15px;
+
+.roll-up-tab-bar-separator {
+    display: block;
+    background-color: $borderLightColor;
+    width: calc($rollupSideBarContentWidth - $rollupSideBarLeftPadding);
+    min-width: calc($rollupSideBarContentWidth - $rollupSideBarLeftPadding);
+    height: 1px;
+    margin: 0;
+    flex: 0 1 auto;
+}
+
+.rollup-tab {
+    padding-left: $rollupSideBarLeftPadding;
+    &:first-child {
+        padding-left: 5px;
+    }
+    padding-right: 0;
+}
+
+.add-exception-rule-link {
+    display: inline-block;
+    margin: 20px 4px 20px 0;
+}
+
+.exception-rule-wrapper {
+    cursor: not-allowed;
+}
+
+.add-exception-disabled {
+    pointer-events: none;
+    color: $textDisabledColor;
+    &:hover {
+        color: $textDisabledColor;
+    }
+}

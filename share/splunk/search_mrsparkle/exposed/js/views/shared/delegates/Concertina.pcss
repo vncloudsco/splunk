@@ -1,0 +1,199 @@
+/*  Splunk: Concertina */
+/*  ================ */
+
+
+/* Concertina for expanding content
+
+	 <div class="concertina" id="concertina2">
+		 <div class="concertina-group">
+			 <div class="concertina-heading">
+				 <a class="concertina-toggle" data-toggle="collapse" data-parent="#concertina2" href="#collapseOne">
+					 <i class="icon-concertina-arrow"></i>
+					 Collapsible Group Item #1</a>
+			 </div>
+			 <div id="collapseOne" class="concertina-group-body collapse in">
+				 <div class="concertina-inner">
+					 Anim pariatur cliche...
+				 </div>
+			 </div>
+		 </div><!-- /.concertina-group -->
+		 <div class="concertina-group">
+			 <div class="concertina-heading">
+				 <a class="concertina-toggle" data-toggle="collapse" data-parent="#concertina2" href="#collapseTwo">
+					 <i class="icon-concertina-arrow"></i>
+					 Collapsible Group Item #2</a>
+			 </div>
+			 <div id="collapseTwo" class="concertina-group-body collapse">
+					 Anim pariatur cliche...
+			 </div>
+		 </div><!-- /.concertina-group -->
+	 </div><!-- /.concertina -->
+
+*/
+
+/*  use the same z-index as docked table headers for interop with modal overlays (SPL-105031) */
+$zindexConcertinaDocked: $zindexHeaderTable;
+
+/*  Parent container */
+.concertina-dock-top {
+	position: absolute;
+	top:0;
+	left: 0;
+	right:0;
+	z-index: $zindexConcertinaDocked;
+
+	.concertina-heading  {
+        .concertina-toggle {
+    		border-top: none;
+
+
+    	}
+		&:last-child .concertina-toggle {
+			border-bottom: none;
+		}
+
+        &:last-child:after {
+    		content: '';
+    		display: block;
+    		height: 15px;
+            position:absolute;
+            bottom: -15px;
+            left:0;
+            right:0;
+    		background-image: linear-gradient(to bottom, color($black a(0.15)),  color($black a(0)));
+    		background-color: transparent;
+            pointer-events:none;
+        }
+	}
+}
+
+.concertina-body {
+  position: absolute;
+  top:0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+
+.concertina-dock-bottom {
+	position: absolute;
+	bottom:0;
+	left: 0;
+	right:0;
+	z-index: $zindexConcertinaDocked;
+
+	.concertina-heading  {
+    	&:first-child:before {
+    		content: '';
+    		display: block;
+            position:absolute;
+            top: -15px;
+            left:0;
+            right:0;
+    		height: 15px;
+    		background-image: linear-gradient(to bottom, color($black a(0)),  color($black a(0.15)));
+    		background-color: transparent;
+            pointer-events:none;
+    	}
+
+
+		&:first-child .concertina-toggle {
+			border-top: none;
+		}
+
+    	 + .concertina-heading .concertina-toggle {
+    		border-top: none;
+    	}
+    }
+}
+
+.concertina-heading {
+	position: relative;
+	width: 100%;
+	background: $white;
+
+	.heading-message {
+		float: right;
+		font-size: $fontSizeSmall;
+	}
+}
+
+.concertina-toggle {
+	padding: 6px 15px 6px 20px;
+	line-height: $lineHeight;
+	color: $interactiveTextColor;
+	border-top: $borderDefault;
+	border-bottom: $borderDefault;
+    background-color: $concertinaToggleBackgroundColor;
+	display: block;
+	text-align: left;
+
+	&:hover {
+		text-decoration: none;
+		background-color: $concertinaToggleBackgroundColorHover;
+		color: $interactiveTextColorHover;
+	}
+
+	&:focus {
+		@mixin focus-element-inset $concertinaToggleBackgroundColorHover;
+	}
+}
+
+
+.warning {
+    > .concertina-toggle {
+        background-color: $warningColor;
+		color: $white;
+
+        &:hover {
+            background-color: $warningColorD10;
+        }
+
+        &:focus {
+        	background: $pillBackgroundColorFocus;
+        }
+    }
+
+    + .concertina-group-body {
+        background: $warningColorL50;
+    }
+
+}
+
+.error {
+    > .concertina-toggle {
+        background-color: $errorColor;
+		color: $white;
+
+        &:hover {
+            background-color: $errorColorD10;
+        }
+
+        &:focus {
+        	background: $pillBackgroundColorFocus;
+        }
+    }
+
+    + .concertina-group-body {
+        background: $errorColorL50;
+    }
+
+}
+
+.concertina-message {
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+.concertina-group-body {
+	background: $concertinaBackgroundColor;
+	padding-top: 10px;
+	@mixin clearfix;
+}
+
+.concertina-group:first-child  .concertina-toggle {
+	border-top:none;
+}

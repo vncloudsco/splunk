@@ -1,0 +1,41 @@
+a.dropdown-toggle.searchable-dropdown {
+    white-space: nowrap;
+    display: inline-flex;
+    justify-content: center;
+
+    > i, .dropdown-label-container, .caret {
+        display: inline-block;
+        vertical-align: middle;
+        flex: 0 0 auto;
+    }
+
+    > i {
+        margin-right: 3px;
+    }
+
+    .dropdown-label-container {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        flex: 0 1 auto;
+    }
+}
+
+.dropdown-menu-searchable {
+    .search-filter {
+        .search-query {
+            margin: 0px;
+        }
+        .shared-controls-textcontrol  {
+            margin: 4px;
+        }
+    }
+
+    .info {
+        margin: 5px 4px;
+        text-align: center;
+    }
+
+    .menu-options li:first-child > a {
+            border-top: none;
+        }
+}

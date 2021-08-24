@@ -1,0 +1,124 @@
+diff -Naur pyOpenSSL-0.13.1_old/doc/pyOpenSSL.tex pyOpenSSL-0.13.1_new/doc/pyOpenSSL.tex
+--- pyOpenSSL-0.13.1_old/doc/pyOpenSSL.tex	2011-08-15 01:02:36.000000000 +0200
++++ pyOpenSSL-0.13.1_new/doc/pyOpenSSL.tex	2013-09-05 12:11:25.589906599 +0200
+@@ -821,6 +821,8 @@
+ \dataline{SSLv3_METHOD}
+ \dataline{SSLv23_METHOD}
+ \dataline{TLSv1_METHOD}
++\dataline{TLSv1_1_METHOD}
++\dataline{TLSv1_2_METHOD}
+ These constants represent the different SSL methods to use when creating a
+ context object.
+ \end{datadesc}
+@@ -843,11 +845,14 @@
+ \dataline{OP_NO_SSLv2}
+ \dataline{OP_NO_SSLv3}
+ \dataline{OP_NO_TLSv1}
++\dataline{OP_NO_TLSv1_1}
++\dataline{OP_NO_TLSv1_2}
+ Constants used with \method{set_options} of Context objects.
+ \constant{OP_SINGLE_DH_USE} means to always create a new key when using ephemeral
+ Diffie-Hellman. \constant{OP_EPHEMERAL_RSA} means to always use ephemeral RSA keys
+-when doing RSA operations. \constant{OP_NO_SSLv2}, \constant{OP_NO_SSLv3} and
+-\constant{OP_NO_TLSv1} means to disable those specific protocols. This is
++when doing RSA operations. \constant{OP_NO_SSLv2}, \constant{OP_NO_SSLv3}, \constant{OP_NO_TLSv1},
++\constant{OP_NO_TLSv1_1} and \constant{OP_NO_TLSv1_2}
++means to disable those specific protocols. This is
+ interesting if you're using e.g. \constant{SSLv23_METHOD} to get an SSLv2-compatible
+ handshake, but don't want to use SSLv2.
+ \end{datadesc}
+@@ -883,7 +888,8 @@
+ more SSL connections.
+
+ \var{method} should be \constant{SSLv2_METHOD}, \constant{SSLv3_METHOD},
+-\constant{SSLv23_METHOD} or \constant{TLSv1_METHOD}.
++\constant{SSLv23_METHOD}, \constant{TLSv1_METHOD}, \constant{TLSv1_1_METHOD}
++or \constant{TLSv1_2_METHOD}.
+ \end{classdesc}
+
+ \begin{datadesc}{ConnectionType}
+diff -Naur pyOpenSSL-0.13.1_old/OpenSSL/ssl/context.c pyOpenSSL-0.13.1_new/OpenSSL/ssl/context.c
+--- pyOpenSSL-0.13.1_old/OpenSSL/ssl/context.c	2011-08-15 00:06:11.000000000 +0200
++++ pyOpenSSL-0.13.1_new/OpenSSL/ssl/context.c	2013-09-05 12:14:23.990073048 +0200
+@@ -292,8 +292,8 @@
+ OpenSSL.SSL.Context instances define the parameters for setting up new SSL\n\
+ connections.\n\
+ \n\
+-@param method: One of " SSLv2_METHOD_TEXT "SSLv3_METHOD, SSLv23_METHOD, or\n\
+-               TLSv1_METHOD.\n\
++@param method: One of " SSLv2_METHOD_TEXT "SSLv3_METHOD, SSLv23_METHOD,\n\
++               TLSv1_METHOD, TLSv1_1_METHOD, or TLSv1_2_METHOD.\n\
+ ";
+
+ #undef SSLv2_METHOD_TEXT
+@@ -1209,6 +1209,12 @@
+         case ssl_TLSv1_METHOD:
+             method = TLSv1_method();
+             break;
++        case ssl_TLSv1_1_METHOD:
++            method = TLSv1_1_method();
++            break;
++        case ssl_TLSv1_2_METHOD:
++            method = TLSv1_2_method();
++            break;
+         default:
+             PyErr_SetString(PyExc_ValueError, "No such protocol");
+             return NULL;
+diff -Naur pyOpenSSL-0.13.1_old/OpenSSL/ssl/context.h pyOpenSSL-0.13.1_new/OpenSSL/ssl/context.h
+--- pyOpenSSL-0.13.1_old/OpenSSL/ssl/context.h	2011-08-15 00:06:11.000000000 +0200
++++ pyOpenSSL-0.13.1_new/OpenSSL/ssl/context.h	2013-09-05 11:55:43.837144249 +0200
+@@ -38,6 +38,8 @@
+ #define ssl_SSLv3_METHOD      (2)
+ #define ssl_SSLv23_METHOD     (3)
+ #define ssl_TLSv1_METHOD      (4)
++#define ssl_TLSv1_1_METHOD    (5)
++#define ssl_TLSv1_2_METHOD    (6)
+
+
+ #endif
+diff -Naur pyOpenSSL-0.13.1_old/OpenSSL/ssl/ssl.c pyOpenSSL-0.13.1_new/OpenSSL/ssl/ssl.c
+--- pyOpenSSL-0.13.1_old/OpenSSL/ssl/ssl.c	2011-08-15 00:06:11.000000000 +0200
++++ pyOpenSSL-0.13.1_new/OpenSSL/ssl/ssl.c	2013-09-05 12:13:42.182033466 +0200
+@@ -185,6 +185,8 @@
+     PyModule_AddIntConstant(module, "SSLv3_METHOD",  ssl_SSLv3_METHOD);
+     PyModule_AddIntConstant(module, "SSLv23_METHOD", ssl_SSLv23_METHOD);
+     PyModule_AddIntConstant(module, "TLSv1_METHOD",  ssl_TLSv1_METHOD);
++    PyModule_AddIntConstant(module, "TLSv1_1_METHOD",  ssl_TLSv1_1_METHOD);
++    PyModule_AddIntConstant(module, "TLSv1_2_METHOD",  ssl_TLSv1_2_METHOD);
+
+     /* Verify constants */
+     PyModule_AddIntConstant(module, "VERIFY_NONE", SSL_VERIFY_NONE);
+@@ -204,6 +206,8 @@
+     PyModule_AddIntConstant(module, "OP_NO_SSLv2", SSL_OP_NO_SSLv2);
+     PyModule_AddIntConstant(module, "OP_NO_SSLv3", SSL_OP_NO_SSLv3);
+     PyModule_AddIntConstant(module, "OP_NO_TLSv1", SSL_OP_NO_TLSv1);
++    PyModule_AddIntConstant(module, "OP_NO_TLSv1_1", SSL_OP_NO_TLSv1_1);
++    PyModule_AddIntConstant(module, "OP_NO_TLSv1_2", SSL_OP_NO_TLSv1_2);
+
+     /* More SSL option constants */
+     PyModule_AddIntConstant(module, "OP_MICROSOFT_SESS_ID_BUG", SSL_OP_MICROSOFT_SESS_ID_BUG);
+diff -Naur pyOpenSSL-0.13.1_old/OpenSSL/test/test_ssl.py pyOpenSSL-0.13.1_new/OpenSSL/test/test_ssl.py
+--- pyOpenSSL-0.13.1_old/OpenSSL/test/test_ssl.py	2011-08-15 00:06:11.000000000 +0200
++++ pyOpenSSL-0.13.1_new/OpenSSL/test/test_ssl.py	2013-09-05 12:16:08.090173104 +0200
+@@ -23,6 +23,7 @@
+ from OpenSSL.SSL import SSLEAY_PLATFORM, SSLEAY_DIR, SSLEAY_BUILT_ON
+ from OpenSSL.SSL import SENT_SHUTDOWN, RECEIVED_SHUTDOWN
+ from OpenSSL.SSL import SSLv2_METHOD, SSLv3_METHOD, SSLv23_METHOD, TLSv1_METHOD
++from OpenSSL.SSL import TLSv1_1_METHOD, TLSv1_2_METHOD
+ from OpenSSL.SSL import OP_NO_SSLv2, OP_NO_SSLv3, OP_SINGLE_DH_USE
+ from OpenSSL.SSL import (
+     VERIFY_PEER, VERIFY_FAIL_IF_NO_PEER_CERT, VERIFY_CLIENT_ONCE, VERIFY_NONE)
+@@ -275,9 +276,11 @@
+     def test_method(self):
+         """
+         L{Context} can be instantiated with one of L{SSLv2_METHOD},
+-        L{SSLv3_METHOD}, L{SSLv23_METHOD}, or L{TLSv1_METHOD}.
++        L{SSLv3_METHOD}, L{SSLv23_METHOD}, L{TLSv1_METHOD},
++        L{TLSv1_1_METHOD}, or L{TLSv1_2_METHOD}.
+         """
+-        for meth in [SSLv3_METHOD, SSLv23_METHOD, TLSv1_METHOD]:
++        for meth in [SSLv3_METHOD, SSLv23_METHOD, TLSv1_METHOD,
++                     TLSv1_1_METHOD, TLSv1_2_METHOD]:
+             Context(meth)
+
+         try:

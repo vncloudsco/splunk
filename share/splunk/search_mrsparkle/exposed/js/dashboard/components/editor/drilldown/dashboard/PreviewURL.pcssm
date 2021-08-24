@@ -1,0 +1,10 @@
+.linkLabel {
+  font-size: $fontSizeSmall;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.padTopBottom {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

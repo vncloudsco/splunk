@@ -1,0 +1,186 @@
+$jobFiltersHeight: 45px;
+
+.jobmanager {
+
+    .jobmanager-tablecontrols {
+        height: calc($jobFiltersHeight * 2);
+    }
+    .jobmanager-table {
+        table {
+            @mixin create-card-table;
+        }
+    }
+    /* filter row */
+    .filters-container {
+        height: $jobFiltersHeight;
+        padding: $spacingQuarter $spacing $spacingHalf;
+        box-sizing: border-box;
+        @mixin clearfix;
+
+        &.affix-top {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            z-index: 407;
+            background: $bodyBackgroundColor;
+        }
+        .shared-collectioncount {
+            margin-right: $spacingHalf;
+        }
+
+        .name-filter-container {
+            margin-left: $spacingHalf;
+            display: inline-block;
+        }
+        .count-per-page {
+            float: right;
+        }
+        .app-filter {
+            min-width: 70px;
+            max-width: calc((100vw - 700px) / 2);
+            > .dropdown-toggle {
+                display: block;
+                > .link-label {
+                    display: inline-block;
+                    vertical-align: middle;
+                    max-width: calc(100% - $spacingThreeQuarters);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+
+    /* selected and paginator row */
+    .selected-container {
+        height: $jobFiltersHeight;
+        padding: $spacingQuarter $spacing $spacingHalf;
+        box-sizing: border-box;
+        @mixin clearfix;
+
+        &.affix-top {
+            position: fixed;
+            top: $jobFiltersHeight;
+            left: 0px;
+            right: 0px;
+            z-index: 406;
+            background: $bodyBackgroundColor;
+        }
+        .selected-count {
+            float: left;
+            padding: $spacingQuarter $spacingHalf 0px $spacingHalf;
+        }
+    }
+
+    /* table */
+    .jobmanager-table {
+        table {
+            width: auto;
+            margin-bottom: -1px;
+
+            tbody > tr:nth-child(4n+1) > td {
+                background-color: $white;
+            }
+
+            tbody > tr:nth-child(4n+2) > td {
+                background-color: $white;
+                border-top: 0px;
+            }
+
+            tbody > tr:nth-child(4n+3) > td {
+                background-color: $tableRowAccentColor;
+                
+                &.disabled:hover {
+                    background-color: $tableRowAccentColor !important;
+                }
+            }
+
+            tbody > tr:nth-child(4n+4) > td {
+                background-color: $tableRowAccentColor;
+                border-top: 0px;
+                
+                &.disabled:hover {
+                    background-color: $tableRowAccentColor !important;
+                }
+            }
+
+            .col-owner, .col-application {
+                word-wrap: break-word;
+                word-break: break-all;
+            }
+
+            .col-text {
+                padding-top: 10px;
+            }
+
+            .col-actions {
+                width: 220px;
+            }
+
+            .col-select-all {
+                width: 16px;
+            }
+
+            th.col-select-all {
+                .control label.checkbox {
+                    padding: 0;
+                }
+            }
+
+            .expands {
+                width: 15px;
+            }
+
+            th.expands {
+                padding-left: 8px;
+            }
+
+            td.expands > a, td.expands > span {
+                padding-top: $spacingHalf;
+            }
+
+            .details {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                padding-left: 8px;
+                &.expanded {
+                    word-break: break-all;
+                }
+                &.expanded > a {
+                    white-space: pre-wrap;
+                    word-break: break-word;
+                }
+                a.saved-search {
+                    font-weight: bold;
+                }
+            }
+            .jobmanager-table-emptytablerow > td > div {
+                @mixin clearfix;
+
+                background-color: $white;
+                min-height: 300px;
+                text-align: center;
+                margin-top: 10%;
+
+                h2 {
+                    @mixin create-heading-large;
+
+                    div.shared-waitspinner {
+                        display: inline-block;
+                        margin-right: $spacingQuarter;
+                    }
+                }
+
+                a {
+                    margin-top: $spacing;
+                }
+
+                .reload-report {
+                    margin-right: $spacing;
+                }
+            }
+        }
+    }
+}

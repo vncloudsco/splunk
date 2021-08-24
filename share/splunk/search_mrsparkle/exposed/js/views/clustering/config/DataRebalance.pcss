@@ -1,0 +1,24 @@
+$dataRebalanceControlGroupWidth: 490px;
+$dataRebalanceControlLabelWidth: 110px;
+.clustering-config-datarebalance {
+
+    .control-group {
+        margin-bottom: 20px;
+    }
+
+    .control-label {
+        display: inline-block;
+        width: $dataRebalanceControlLabelWidth;
+        margin-right: 10px;
+    }
+
+    .controls {
+        display: inline-block;
+        height: 15px;
+        width: calc($dataRebalanceControlGroupWidth - $dataRebalanceControlLabelWidth);
+    }
+
+    .starting-button {
+        font-style: italic;
+    }
+}

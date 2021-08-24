@@ -1,0 +1,94 @@
+
+
+/* overrides */
+.masterFooter {
+    background-color: $white;
+}
+
+/* specifics */
+#sid {
+    color:$textGrayDark;
+    font-size: $fontSizeSmall;
+    padding-left: 15px;
+}
+#summary, #perf {
+    padding: 0px 15px;
+}
+#details {
+    padding: 0px 15px;
+    background-color: $white;
+}
+
+#explanation {
+}
+#explanation.ok {
+    border-color: green;
+}
+#explanation.zombied {
+    border-color: red;
+}
+#explanation.failed {
+    border-color: red;
+}
+#explanation.paused {
+    border-color: orange;
+}
+#explanation.noresults {
+    border-color: blue;
+}
+#explanation.messaged {
+    border-color: blue;
+}
+
+pre.inspector-json {
+    white-space: pre-wrap;
+    margin: 0px;
+    border: 0px;
+    padding: 0px;    border-radius: 0px;
+}
+pre {
+    border: 1px solid $borderColor;
+    padding: 5px;
+    background-color: $white;
+    border-radius: $interactiveBorderRadius;
+    white-space: normal;
+}
+.searchString span {
+    padding: 2px;
+}
+.searchString .highlighted {
+    background-color: #ffff33;
+}
+.searchString .muted {
+    color: $gray30;
+}
+
+#summary li {
+    margin-left: 10px;
+}
+#messages .text {
+    font-weight: bold;
+}
+#messages li {
+    list-style-type: none;
+}
+
+
+#perf img {
+    height: 1px;
+}
+#perf img.durationBar {
+    height: 12px;
+    background-color: $black;
+    opacity: 0.5;
+}
+#perf table td.numeric {
+    text-align: right;
+}
+#perf td {
+    background-color: $white;
+}
+#perf tr.sub img.durationBar {
+    opacity: 0.25;
+}
+

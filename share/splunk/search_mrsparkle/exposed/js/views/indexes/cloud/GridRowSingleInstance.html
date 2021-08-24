@@ -1,0 +1,69 @@
+<td class="index-name">
+    <% if (model.entity.entry.links.get("edit")) { %>
+    <a href=<%- editLink %> class="editAction"><%- model.entity.entry.get("name") %></a>
+    <% } else { %>
+    <span class="disabled-action"><%- model.entity.entry.get("name") %></span>
+    <% } %>
+</td>
+<td class="actions">
+    <% if (model.entity.entry.links.get("edit")) { %>
+        <a href=<%- editLink %> class="editAction"><%= _("Edit").t() %></a>
+    <% } else { %>
+        <span class="disabled-action"><%= _("Edit").t() %></span>
+    <% } %>
+    <% if (isInternal) { %>
+        <span class="disabled-action"><%= _("Delete").t() %></span>
+        <% if (isEnabled) { %>
+            <span class="disabled-action"><%= _("Disable").t() %></span>
+        <% } else { %>
+            <span class="disabled-action"><%= _("Enable").t() %></span>
+        <% } %>
+    <% } else if (isRemoteIndex) { %>
+        <a href="#" class="disabled-action deleteAction"><%= _("Delete").t() %></a>
+            <a href="#" class="disabled-action entity-action"><%= _("Disable").t() %></a>
+    <% } else { %>
+        <% if (isEnabled) { %>
+            <a href="#" class="deleteAction"><%= _("Delete").t() %></a>
+            <a href="#" class="disableAction"><%= _("Disable").t() %></a>
+        <% } else { %>
+            <span class="disabled-action"><%= _("Delete").t() %></span>
+            <a href="#" class="enableAction"><%= _("Enable").t() %></a>
+        <% } %>
+    <% } %>
+</td>
+<td class="index-type">
+    <i class="icon-<%-model.entity.getDataType()%> icon-large"></i>
+    <%- formatDataType(model.entity.getDataType()) %>
+</td>
+<% if (user.canUseApps()) { %>
+<td class="index-app"><%- model.entity.entry.acl.get("app") %></td>
+<% } %>
+<td class="raw-size"><%- formatNumbersUtils.bytesToFileSize(rawSizeSingleInstance * 1024 * 1024) %></td> <!-- format w/ size units -->
+<td class="max-size">
+    <% if (isRemoteIndex) { %>
+        <% if (model.entity.entry.content.get("maxGlobalRawDataSizeMB") == "0") { %>
+            <%- _('unlimited').t() %>
+        <% } else { %>
+            <%- formatNumbersUtils.bytesToFileSize(model.entity.entry.content.get("maxGlobalRawDataSizeMB") * 1024 * 1024) %> <!-- format in GB -->
+        <% } %>
+    <% } else { %>
+        <% if (model.entity.entry.content.get("maxTotalDataSizeMB") == "0") { %>
+            <%- _('unlimited').t() %>
+        <% } else { %>
+            <%- formatNumbersUtils.bytesToFileSize(model.entity.entry.content.get("maxTotalDataSizeMB") * 1024 * 1024) %>
+        <% } %>
+    <% } %>
+</td> <!-- format in GB -->
+<td class="event-count" title="<%- splunkUtil.sprintf(_('%s events').t(), model.entity.entry.content.get("totalEventCount")) %>"><%- formatNumbersUtils.abbreviateNumber(model.entity.entry.content.get("totalEventCount")) %></td> <!-- Abbreviate number -->
+<td class="earliest-event" title="<%- formatToLocalTime(model.entity.entry.content.get("minTime")) %>"><%- formatToRelativeTime(model.entity.entry.content.get("minTime")) %></td> <!-- format into relative time -->
+<td class="latest-event" title="<%- formatToLocalTime(model.entity.entry.content.get("maxTime")) %>"><%- formatToRelativeTime(model.entity.entry.content.get("maxTime")) %></td><!-- format into relative time -->
+<td class="searchable-retention" title='<%- model.entity.entry.content.get("frozenTimePeriodInSecs") %>'>
+    <% var frozenTimePeriodInSecs = model.entity.entry.content.get("frozenTimePeriodInSecs");
+    var frozenTimePeriodInSecsDisplay = (frozenTimePeriodInSecs === 0) ? _("keep indefinitely").t() : timeUtils.getRelativeStringFromSeconds(frozenTimePeriodInSecs, true);
+    %>
+    <%- frozenTimePeriodInSecsDisplay %>
+</td> <!-- format into relative time -->
+
+<td class="index-status">
+    <div class="status-cell-placeholder"></div>
+</td>

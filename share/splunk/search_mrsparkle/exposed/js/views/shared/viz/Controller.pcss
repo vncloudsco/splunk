@@ -1,0 +1,51 @@
+.viz-controller > .action-bar {
+    display: none;
+    height: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-right: 5px;
+    padding-top: 5px;
+    background: $trellisActionBarBackground;
+}
+.viz-controller > .facets-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.viz-controller.facets-mode-active .facets-container {
+    overflow-y: auto;
+}
+.facets-mode-active .action-bar {
+    display:block;
+    margin-right: 18px;
+}
+.facets-container > .viz-facet {
+    float: left;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 15px;
+}
+.viz-panel > .facet-label {
+    text-align: center;
+    display: block;
+    line-height: 100%;
+    font-size: 12px;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 2px;
+    position: relative;
+    top: 0px;
+}
+.viz-panel.viz-facet-size-large {
+    .facet-label {
+        font-size: 15px;
+    }
+    padding-bottom: 15px;
+}

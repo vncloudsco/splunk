@@ -1,0 +1,51 @@
+<div class="browser-warning">
+    <div class="alert alert-error">
+        <i class="icon-alert"></i><%= _('Your browser does not support file uploads. Please download and install the latest version or use another supported browser to access this feature.').t() %> <a class="external" href="<%- helpLinkBrowser %>" target="_blank"> <%= _('Learn More').t() %></a>
+    </div>
+</div>
+
+<p class="license-progress-control">
+    <%= _('Validating.. ').t() %>
+</p>
+
+<div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+</div>
+
+<div class="uploadControlWrapper">
+    <p><%= _('Upload a .lic file to add a license: ').t() %></p>
+
+    <div class="license-validation-error">
+        <div class="alert alert-error">
+            <i class="icon-alert"></i><%= _('Validation failed. Please double check your license file.').t() %>
+        </div>
+    </div>
+
+    <div class="dropzone">
+        <div class="dropzone-box"></div>
+        <div class="dropzone-text"><h2><%= _('Drop your license file here').t() %> </h2></div>
+    </div>
+
+    <div class="multiple-files-error">
+        <div class="alert alert-error">
+            <i class="icon-alert"></i><%= _('Multiple files selected. Try again, with only one file selected.').t() %>
+        </div>
+    </div>
+
+    <p class="license-select-control"><%= _('Or').t() %>
+        <a href="#" class="btn select-file-button"><%= _('Select a file').t() %></a>
+        <input type="file" class="license-file-input" name="spl-file" />
+        <span class="license-file-name"></span>
+    </p>
+
+    <p class="license-paste-control"><%= _('Or').t() %>
+        <a href="#" class="license-paste-xml-link"><%= _('copy & paste the license XML directly...').t() %></a>
+    </p>
+    <div class="license-pastebin">
+        <textarea class="license-pastebin-textarea" rows="20" cols="90"></textarea>
+    </div>
+
+    <p class="get-new-license"><%= _('Don\'t have a license yet? ').t() %>
+        <a href="http://www.splunk.com/goto/estore" class="external"><%= _('Get a new license').t() %></a>
+    </p>
+</div>

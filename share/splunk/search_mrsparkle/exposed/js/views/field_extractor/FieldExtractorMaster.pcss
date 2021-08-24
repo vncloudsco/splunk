@@ -1,0 +1,818 @@
+
+/********************************************
+    Page Presentation
+*********************************************/
+
+@define-mixin highlighted-match-container  {
+  .remove-button {
+    position: relative;
+    margin-left: 3px;
+  }
+}
+
+.main-section-body > .alerts {
+    padding: 25px 50px;
+}
+
+
+.main-section-body  {
+    min-height: 0;
+}
+
+
+.field-extractor-master {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: $navbarHeight;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+}
+.page-header {
+    margin: 0px;
+    height: 80px;
+    flex: 0 0 auto;
+    border-bottom: $borderDefault;
+    padding-bottom: 0;
+    background: $bodyBackgroundColor;
+    box-shadow: $affixTopBoxShadow;
+    text-align: center;
+    z-index: 2;
+
+    &[data-mode="manual"] {
+        text-align: left;
+
+        .extract-fields-page-title {
+            line-height: 48px;
+        }
+    }
+}
+
+.instruction-title {
+    margin: 10px 0;
+    margin-top: 0;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.instructions-title {
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.page-content {
+    min-height: calc(100vh - (80px + $navbarHeight + 50px));
+    padding: $spacing;
+    overflow-y: auto;
+}
+
+.content-header {
+    padding: $spacing $spacing 0 $spacing;
+    @mixin clearfix;
+    @mixin create-card;
+
+    .remove-button {
+        float: left;
+        color: $textGray;
+        font-size: 18px;
+        clear: both;
+        line-height: 28px;
+        margin-top: -$spacingHalf;
+    }
+}
+
+.content-header-narrow {
+    width: 940px;
+    margin: 0 auto;
+}
+
+
+.content-body {
+    width: 100%;
+    min-height: 400px;
+    @mixin create-card;
+
+    .body-instructions {
+        padding-top: $spacing;
+        margin-left: $spacing;
+        margin-bottom: $spacingHalf;
+    }
+}
+
+.regex-loading-message {
+    padding: 25px;
+}
+
+.flash-messages-container {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.preview-table-wrapper {
+	margin-bottom: -1px; /* overlap the bottom border so we don't get two. */
+}
+
+@media only screen and (max-width: 1000px) {
+    .step-wizard .step-label {
+        max-width: 75px !important;
+    }
+}
+
+@for $i from 1 to 3 {
+    .highlighted-border-cat$i {
+        box-shadow: inset 0 0 0 3px $cat$(i)ColorL;
+    }
+}
+
+
+/********************************************
+    Header Bar
+*********************************************/
+.extract-fields-page-title {
+    padding: 0px $spacing;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 10px 0;
+}
+
+.view-all-extractions-button-container {
+    display: inline-block;
+    float: right;
+    line-height: 63px;
+    margin-right: $spacing;
+    margin-top: 8px;
+    .icon-alert {
+        color: $errorColor;
+        margin-right: $spacingHalf;
+        font-size: 200%;
+    }
+    .view-extractions-button {
+        margin-top: -12px;
+    }
+}
+
+.instruction{
+    padding-bottom: $spacing;
+}
+
+.step-buttons-container {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.manual-save-button {
+    margin-left: $spacingThreeQuarters;
+}
+
+.button-big {
+    clear: both;
+    width: 300px;
+    height: 100px;
+    line-height: 100px;
+    font-size: 29px;
+    float: left;
+    margin-bottom: $spacing;
+}
+
+.method-desc {
+    float: left;
+    padding: $spacing;
+    line-height: 26px;
+}
+
+.desc-link {
+    display: block;
+}
+
+/********************************************
+    Method Selection Buttons
+*********************************************/
+
+.method-switch {
+    position: relative;
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: $spacing;
+}
+
+.type-container {
+    display: inline-block;
+    text-align: center;
+    width: 350px;
+    margin-left: -55px;
+    vertical-align: top;
+}
+
+.type-btn {
+    display: block;
+    margin: 0 auto $spacingHalf auto;
+    padding: $spacingHalf 0 $spacingQuarter 0;
+    cursor: pointer;
+    width: 220px;
+    border-radius: $borderRadius;
+    transition: $transitionBackgroundColor;
+
+    svg {
+        fill: none;
+    }
+
+    .stroke {
+        stroke: $brandColor;
+        stroke-width: 1px ;
+    }
+    .stroke-thick {
+        stroke-width: 2px;
+    }
+    .fill {
+        fill: $brandColor;
+    }
+    &:hover {
+        background-color: $gray98;
+    }
+    &:focus {
+        @mixin focus-element;
+    }
+}
+
+.selected-method {
+    background-color: $accentColorL40;
+}
+
+.type-title-text {
+    font-weight: bold;
+    line-height: 24px;
+}
+
+.type-desc-text {
+    font-size: $fontSizeSmall;
+    line-height: $lineHeight;
+    color: $textGray;
+    width: 220px;
+    margin-left: 65px;
+    margin-right: 65px;
+}
+
+
+/********************************************
+    Pick Sample Event Mode
+*********************************************/
+.instructions-container {
+    padding: $spacing 0px $spacingHalf $spacing;
+}
+
+.sourcetype-label-container {
+    padding: $spacingHalf 0px $spacingHalf $spacing;
+}
+
+.sourcetype-label, .type-label {
+    margin-left: $spacing;
+    margin-right: $spacingQuarter;
+    margin-left: 0px;
+}
+
+.sourcetype-name, .source-name {
+    font-weight: bold;
+}
+
+.select-sample-header {
+    .manual-mode-button-container {
+        margin-top: $spacingQuarter;
+    }
+}
+
+.type-wrapper {
+    display: inline-block;
+}
+
+.sourcetype-dropdown-wrapper, .type-dropdown-wrapper {
+    display: inline-block;
+    /*  The zero font size of the button groups mis-aligns the label in Firefox (SPL-87435). */
+    & > .btn-group {
+        font-size: inherit;
+    }
+}
+
+.source-wrapper {
+    display: block;
+    margin-top: $spacing;
+}
+
+.sourcetypeMenu {
+    display: inline-block;
+}
+
+.sourcetype-wrapper {
+    margin-top: $spacing;
+    margin-bottom: $spacing;
+}
+
+.dropdown-submenu .dropdown-menu {
+  li:first-child {
+    a {
+      border-top: none;
+    }
+  }
+}
+
+.dropdown-submenu > .dropdown-menu {
+  border-radius: $borderRadius;
+}
+
+/********************************************
+    Automatic Extraction Editor
+*********************************************/
+
+.event-wrapper {
+    background-color: $white;
+    border-radius: $borderRadius;
+    padding: $spacingQuarter;
+    border: 1px solid rgba(82,168,236,.8);
+    margin: $spacing 0;
+
+    &.not-interactive {
+        background-color: $accentColorD20;
+        border-color: $accentColorD20;
+        color: $white;
+        user-select:none;
+    }
+}
+
+
+.remove-button +  .event-wrapper {
+	margin-top: -$spacingHalf;
+}
+
+
+.select-fields-header + .automatic-extraction-editor {
+	margin-top: -$spacing;
+}
+
+
+.automatic-extraction-editor {
+
+    .master-event-container {
+        @mixin highlighted-match-container;
+    }
+
+    .sample-event-wrapper {
+        margin-left: $spacing;
+    }
+
+    .highlighted-match, .highlighted-existing-match, .required-text {
+        cursor: pointer;
+    }
+
+    &.disabled {
+        opacity: 0.40;
+
+        .highlighted-match, .highlighted-existing-match, .required-text {
+            cursor: default;
+        }
+    }
+
+}
+
+.interactive-extraction-cell {
+  @mixin highlighted-match-container;
+  white-space: pre-wrap !important;
+  font-family: $monoFontFamily;
+  .shared-resultstable-resultstablerow > &:only-child {
+    position: relative;
+  }
+}
+
+.fieldextractor-mastereventdelimeditor {
+    overflow: auto;
+    .master-event-container {
+        margin-top: 35px;
+        margin-bottom: $spacing;
+        overflow-x: visible;
+        table {
+            border: 0px;
+            margin-bottom: 0px;
+            .masterevt-hdr > span {
+                cursor: pointer;
+                .icon-pencil {
+                    padding-left: 4px;
+                    color: $accentColorD20;
+                }
+            }
+            td {
+                border: 0px;
+            }
+        }
+    }
+}
+
+.counter-examples-container {
+    .remove-button {
+        margin-top: 0px;
+        line-height: 16px;
+    }
+
+    .counter-example-wrapper {
+        margin-left: $spacing;
+        border-color: $errorColor;
+
+        .removed-text {
+            color: $errorColor;
+            text-decoration: line-through;
+        }
+    }
+}
+
+/********************************************
+    Manual Extraction Editor
+*********************************************/
+
+.manual-extraction-editor {
+    margin-top: $spacingQuarter;
+    .input-title {
+        display: inline-block;
+        margin-right: $spacingHalf;
+    }
+    a.btn, a.btn-pill, .preview-in-search-button, .regex-docs-link {
+        float: right;
+        margin-left: $spacingHalf;
+    }
+    .regex-editor-wrapper {
+        textarea {
+            width: 100%;
+        }
+    }
+    .preview-in-search-button, .regex-docs-link {
+        margin-top: $spacingQuarter;
+    }
+
+    .required-text-warning .icon-info-circle {
+      font-size: 200%;
+      position: absolute;
+      left: 0px;
+      top: 8px;
+      color: blue;
+    }
+}
+
+/********************************************
+    Delimiter mode
+*********************************************/
+.delim-selector {
+    padding-top: $spacingHalf;
+
+    .delimiter-radio {
+        padding-top: $spacingQuarter;
+
+        .shared-controls-syntheticradiocontrol {
+            padding-top: $spacingQuarter;
+        }
+
+        .delim-custom {
+            margin-top: $spacingQuarter;
+            margin-bottom: 0px;
+            margin-left: $spacingHalf;
+            margin-right: $spacingHalf;
+            padding-right: 0px;
+            width: 45px;
+        }
+
+    }
+}
+
+/********************************************
+    Save Extractions
+*********************************************/
+.save-extractions-container {
+    margin-right: $spacing;
+    padding-bottom: $spacingHalf;
+}
+
+.save-extractions-form {
+    margin-bottom: $spacing;
+
+    .shared-permissions-acl {
+        margin: 0 0 0 180px;
+    }
+}
+
+.shared-documentcontrols-dialogs-permissionsdialog-acl {
+    margin: $spacingThreeQuarters 0px $spacingHalf 180px;
+    border: $borderDefault;
+    border-top: 0px;
+    width: 600px;
+}
+
+.shared-controls-textcontrol {
+    display: inline-block;
+    margin-bottom: 0px;
+}
+
+.review-extractions-form {
+    display: inline-block;
+    border-top: $borderDefault;
+    padding-top: $spacingThreeQuarters;
+    width: 100%;
+}
+
+.sample-event-container {
+    margin-top: $spacingThreeQuarters;
+}
+
+.sample-event-label {
+    padding-top: 0px !important;
+}
+
+.events-wrapper {
+    margin-left: 180px;
+}
+
+.event-text {
+    white-space: pre-wrap;
+    margin-top: $spacingQuarter;
+    margin-bottom: $spacingThreeQuarters;
+    font-family: $monoFontFamily;
+    line-height: $spacing;
+    padding-bottom: 0px;
+    word-wrap: break-word;
+}
+
+.save-extractions-form {
+    .shared-controls-textcontrol {
+        width: 450px;
+        input[type=text] {
+            width: 250px;
+            display: inline-block;
+        }
+    }
+}
+
+.extract-prelabel {
+    position: relative;
+    top: 2px;
+    font-weight: 500;
+}
+
+/********************************************
+    Confirmation View
+*********************************************/
+
+.confirmation-body {
+    margin-top: 25px;
+    margin-bottom: 25px;
+
+    .next-step-links {
+        margin-left: 25px;
+        line-height: 25px;
+
+        i {
+            font-size: $spacingThreeQuarters;
+            margin-right: $spacingHalf;
+        }
+    }
+
+    h4 {
+    	font-weight: normal;
+    	font-size: $fontSizeLarge;
+    }
+}
+
+/********************************************
+    Extraction Viewer
+*********************************************/
+
+.extraction-viewer {
+    margin-bottom: $spacingHalf;
+
+    .regex-text-container {
+        margin-top: $spacingHalf;
+        margin-bottom: $spacingQuarter;
+        padding: $spacingHalf;
+        border: $borderDefault;
+    }
+
+    .regex-button-container {
+        a.btn {
+            float: right;
+            margin-left: $spacingHalf;
+        }
+    }
+
+    .search-button-container {
+        a.btn {
+            float: right;
+            margin-left: $spacingHalf;
+        }
+        padding-bottom: $spacingHalf;
+    }
+}
+
+/********************************************
+    Results Table
+*********************************************/
+.results-control-bar-placeholder {
+    display: inline;
+
+    .match-results-control-bar {
+        padding-left: $spacing;
+        padding-right: $spacingHalf;
+
+        .spinner-container > .spinner-small {
+            margin-top: 2px;
+            margin-right: $spacingQuarter;
+        }
+
+        .search-filter-container {
+            .checkbox {
+                padding-top: 3px;
+            }
+        }
+    }
+}
+
+.results-table {
+    table {
+        margin-bottom: 0;
+        .selected-master-event-cell {
+            $selectedBgColor: $accentColorD20;
+            $selectedColor: $white;
+            background-color: $selectedBgColor !important;
+            color: $selectedColor !important;
+            &:hover {
+                background-color: $selectedBgColor !important;
+                color: $selectedColor !important;
+            }
+        }
+        tbody {
+            tr {
+                position: relative;
+            }
+        }
+    }
+}
+
+.add-sample-event-button {
+    position: absolute;
+    right: 3px;
+    background-color: $linkColor;
+    color:white;
+    padding: 3px $spacingHalf;
+    border-radius: $borderRadius;
+    margin-top: -23px;
+    cursor: pointer;
+    font-family: $fontFamily;
+
+    .interactive-extraction-cell.field-extraction > & {
+        margin-top: 0;
+        top: 3px;
+    }
+}
+
+.nav-tabs {
+  background-color: $white;
+  background-image: linear-gradient(to bottom, $white, $white);
+  border-top: none;
+  padding-top: $spacingThreeQuarters;
+  height: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.nav-tabs>li {
+  float: none;
+  display: inline-block;
+}
+
+.shared-tabcontrols-tabbase{
+    min-width: -webkit-min-content;
+}
+
+
+/********************************************
+    Extractions Sidebar
+*********************************************/
+
+.existing-extractions-list {
+    padding: $spacingThreeQuarters;
+    .sourcetype-name, .source-name {
+        font-weight: bold;
+    }
+    .table {
+        margin-top: $spacing;
+        border: $borderDefault;
+        width: 385px;
+    }
+    .extractions-sidebar-instructions {
+        margin-top: $spacingHalf;
+    }
+}
+
+.sidebar {
+    overflow: auto;
+    width: 415px;
+}
+
+/********************************************
+    Dropdown Menus & Dialogs
+*********************************************/
+
+.edit-extraction-action, .remove-required-text {
+    padding-left: $spacing !important;
+}
+
+.dropdown-menu li.dropdown-title-field-name, li.dropdown-title-required-text {
+    margin-left: $spacingHalf;
+    padding: 7px $spacingHalf;
+}
+
+.extraction-form-mode-toggle div.btn-group-radio {
+    margin-left: 85px;
+    padding-bottom: $spacingHalf;
+    .btn {
+        width: 82px;
+    }
+}
+
+.require-message {
+    padding-top: $spacingHalf;
+    padding-bottom: $spacing;
+}
+
+.field-extraction-form {
+    padding: $spacingHalf 0px 0px 0px;
+    background-color: $white;
+    width: 269px;
+    .extraction-form-container {
+        padding: 0px $spacingHalf;
+    }
+    .extraction-form-buttons {
+        background-color: $gray92;
+        padding-bottom: $spacingHalf;
+        .submit-button {
+            margin-right: $spacingHalf;
+        }
+    }
+    .alerts{
+        margin: 0px $spacingHalf;
+        .alert {
+            padding: 8px 8px 8px 27px;
+            margin: 0px;
+        }
+    }
+}
+
+.no-fields-message-container {
+    margin: 0px $spacingHalf;
+    .no-fields-message {
+        position: relative;
+        padding: 8px 8px 18px 42px;
+        margin: 0px;
+        .icon-alert {
+            color: $errorColor;
+            font-size: 200%;
+            position: absolute;
+            left: 10px;
+            top: 13px;
+        }
+    }
+}
+
+.extraction-form-content {
+    .no-fields-message {
+        padding: $spacingQuarter $spacingHalf $spacingHalf;
+    }
+    .selected-text-control {
+        overflow: hidden;
+        .selected-text {
+            width: 165px;
+            word-wrap: break-word;
+            font-weight: bold;
+        }
+    }
+}
+
+/********************************************
+    Form
+*********************************************/
+
+.control-label {
+    width: 150px;
+    float: left;
+}
+
+/********************************************
+    Disabled Components
+*********************************************/
+
+a.disabled, .disabled a {
+    color: $textGray;
+    cursor: default;
+    &:hover {
+        text-decoration: none;
+    }
+}

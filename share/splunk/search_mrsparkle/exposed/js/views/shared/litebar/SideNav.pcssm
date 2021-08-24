@@ -1,0 +1,53 @@
+/*  Lite Side Nav */
+/*  ======================= */
+
+.view {
+    width: $sideNavWidth;
+    height: 100%;
+    background: $gray20;
+    color: $white;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: -$sideNavWidth;
+    z-index: $zindexSideNav;
+    transition: .5s left;
+    font-family: $sansFontFamily;
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+    line-height: $lineHeight;
+    a {
+        color: $white;
+        text-decoration: none;
+        cursor: pointer;
+    }
+}
+
+.sidenavHead {
+    padding: 0 20px;
+    height: $litebarHeight;
+    line-height: $litebarHeight;
+    font-size: 14px;
+}
+
+.sideNavBody {
+    padding-bottom: 10px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+/*  Body movement */
+
+body {
+    transition: .5s margin;
+}
+
+[data-sidenav-state=open] {
+    margin-left: $sideNavWidth;
+    margin-right: -$sideNavWidth;
+}

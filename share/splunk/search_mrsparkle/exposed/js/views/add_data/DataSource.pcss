@@ -1,0 +1,57 @@
+$dataLeftColumnsWidth: 400px;
+$dataRightColumnsWidth: 600px;
+$dataPageWidth: calc($dataLeftColumnsWidth + $dataRightColumnsWidth + $spacingDouble);
+
+.data-source-columns {
+    margin: 20px auto;
+    justify-content: center;
+    &:not(.file-upload) {
+        @mixin create-card;
+    }
+}
+
+.data-source-upload {
+    .fileUpload {
+        @mixin create-card;
+        padding: $spacing;
+
+        h1 {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        .progress {
+            margin: 10px 0;
+        }
+        .max-filesize {
+            display: block;
+            text-align: center;
+            color: $textGrayDark;
+        }
+        input {
+            line-height: 1em;
+            width: 80px;
+        }
+    }
+    .faq {
+        @mixin create-card;
+        margin: $spacingHalf 0;
+        padding: $spacingHalf $spacing;
+    }
+}
+
+.data-source-col-left {
+    background-color: $white;
+    left: 0;
+    border-right: $borderDefault;
+    box-sizing: border-box;
+    width: $dataLeftColumnsWidth;
+}
+
+.data-source-col-right {
+    background-color: $white;
+    padding-top: 20px;
+
+    .form-horizontal {
+        width: $dataRightColumnsWidth;
+    }
+}

@@ -1,0 +1,63 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "SLIM\-DESCRIBE" "1" "September 2017" "Splunk, Inc." "Splunk Packaging Toolkit"
+.
+.SH "NAME"
+\fBslim\-describe\fR \- describe an app and its dependencies
+.
+.SH "SYNOPSIS"
+\fBslim\fR \fBdescribe\fR [(\fB\-h\fR|\fB\-\-help\fR_)] [(\fB\-r\fR|\fB\-\-repository=\fR)<repository>] [(\fB\-o\fR|\fB\-\-output=\fR)<filename>] <app\-source>
+.
+.SH "DESCRIPTION"
+Describes a Splunk app and its dependencies, assuming the \fBapp\.manifest\fR file is located at the root of the app source directory\.
+.
+.SH "OPTIONS"
+<app\-source> Location of the app source package or directory\.
+.
+.P
+\fB\-h\fR, \fB\-\-help\fR
+.
+.br
+Print help message and exit\.
+.
+.P
+\fB\-r\fR <repository>, \fB\-\-repository\fR <repository>
+.
+.br
+Look for dependent source packages in the directory at this location\. (default: \fB${SLIM_REPOSITORY:=~/\.slim/repository}\fR)
+.
+.P
+\fB\-o\fR <filename>, \fB\-\-output=\fR<filename>
+.
+.br
+Print app description to the file at this location\. (default: stdout)
+.
+.SH "EXAMPLES"
+The following example demonstrates using the describe command to describe an app called "fictional\."
+.
+.IP "" 4
+.
+.nf
+
+$ slim \-\-debug describe \-\-repository ~/\.slim/repository fictional
+[info]
+|\-\- SLIM fictional test app: A SLIM app for testing Splunk extension packaging, partitioning, and operations\.
+|  |\-\- by David Noble (dnoble@splunk\.com) at Splunk, Inc\.
+|  |\-\- packaged as com\.splunk\.addons\-fictional@1\.0\.0
+[dependencies]
+|\-\- Splunk Add\-on for Microsoft Windows packaged as com\.splunk\.addon\-microsoft_windows@4\.7\.5
+|\-\- Splunk Add\-on for *nix Operating Systems packaged as com\.splunk\.addon\-star_nix@5\.2\.1
+[input\-groups]
+|\-\- Microsoft Windows monitoring defines inputs [input_1, input_2, input_3] and requires no dependencies
+|\-\- *nix monitoring defines inputs [input_4, input_5, input_6] and requires [Splunk Add\-on for *nix Operating Systems]
+[dependency\-graph]
+|\-\- com\.splunk\.addons:fictional@1\.0\.0
+|   |\-\- com\.splunk\.addon:microsoft_windows@4\.7\.5 (accepting 4\.7\.5)
+|      |\-\- com\.splunk\.addon:utilities@1\.0\.0 (accepting ~1\.0\.0)
+|   |\-\- com\.splunk\.addon:star_nix@5\.2\.1 (accepting 5\.2\.1)
+.
+.fi
+.
+.IP "" 0
+

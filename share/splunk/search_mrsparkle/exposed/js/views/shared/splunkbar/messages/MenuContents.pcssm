@@ -1,0 +1,38 @@
+/*  Messages styles in Splunk Bar */
+/*  ======================= */
+
+.view {
+    width: 360px;
+}
+
+.footer {
+    composes: footer from '../../MenuDialog.pcssm';
+    text-align: right;
+}
+
+.noMessages {
+    composes: body from '../../MenuDialog.pcssm';
+    padding: $spacingDouble;
+    color: $textColor;
+    text-align: center;
+    min-width: 200px;
+    background: $popupBackgroundColor;
+}
+
+.messageList {
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    width: 360px;
+    margin: 0;
+    border-radius: $containerInnerBorderRadius $containerInnerBorderRadius 0 0;
+}
+
+.splunkMessagesDivider {
+    border-top: $borderDefault;
+    height: 0px;
+}
+
+/*  messages dialog overrides */
+.deleteAllMessages {
+    margin: 0;
+}

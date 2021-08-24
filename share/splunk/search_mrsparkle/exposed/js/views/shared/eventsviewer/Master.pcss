@@ -1,0 +1,614 @@
+/*  Splunk: Component: Events Viewer */
+/*  ================================ */
+/*  new events viewer ... */
+
+$et_magenta:                                #cc5068;
+$et_purple:                                 #6a5c9e;
+$et_teal:                                   #11a88b;
+
+/*  wrapper for sidebar and content */
+.search-results-wrapper {
+	clear: both;
+	min-height: 400px;
+	@mixin clearfix;
+
+}
+
+/*  common */
+.event .raw-event, .event .json-event {
+	font-family: $monoFontFamily;
+	font-size: $fontSize;
+	color:$textColor;
+	/*  override BS styles */
+	border: none;
+	background-color: transparent;
+	margin: auto;
+	padding: 0;
+
+	em {
+		font-style: normal ;
+	}
+
+	.a,
+	.h,
+	.selected-segment,
+	.fields .v:hover,
+	.fields .tg:hover,
+	.time:hover {
+		background-color: $fieldHighlightBackgroundColor;
+		border-top: 4px solid $fieldHighlightBackgroundColor;
+		border-bottom: 4px solid $fieldHighlightBackgroundColor;
+		color: $fieldHighlightTextColor;
+    }
+	.key-name {
+		color: $errorColor;
+		font-weight: bold;
+	}
+	.string {
+		color: $et_teal; /* was 007777; */
+	}
+	.number {
+		color: $et_purple; /* was AA00AA; */
+	}
+	.boolean {
+		color: $alertColor; /* was 0000FF; */
+	}
+	.null {
+		color: $alertColor; /* was 0000FF; */
+	}
+}
+
+.event .json-event {
+	/*  SPL-110054: add style to span to make rendering faster */
+	span {
+		position: relative;
+	}
+
+	.key-name,
+	.string,
+	.number,
+	.boolean,
+	.null {
+		white-space: pre;
+	}
+
+	&.wrap {
+		.key-name,
+		.string,
+		.number,
+		.boolean,
+		.null {
+			white-space: pre-wrap;
+		}
+	}
+}
+
+ul.events-viewer-tooltip {
+    margin: 0 0 0 15px;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+/*  main events viewer */
+.shared-eventsviewer {
+
+	th.col-0,
+	th.line-num,
+	th.col-time,
+	th.col-warnings {
+		width:1px;
+	}
+	th.col-0:last-child,
+	th.col-time:last-child  {
+		width:auto;
+	}
+	th.col-0.merge-right,
+	th.line-num.merge-right,
+	th.col-time.merge-right  {
+		border-right: 0;
+	}
+	th.col-warnings {
+		border-left: 0;
+	}
+	td._time > span > span {
+	   white-space:nowrap;
+	}
+	td.col-warnings {
+		i {
+			font-size: 18px;
+			color: $alertColor;
+		}
+		span {	/*  for 508 */
+			position: absolute;
+			left: -99999px;
+		}
+	}
+	.shared-eventsviewer-table-body-primaryrow > td.no-wrap {
+		white-space: pre;
+	}
+
+	td.expands.et_blue    {
+		background-color: $accentColor !important;
+		border-right:1px solid $accentColor !important;
+		&:hover {
+			background-color: $accentColorL10 !important;
+		}
+	}
+	td.expands.et_green   {
+		background-color: $successColor !important;
+		border-right:1px solid $successColor !important;
+		&:hover {
+			background-color: $successColorL10 !important;
+		}
+	}
+	td.expands.et_orange  {
+		background-color: $alertColor !important;
+		border-right:1px solid $alertColor !important;
+		&:hover {
+			background-color: $alertColorL10 !important;
+		}
+	}
+	td.expands.et_red     {
+		background-color: $errorColor !important;
+		border-right:1px solid $errorColor !important;
+		&:hover {
+			background-color: $errorColorL10 !important;
+		}
+	}
+	td.expands.et_sky     {
+		background-color: $infoColor !important;
+		border-right:1px solid $infoColor !important;
+		&:hover {
+			background-color: $infoColorL10 !important;
+		}
+	}
+	td.expands.et_yellow  {
+		background-color: $warningColor !important;
+		border-right:1px solid $warningColor !important;
+		&:hover {
+			background-color: $warningColorL20 !important;
+		}
+	}
+
+
+	td.expands.et_magenta {
+		background-color: $et_magenta !important;  /* nothing closer in the viz colors */
+		border-right:1px solid $et_magenta !important;
+		&:hover {
+			background-color: color($et_magenta l(+7%)) !important;
+		}
+	}
+
+
+	td.expands.et_purple  {
+		background-color: $et_purple !important;
+		border-right:1px solid $et_purple !important;
+		&:hover {
+			background-color: color($et_purple l(+7%)) !important;
+		}
+	}
+
+	td.expands.et_teal    {
+		background-color: $et_teal !important; /* not in the viz colors */
+		border-right:1px solid $et_teal !important;
+		&:hover {
+			background-color: color($et_teal l(+7%)) !important;
+		}
+	}
+
+	.event-fields-loading {
+		padding: 20px 0;
+		color: $textGray;
+	}
+
+	ul.condensed-selected-fields {
+		@mixin clearfix;
+		margin:  5px 0 0 0;
+		max-width: 100%;
+
+		li {
+			color: $textGray;
+			margin-right: 10px;
+			float: left;
+			list-style: none;
+			display: inline;
+			max-width: 100%;
+
+			> :last-child {
+				padding-right: 10px;
+				border-right: 1px dashed $eventFieldBorderColor;
+			}
+
+			&:last-child {
+				margin-right: 0;
+
+				> :last-child {
+					padding-right: 0;
+					border-right: none;
+				}
+
+			}
+
+			.field-value {
+				display: inline-block;
+			}
+
+            .field-value.a .f-v {
+                background-color: $fieldHighlightBackgroundColor;
+                color: $fieldHighlightTextColor;
+            }
+
+			.f-v {
+				display: inline-block;
+				max-width: 500px;
+				word-wrap:normal;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow:ellipsis;
+				vertical-align: top;
+				padding: 0 $linkPadding;
+			}
+
+			.f-v, .more-fields {
+				color: $textColor;
+				cursor: pointer;
+				&:hover {
+					color: $linkColorHover;
+				}
+			}
+
+			.tags {
+				display: inline-block;
+				>.tag {
+					display: inline-block;
+					color: inherit;
+					&:hover {
+						color: $linkColorHover;
+					}
+					&.a {
+						background-color: $fieldHighlightBackgroundColor;
+                        color: $fieldHighlightTextColor;
+						margin-right: 2px;
+					}
+				}
+			}
+		}
+	}
+
+	.formated-time:hover {
+		color: $linkColorHover;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+
+	.table {
+        .field-actions {
+            display: block;
+            text-align: center;
+        }
+
+		.field-value {
+            word-break: break-all;
+
+            a {
+				display: inline-block;
+
+                &.tag {
+                    padding: 0 3px;
+                }
+			}
+
+			&.a a.f-v {
+                padding: 0 3px;
+				background-color: $fieldHighlightBackgroundColor;
+                color: $fieldHighlightTextColor;
+			}
+		}
+	}
+	tr.row-more-fields + tr > td {
+		border-top: none;
+		border-bottom: none;
+	}
+	.col-more-fields  {
+		padding-left: 10px;
+		vertical-align: middle;
+	}
+
+	.col-visibility {
+		text-align: left;
+		font-size: 20px;
+		padding: 0 !important; /*  note: table embed adds padding to first col? */
+		width: auto;
+
+		.checkbox {
+			margin: 2px 0 0;
+			> a, > a:hover {
+				padding: 0;
+				color: $textColor !important; /* ghetto */
+				display: inline;
+			}
+		}
+
+	}
+
+	th.col-visibility {
+		padding-bottom: 4px !important;
+	}
+
+	th.col-field-name,
+	th.col-field-value {
+		padding-left: 4px;
+	}
+
+
+	a:hover .icon-hidden {
+		color: inherit;
+	}
+
+    .table-expanded {
+        min-width: 0;
+    }
+
+	.table-expanded a {
+		color: $linkColor !important; /* ghetto */
+		display: flex;
+
+		&._time-expand {
+			margin-left: $spacingQuarter;
+			text-decoration: none;
+			display: inline;
+		}
+	}
+
+	.table-expanded a:hover {
+		color: $linkColorHover !important; /* ghetto */
+	}
+	.table {
+		margin-bottom: 5px;
+		@mixin create-card-table;
+	}
+
+	.hide-line-num th.line-num, .hide-line-num td.line-num {
+		display: none;
+	}
+	.normal.raw-event {
+		background-color:inherit;
+		border:none;
+		white-space: pre;
+	}
+	.normal.raw-event.wrap {
+		white-space: pre-wrap;
+		word-break: break-all;
+	}
+
+	.event-actions {
+		margin: $spacingHalf 0;
+	}
+
+	.showinline, .hideinline {
+	  white-space:nowrap;
+	  word-wrap: normal;
+	  display: block;
+	}
+
+	.header-table-docked .table {
+		margin-bottom: 0;
+	}
+}
+
+.shared-eventsviewer-list-body-row,
+.shared-eventsviewer-table-body-primaryrow,
+.shared-eventsviewer-table-body-secondaryrow {
+	outline: 0;
+}
+
+.shared-eventsviewer-list,
+.shared-eventsviewer-table,
+.shared-eventsviewer-raw {
+	background: $tableBackground;
+}
+
+.shared-eventsviewer-shared-eventfields > table{
+    box-shadow: 0 1px 1px $tableBorderHorizontalColor;
+    th, td {
+        border-bottom: $tableBorderHorizontal;
+    }
+}
+
+/*  docking ... */
+.events-results-table{
+	min-width: 100%;
+	width: auto;
+	table-layout: auto;
+
+
+    > tbody > tr.odd,
+    > tbody > tr.even {
+        > td > a,
+        > td > span.field-val {
+            text-decoration: none;
+            display: block;
+        }
+        > td._time > a {
+            display: inline;
+        }
+        > td.one-value-drilldown:hover,
+        > td._time-drilldown:hover,
+        > td.multi-value-drilldown > a.field-val:hover {
+            background-color: $tableRowHoverColor;
+            cursor: pointer;
+        }
+        > td.one-value-drilldown:hover > a.field-val ,
+        > td._time-drilldown:hover > a {
+            color: $linkColorHover;
+        }
+    }
+}
+
+.docked-header-table > table {
+	border-top: 0;
+}
+
+
+/* reorderable */
+
+
+.reorderable {
+    border-left: $tableBorderVertical;
+}
+
+.reorderable-label {
+   position: relative;
+   display: block;
+   padding: 4px 8px 4px 18px;
+}
+
+.sorts .reorderable-label:after {
+	font-family: "Splunk Icons";
+	content: "\2195 ";
+	padding-left: 5px;
+	color: $gray60;
+}
+.sorts.asc .reorderable-label:after,
+.sorts.Asc .reorderable-label:after
+{
+	content: "\21A5 ";
+	color: $textColor;
+}
+.sorts.desc .reorderable-label:after,
+.sorts.Desc .reorderable-label:after {
+	content: "\21A7 ";
+	color: $textColor;
+}
+
+.reorderable-helper {
+	background-color: $errorColor;
+	@mixin interactive;
+	@mixin interactive-hover;
+	border-radius: 0;
+	z-index: 10;
+	line-height: $lineHeight;
+}
+
+.reorderable-helper.reorderable-remove {
+	background: $errorColorL50;
+	border-color: $errorColorL10;
+}
+
+th.reorderable {
+	cursor:move;
+	padding:0;
+
+	&.sorts:after {
+		display: none;
+	}
+}
+.on.reorderable-label:before {
+    content:"";
+    position: absolute;
+    display: block;
+    height:20px;
+    width:7px;
+    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQIW2M0Njb+f/bsWUYYzciABuAyOFUAAKKMEAXhn6ySAAAAAElFTkSuQmCC) repeat;
+    top:3px;
+    left:3px;
+    opacity:0.5;
+    margin-bottom: -10px;
+}
+
+th.reorderable.moving {
+	color: transparent;
+	text-shadow: none;
+	background: $gray80;
+}
+
+th.reorderable.moving .reorderable-label:before  {
+	background:none;
+}
+
+th.reorderable.moving .reorderable-label:after  {
+	color:transparent;
+}
+
+
+.table-insertion-cursor {
+	border-left: 1px dashed $accentColor;
+	position: absolute;
+	top: 0;
+	left:-100px;
+	bottom: 0;
+	margin-left: -1px;
+	display: none;
+}
+
+
+
+/*  Print */
+/*  -------------------------------------------------- */
+@media print {
+	td.expands,
+	td.actions,
+	th.col-info {
+		@mixin print-hide;
+	}
+	.reorderable-label {
+		padding-left: 8px !important;
+		&:before {
+			@mixin print-no-background;
+		}
+	}
+
+	.shared-eventsviewer, .events-viewer-wrapper {
+		@mixin print-width-100-percent;
+	}
+
+	.shared-eventsviewer {
+		width: calc(100% - 1px) !important;
+		border: none;
+
+		pre.raw-event {
+			@mixin print-wrap-all;
+		}
+
+		ul.condensed-selected-fields {
+			li {
+				.field-value.a .f-v,
+				.tags > .tag.a {
+					border: 2px solid $borderColor;
+				}
+
+				.f-v {
+					@mixin print-wrap-all;
+				}
+			}
+		}
+
+		.table {
+			.field-value.a .f-v,
+			.field-value .tag.a {
+				border: 2px solid $borderColor;
+			}
+		}
+
+		.table-expanded a {
+			color: $black !important;
+		}
+
+		.shared-eventsviewer-list .events-results-table {
+			table-layout: fixed !important;
+
+			th.line-num {
+				width: 8% !important;
+			}
+
+			th:last-child {
+				width: 70% !important;
+			}
+		}
+
+		/* SPL-126903: prevent line numbers >10 from displaying vertically */
+		.events-results-table td.line-num {
+	    	word-break: normal !important;
+		}
+	}
+}

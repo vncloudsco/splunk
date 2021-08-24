@@ -1,0 +1,3 @@
+:global(.side-bar-master .sidebar) {
+    background-color: $accordionBodyBackgroundColor;
+}

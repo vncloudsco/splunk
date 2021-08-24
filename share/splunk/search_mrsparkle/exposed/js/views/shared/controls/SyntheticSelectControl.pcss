@@ -1,0 +1,29 @@
+/* Capture all of the cases where a synthetic select control has a fixed width (as opposed to expanding to fit its text) */
+
+.shared-controls-syntheticselectcontrol {
+    > a {
+        white-space: nowrap;
+        display: inline-flex;
+        justify-content: center;
+
+        > i, .link-label, .caret {
+            display: inline-block;
+            vertical-align: middle;
+            flex: 0 0 auto;
+        }
+
+        > i {
+            margin-right: 3px;
+        }
+
+        .link-label {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 0 1 auto;
+        }
+    }
+
+    .controls-join &:not(:only-child) {
+        width: 0;
+    }
+}

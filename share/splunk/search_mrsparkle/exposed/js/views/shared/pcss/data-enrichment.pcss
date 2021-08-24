@@ -1,0 +1,196 @@
+
+.required-text {
+    background-color: $gray80;
+}
+
+@for $i from 1 to 30 {
+    .highlighted-cat$(i) {
+        background-color: $cat$(i)ColorL;
+    }
+}
+
+.highlighted-match, .highlighted-existing-match, .required-text, .highlighted-match-selected {
+  padding: 2px 3px 2px;
+  border-radius: 4px;
+}
+
+.highlighted-existing-match {
+  box-shadow: inset 0 0 0 2px;
+}
+
+.highlighted-match-selected {
+  box-shadow: 0px 0px 2px 2px color($accentColorL10  a(50%)) inset;
+}
+
+.preview-container {
+  clear:both;
+  background-color: $white;
+  min-height: 300px;
+  border-top: 1px solid $borderColor;
+  .results-control-bar-placeholder {
+    padding-left: 20px;
+    padding-right: 10px;
+  }
+
+  .job-status-placeholder, .job-status-row {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .count-container {
+    display: inline-block;
+    .icon-check {
+      color: $successColor;
+    }
+  }
+
+  .search-filter-container {
+    padding-right: 20px;
+    .control-group {
+      display: inline-block;
+      .control-label {
+        margin-top: 5px;
+      }
+
+      .controls {
+        display: inline-block;
+      }
+    }
+  }
+
+  .pagination-container {
+    display: inline;
+  }
+
+  .controls-row .filter-input-control {
+    display: inline-flex;
+    margin-right: 10px;
+    margin-bottom: 0;
+    width: 300px;
+    vertical-align: middle;
+
+    .filter-input {
+        margin-bottom: 0;
+    }
+  }
+
+  .shared-flashmessages {
+    padding-left: 50px;
+    padding-top: 25px;
+  }
+
+  .controls-row {
+    padding-bottom: 10px;
+    clear: both;
+      > div {
+          padding-bottom: $spacing;
+      }
+  }
+
+  .apply-filter-button {
+    margin-right: 40px;
+  }
+}
+
+.preview-view-stack {
+  margin-top: -1px;
+
+  .nav-tabs {
+    background-image: none;
+
+    .results-tab-last {
+      margin-right: 10px;
+    }
+  }
+
+  .tab-content {
+    overflow: visible;
+  }
+
+}
+
+/*  Only apply coloring to tabs when previewing a regular expression extraction (SPL-87790). */
+.rex-preview-view-stack {
+  li:not(:first-child) > .tab-label {
+      padding-left: $spacingOneAndAHalf;
+  }
+
+  .tab-label:after {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      height: 12px;
+      width: 12px;
+      border-radius: 12px;
+  }
+
+  li:nth-child(10n+2) .tab-label:after {
+    background-color: $cat1ColorL;
+  }
+
+  li:nth-child(10n+3) .tab-label:after {
+    background-color: $cat2ColorL;
+  }
+
+  li:nth-child(10n+4) .tab-label:after {
+    background-color: $cat3ColorL;
+  }
+
+  li:nth-child(10n+5) .tab-label:after {
+    background-color: $cat4ColorL;
+  }
+
+  li:nth-child(10n+6) .tab-label:after {
+    background-color: $cat5ColorL;
+  }
+
+  li:nth-child(10n+7) .tab-label:after {
+    background-color: $cat6ColorL;
+  }
+
+  li:nth-child(10n+8) .tab-label:after {
+    background-color: $cat7ColorL;
+  }
+
+  li:nth-child(10n+9) .tab-label:after {
+    background-color: $cat8ColorL;
+  }
+
+  li:nth-child(10n+10) .tab-label:after {
+    background-color: $cat9ColorL;
+  }
+}
+
+
+.field-extraction-form {
+    padding: 10px;
+    &:last-child {
+        margin: 0;
+    }
+    $labelWidth: 75px;
+    .control-label {
+        width: $labelWidth;
+        text-align: left;
+        text-align: left;
+    }
+    .controls {
+        margin-left: calc($labelWidth + 10px);
+    }
+    .buttons-container {
+        padding-top: 5px;
+        border-top: 1px solid $borderColor;
+        text-align: right;
+    }
+}
+
+.results-table {
+  .graph-bar {
+    margin: 0 20px 0 0;
+    height: $lineHeight;
+    background-color: $gray60;
+    background-image: linear-gradient(to bottom, $gray80, $gray60);
+  /*  SPL-74434 */
+    max-width: 100%;
+  }
+}

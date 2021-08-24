@@ -1,0 +1,358 @@
+$cutBackgroundColor: $errorColorL40;
+$selectedBackgroundColor: $accentColorL50;
+
+/*
+    IE11 allows focusing of tds, giving them a light blue background (thanks to bootstrap). Overriding.
+    Every other non-transparent background *should* be more specific anyway.
+*/
+.table > tbody > tr > td:focus {
+    background: transparent;
+}
+
+
+.shared-datasettable {
+    position:relative;
+    display: flex;
+    flex: 1 1 0px;
+    width: 100%;
+    margin-top: -3px;
+
+    /* Fixes FF bug, to enable scrolling */
+    min-width: 0px;
+    min-height: 0px;
+
+    &.disabled {
+        opacity: 0.5;
+
+        .scroll-table-wrapper {
+            max-width: 100%;
+            overflow: hidden;
+        }
+    }
+
+    .shared-waitspinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+    }
+
+    .scroll-table-wrapper {
+        height: auto;
+        margin-left: 0px;
+        @mixin display-flex column;
+        flex: 1 1 0px;
+    }
+
+    .dataset-table-head {
+        border-bottom: $tableBorder;
+        z-index: 1;
+        background-color: white;
+        height: 35px;
+
+        position: absolute;
+        @mixin display-flex row;
+
+        /* SPL-114466: This hack is necessary to force the GPU to render the page on a separate layer on Chrome Retina displays */
+        /* Background reference: http://blog.getpostman.com/2015/01/23/ui-repaint-issue-on-chrome */
+        transform: translateZ(0);
+
+        top: 3px;
+        left: 0px;
+        -moz-transform: none;
+
+        @mixin display-flex row;
+        .icon-ipv4:before {
+            font-family: inherit;
+            content: 'IP';
+            font-size: 75%;
+        }
+    }
+
+    .table {
+        min-width: 0;
+    }
+
+    .table-results {
+        table-layout: fixed;
+        width: 0; /*with fixed layout browsers treat this as min-width SPL-113744.*/
+        margin-right: -1px;
+        margin-top: -1px;
+        border-collapse: separate;
+        background-color: white;
+        border-top: 0px;
+        margin-bottom: $lineHeight;
+    }
+
+    .col-header {
+        flex-shrink: 0;
+        font-size: $fontSizeLarge;
+        line-height: 22px;
+        position: relative;
+        box-sizing: border-box;
+        border-left: none;
+        border-right: none;
+        user-select: none;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &:first-child {
+            font-size: 22px;
+            width: 60px;
+            text-align: left;
+            padding-top: 13px;
+            padding-left: 43px;
+        }
+
+        &:first-child.column-selected {
+            padding-top: 11px;
+            padding-left: 41px;
+        }
+
+        &.grabbed, &.column-selected:active, &.column-selected-end:active {
+            cursor: move;
+            cursor: grabbing;
+        }
+
+        &.field {
+            width: 200px;
+            padding: 5px 9px;
+            vertical-align: middle;
+            line-height: 20px;
+        }
+
+        &.field.type-raw {
+            width: 600px;
+        }
+
+        &.over-right {
+            border-right: 4px solid $accentColor !important;
+            padding-left: 10px;
+            right: 1px;
+
+            > .resize {
+                right: -5px;
+                border-left: none;
+                border-right: none;
+            }
+
+        }
+
+        &.over-left {
+            border-left: 4px solid $accentColor !important;
+            padding-left: 10px;
+            left: -5px;
+
+            > .resize {
+                right: -3px;
+            }
+
+        }
+
+        &.column-selected,
+        &.column-selected-end {
+            border-top: 2px solid $accentColor;
+            padding-top: 3px;
+
+            cursor: move;
+            cursor: grab;
+
+            .field-name-input {
+                padding-right: 10px;
+            }
+        }
+
+        &:not(.column-selected):not(.column-selected-end) + .col-header.column-selected,
+        &:not(.column-selected):not(.column-selected-end) + .col-header.column-selected-end,
+        &.column-selected:first-child {
+            border-left: 2px solid $accentColor;
+
+            i.field-type {
+                margin-left: 0px;
+            }
+        }
+
+        &.column-selected-end {
+            border-right: 2px solid $accentColor;
+        }
+
+        span.name {
+            display: inline-block;
+            white-space: nowrap;
+            word-break: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: calc(100% - 20px);
+
+            margin-bottom: -5px;
+            margin-left: 6px;
+        }
+
+        .field-name-input {
+            display: inline-block;
+            margin: -4px 0px -2px 4px;
+            width: calc(100% - 40px);
+            font-size: 15px;
+            border: none;
+            border-radius: 0px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            &.warning {
+                border: 1px solid $errorColor;
+            }
+        }
+
+        i.field-type {
+            position: relative;
+            display: inline-block;
+            margin-top: 2px;
+            margin-left: 2px;
+            color: $textGray;
+        }
+
+        &:not(.disabled) i.field-type:not([data-type="raw"]):not([data-type="timestamp"]) {
+            cursor: pointer;
+        }
+    }
+
+    .resize {
+        display: block;
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        bottom: 2px;
+        width: 1px;
+        border-left: 1px dotted $tableBorder;
+        border-right: 1px dotted $tableBorder;
+        cursor: ew-resize;
+    }
+
+    tr + tr {
+        border-top: 1px dashed $tableBorder;
+    }
+
+    td {
+        box-sizing: border-box;
+
+        &.value {
+            font-family: $monoFontFamily;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+
+            &.epoch-time {
+                font-family: inherit;
+                color: $textGray;
+                font-style: italic;
+            }
+
+            &.null-cell {
+                font-family: inherit;
+                color: $textDisabledColor;
+                font-style: italic;
+            }
+        }
+
+        &.selected, &.text-selected {
+            border: 2px solid $accentColor;
+            padding: 4px 10px 5px 10px;
+
+            &:last-child {
+                padding-right: 10px;
+            }
+        }
+
+        &:not(.column-selected):not(.column-selected-end) + td.column-selected,
+        &:not(.column-selected):not(.column-selected-end) + td.column-selected-end,
+        &.row-num.column-selected {
+            border-left: 2px solid $accentColor;
+            padding-left: 10px;
+        }
+
+        &.column-selected-end {
+            border-right: 2px solid $accentColor;
+            padding-right: 10px;
+
+            &:last-child {
+                padding-right: 10px;
+            }
+        }
+
+        &.row-num {
+            color: $textGray;
+            text-align: right;
+            width: 60px;
+        }
+
+        &.row-type {
+            width: 90px;
+        }
+
+        &.truncated {
+            background-color: $tableRowAccentColor;
+            text-align: center;
+        }
+
+        &.mismatched-type span {
+            color: $errorColor;
+        }
+
+        .highlight {
+            background-color: $selectedBackgroundColor;
+        }
+
+        div.multivalue {
+            position: relative;
+
+            .selection {
+                color: transparent;
+
+                + .real-text-wrapper {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                }
+            }
+        }
+
+        .cell-value-input {
+            box-sizing: border-box;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    tr:last-child td.column-selected, tr:last-child td.column-selected-end {
+        border-bottom: 2px solid $accentColor;
+        padding-bottom: 2px;
+    }
+
+    .col-header,
+    td {
+        &.null-cell {
+            background: $gray98;
+        }
+
+        &.column-highlighted {
+            background: $warningColorL40;
+        }
+
+        &.column-cut,
+        &.column-cut-end {
+            background: $cutBackgroundColor;
+        }
+
+        &.selected,
+        &.column-selected,
+        &.column-selected-end {
+            background: $selectedBackgroundColor;
+        }
+
+        &.hover:not(.disabled),
+        &.value:hover:not(.disabled) {
+            background: $tableRowHoverColor;
+        }
+    }
+}

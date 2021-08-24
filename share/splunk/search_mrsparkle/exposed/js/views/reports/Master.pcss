@@ -1,0 +1,175 @@
+/*  Splunk: Page: Reports */
+/*  ===================== */
+/*  Reports listing page */
+
+.reports-table > .table {
+    @mixin create-card-table;
+    margin-bottom: $spacing;
+    width: auto;
+
+
+    > tbody > tr {
+        > td.title > a {
+            text-overflopw: ellipsis;
+            min-width: 150px;
+            max-width: calc(100vw - 800px);
+        }
+        &.expanded > td.title > a {
+            word-break: break-word;
+            white-space: unset;
+        }
+    }
+}
+
+/*  TODO: this shouldn't be needed, or should be common */
+.section-description {
+	margin-bottom: 0;
+	max-width: 700px;
+}
+
+.col-actions {
+	width: 240px;
+}
+
+.actions-edit > a {
+    float: left;
+    width: 50%;
+}
+
+.actions-edit > div {
+    display: inline-block;
+    width: 50%;
+}
+
+.col-next-scheduled-time {
+    width: 190px;
+}
+
+.col-app, .col-owner {
+	width: 90px;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}
+
+.col-sharing {
+	width: 70px;
+}
+
+.col-embedding {
+	width: 95px;
+}
+
+p.description {
+	word-wrap: break-word;
+}
+
+td.app, td.owner {
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+
+.expanded td.app, .expanded td.owner {
+	white-space: normal;
+	word-break: break-all;
+}
+
+/*  special case for timerange button but not children */
+.timerange > .controls > .btn {
+	box-sizing: border-box;
+	width: 100%;
+}
+
+/*  prevent long lines with no space from breaking */
+.shared-reportcontrols-details-schedule {
+	word-wrap: break-word;
+}
+
+
+/*  Tiles */
+/*  ------------------------------- */
+.reports-tiles {
+	color: $textColor;
+}
+
+.reports-tiles-reporttilelist {
+	padding: 0px 40px;
+}
+
+.reports-tiles-reporttile {
+	display: inline-block;
+	vertical-align: top;
+	margin: 6px;
+
+	.tile-shape {
+		position: relative;
+		width: 230px;
+		height: 280px;
+		border-radius: 2px;
+		background-color: $gray30;
+		color: $white;
+	}
+
+	.tile-icon {
+		position: absolute;
+		top: 120px;
+		left: 0px;
+		right: 0px;
+		text-align: center;
+	}
+
+	.tile-name {
+		position: absolute;
+		top: 40px;
+		left: 20px;
+		right: 20px;
+		max-height: 80px;
+		overflow: hidden;
+		font-size: 14px;
+		text-align: center;
+	}
+
+	.tile-actions {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		right: 0px;
+
+		.action-edit {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			color: $textTileColor;
+			text-decoration: none;
+
+			.caret {
+				font-size: 8px;
+			}
+		}
+
+		.action-edit:hover {
+			color: $white;
+		}
+
+		.action-buttons {
+			position: absolute;
+			bottom: 14px;
+			right: 10px;
+
+			.btn {
+				margin: 3px;
+				border-color: $borderColor !important;
+				background-color: $gray30;
+				color: $textTileColor;
+				box-shadow: none;
+				text-shadow: none;
+			}
+
+			.btn:hover {
+				border-color: $white !important;
+				color: $white;
+			}
+		}
+	}
+}

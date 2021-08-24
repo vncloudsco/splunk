@@ -1,0 +1,143 @@
+$max-page-height: 560px;
+$tab-position-top: 0px;
+$modsetup-border-color: #dfdfdf;
+
+.content-body {
+    max-height: $max-page-height;
+    position: relative;
+
+  .main-tabs {
+        margin-bottom: 2px;
+        position: absolute;
+        width:100%;
+        top: $tab-position-top;
+        z-index: 1000;
+
+        .icon-alert {
+            color: $errorText;
+        }
+  }
+
+  .tab-content {
+    padding:10px;
+    padding-top:30px;
+    overflow: auto;
+    max-height: calc($max-page-height - $tab-position-top);
+    border-top: 0.5px solid $modsetup-border-color;
+
+    .tab-pane {
+        display:block;
+    }
+  }
+
+  .tab-content .tab-pane {
+    margin-left: 25px;
+    margin-top: 10px;
+  }
+
+  .control-group.error .mod-setup-error-message {
+    color: $errorText;
+    font-size: 10px;
+  }
+
+  .icon-alert {
+    font-size: 100%;
+    padding-left:10px;
+  }
+}
+
+.bundle-name  {
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+
+.nav {
+    &.nav-tabs-left {
+
+      min-height: 600px;
+      width:300px;
+      float: left;
+      position: relative;
+      border-right: 0.5px solid $modsetup-border-color;
+      border-top: 0.5px solid $modsetup-border-color;
+      overflow: auto;
+
+      li {
+
+        a {
+            text-decoration: none;
+            text-overflow: ellipsis;
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        padding:10px 30px 10px 20px;
+        position: relative;
+        border-bottom: 1px dotted $interactiveBorderColor;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        display: block;
+        text-decoration: none !important;
+
+          .icon-alert {
+            font-size: 100%;
+            position: absolute;
+            display: block;
+            right: 10%;
+            top: 8px;
+            color: $errorText;
+
+          }
+
+
+          &:hover {
+            background-color: $pillBackgroundColorHover;
+            a {
+              background-color: transparent;
+            }
+          }
+
+          &:focus {
+            background-color: $pillBackgroundColorFocus;
+            outline: none;
+          }
+
+          &.active {
+            background-color: rgba(61, 171, 255, 0.12);
+
+            & a {
+              color: #666;
+            }
+
+            &:after {
+              content: "\203A";
+              color: $textDisabledColor;
+              font-size: 24px;
+              position: absolute;
+              right: 10px;
+              top: 0;
+              line-height: 33px;
+              font-family: "Splunk Icons";
+            }
+
+          }
+
+          & > a:focus {
+            box-shadow: none;
+            background-color: transparent;
+          }
+
+      }
+    }
+}
+
+.nav-tabs-left + .tab-content {
+  margin-left: 300px;
+  height: 600px;
+}
+
+.app-name {
+    font-weight: bold;
+}

@@ -1,0 +1,72 @@
+/*  Splunk: Component: data-summary */
+/*  =============================== */
+
+/*  search data summary modal */
+.search-initialhelp-datasummary {
+
+    .modal-header {
+        border-bottom: 0;
+    }
+    .modal-body {
+        padding-top: 0;
+        max-height: 450px;
+    }
+
+	.main-tabs {
+		margin: 0 -$spacing;
+	}
+
+	.search-query-control {
+		margin-top: 20px;
+	}
+
+	.search-query {
+		width: 240px;
+		/*  disable IE input helper */
+		&::-ms-clear {
+			display: none;
+		}
+	}
+
+	.pagination {
+		margin-top: $spacingHalf;
+		padding-top: 3px;
+	}
+
+	.header-table-static {
+		clear: right;
+	}
+
+	.scroll-table-wrapper {
+		height: auto;
+		max-height: 350px;
+	}
+
+	.shared-findinput {
+		float: left;
+		margin: $spacingHalf $spacing $spacingHalf 0;
+	}
+
+    .table {
+        margin-bottom: 0;
+    }
+
+    .table-chrome {
+        border-bottom: none;
+    }
+
+    .header-table-wrapper {
+        border-bottom: none;
+    }
+
+    td.host, td.source, td.sourceType {
+        word-break: break-all;
+    }
+}
+
+.search-initialhelp-datasummary-table {
+	clear: both;
+}
+.quick-reports .popdown {
+    min-width: 28px;
+}

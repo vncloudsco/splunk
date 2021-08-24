@@ -1,0 +1,41 @@
+
+.color-range-control-row {
+    display: flex;
+    margin-bottom: 5px;
+    line-height: $inputHeight;
+    word-wrap: break-word;
+
+    .color-range-color-control {
+        margin-right: 2px;
+
+        &:last-child {
+            margin-right: calc($inputHeight + 2);
+        }
+    }
+
+    .remove-range {
+        flex: 0 0 auto;
+    }
+
+    label {
+        line-height: inherit;
+    }
+}
+
+.color-range-input-control, .color-range-label-control  {
+    flex: 1 0 0px;
+    display: flex;
+
+    .color-range-label-control-label, .color-range-label-control-value {
+        flex: 1 0 0px;
+        margin-right: 10px;
+    }
+}
+
+.color-range-label-control .color-range-label-control-value {
+    font-weight: $fontWeightSemiBold;
+}
+
+.color-range-input-control .color-range-label-control-value {
+    min-width: 20px;
+}

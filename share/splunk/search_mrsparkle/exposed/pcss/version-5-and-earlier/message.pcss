@@ -1,0 +1,119 @@
+
+/*
+ * General container styles
+ *
+ */
+body {
+    padding: 0;
+    margin: 0;
+    background-color: $bodyBackgroundColor;
+}
+.masterHeader {
+    background-color: $appBarBackground;
+    padding: $spacing;
+    font-size: $fontSize;
+}
+
+.masterContainer, .masterFooter {
+    @mixin create-card;
+    width: $bodyMinWidth;
+    padding: $spacing;
+    margin: $spacing auto;
+    background-color: $white;
+    box-sizing: border-box;
+}
+
+.masterContainer {
+    padding-top: 10px;
+    font-size: $fontSize;
+
+    .info-schemas {
+        border-top: none;
+    }
+    .info-schemas, .info-references {
+        margin-bottom: $spacing;
+    }
+    .info-references, .info-utilities {
+        dt:not(:first-child) {
+            margin-top: $spacingHalf;
+        }
+        dd {
+            margin-left: 30px;
+        }
+    }
+}
+.masterFooter {
+    font-size: $fontSize;
+}
+
+/*
+ * block-level elements
+ *
+ */
+.masterHeader h1 {
+    margin: 0;
+    color: #fff;
+}
+h2 {
+    font-size: 14px;
+}
+table {
+    margin-bottom: 15px;
+    border-top: $borderDefault;
+    border-collapse: collapse;
+
+    th {
+        padding: $tableCellPadding;
+        text-align: left;
+        background-color: $gray92;
+
+        &:not(:last-child) {
+            border-right: $tableBorderVertical;
+        }
+    }
+
+    td {
+        padding: $tableCellPadding;
+        border-bottom: $borderDefault;
+        background-color: $white;
+        vertical-align: top;
+
+        &.k {
+            font-weight: bold;
+            white-space: nowrap;
+            background-color: $gray92;
+        }
+        &.v {
+            font-weight: normal;
+            font-size: $fontSize;
+        }
+    }
+}
+
+p {
+    width: 40em;
+    line-height: 140%;
+}
+
+/*
+ * object-specific styles
+ *
+ */
+.primaryMessage {
+    font-size: $fontSizeLarge;
+}
+
+.byline {
+    font-size: $fontSizeSmall;
+    color: $textColor;
+    width: 100%;
+    &:first-child {
+        margin-top: 0;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+.comment {
+    color: #555;
+}

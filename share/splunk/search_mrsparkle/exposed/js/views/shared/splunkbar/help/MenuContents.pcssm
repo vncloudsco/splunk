@@ -1,0 +1,24 @@
+.view {
+
+}
+.menu {
+    composes: menu from '../../MenuDialog.pcssm';
+    width: 100%;
+    @mixin clearfix;
+    border-radius: $containerInnerBorderRadius $containerInnerBorderRadius 0 0;
+}
+
+.formSearch {
+    padding: 5px;
+    margin: 0;
+    border-top: 1px solid $borderColor;
+    min-width: 200px;
+}
+
+.searchQuery {
+    /* TO DO */
+    width: 100%;
+    height: 2em;
+    padding: 0 10px;
+    box-sizing: border-box;
+}

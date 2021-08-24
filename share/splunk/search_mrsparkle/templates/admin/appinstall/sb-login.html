@@ -1,0 +1,77 @@
+<%!
+    title = 'App Install'
+%>
+<%namespace name="lib" file="//lib.html" import="*"/>
+<%namespace name="helpers" file="//admin/_helpers.html"/>
+<%inherit file="//layout/admin.html" />
+<%
+    import splunk
+    from splunk.appserver.mrsparkle.lib import util, i18n
+    appText = util.getAppType()
+%>
+
+% if error:
+    <%helpers:message content="${error}" level="error"/>
+% endif
+
+<script language="JavaScript">
+    $(function() {
+        $('#installform').submit(function() {
+            $('button').attr('disabled', 'disabled');
+            $('.splButton-primary').text(${_('Processing...')|jsonify});
+            return true;
+        });
+        $('.splButton-secondary').click(function() {
+            window.location = ${jsonify(make_url(breadcrumbs[-2][1] if len(breadcrumbs)>1 else state['return_to']))};
+            return false;
+        });
+    });
+</script>
+
+<div class="spl-gdi-wrapper spl-prompt-message-layout"> 
+    <h2 class="spl-page-hdr spl-no-icon-no-padding" > 
+        <span> ${_('Login required')} </span> 
+    </h2> 
+
+	<div class="jmFormOptions">
+	    <!-- start prompt message --> 
+	    <form id="installform" method="post" action="${make_url(['/manager/appinstall', appid, 'login'], _qs=dict(state=state) )}" autocomplete="off">
+	    <input type="hidden" name="state" value="${state.serialize()|h}">
+	    <input type="hidden" name="next" value="${next|h}">
+        ${csrf_hidden_input()}
+	    <div class="spl-prompt-message-wrapper"> 
+	        <p class="spl-main-description spl-dotted-border-bottom" data-test-name="login-directions">
+	           ${_('Enter your <strong>Splunk.com</strong> username and password to download the %(appText)s:' % dict(appText=appText))}<br/> 
+	        </p> 
+	        <div class="adminFormItem" data-test-name="form-username">
+	            <label> 
+	                ${_('Username')}
+	            </label> 
+	            <input type="text" value="" size="30" name="sbuser" /> 
+	        </div> 
+	        <div class="adminFormItem" data-test-name="form-password">
+	            <label> 
+	                ${_('Password')}
+	            </label> 
+	            <input type="password" value="" size="30" name="sbpass" /> 
+	        </div> 
+	        <p class="spl-main-description splunk-components"> 
+	            <a href="https://www.splunk.com/page/lost_password" target="_blank">${_('Forgot your password?')}<span class="icon-external external"></span></a> 
+	        </p> 
+	    </div> 
+	</div>
+    
+    <!-- Start button bar --> 
+    <div class="jmFormActions"> 
+        <button type="submit" class="splButton-primary" data-test-name="btn-continue">
+            <span>${_('Login and Continue')}</span> 
+        </button> 
+        % if state['return_to']:
+            <button class="splButton-secondary" data-test-name="btn-cancel">
+                <span>${_('Cancel')}</span> 
+            </button>         
+        % endif        
+    </div> 
+    </form>
+</div> 
+

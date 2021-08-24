@@ -1,0 +1,722 @@
+/* column container */
+.colmask {
+    position:relative;
+    clear:both;
+    float:left;
+    width:100%;             /* width of whole page */
+    overflow:hidden;        /* This chops off any overhanging divs */
+}
+/* holy grail 3 column settings */
+.holygrail {
+    background:#ff9;        /* Right column background colour */
+
+    .colmid {
+        float:left;
+        width:200%;
+        margin-left:-200px;     /* Width of right column */
+        position:relative;
+        right:100%;
+        background:$white;        /* Centre column background colour */
+    }
+    .colleft {
+        float:left;
+        width:100%;
+        margin-left:-50%;
+        position:relative;
+        left:400px;             /* Left column width + right column width */
+        background:#FFD8B7;     /* Left column background colour */
+    }
+    .col1wrap {
+        float:left;
+        width:50%;
+        position:relative;
+        right:200px;            /* Width of left column */
+        padding-bottom:1em;     /* Centre column bottom padding. Leave it out if it's zero */
+    }
+    .col1 {
+        margin:0 215px;         /* Centre column side padding:
+                            Left padding = left column width + centre column left padding width
+                            Right padding = right column width + centre column right padding width */
+        position:relative;
+        left:200%;
+        overflow:hidden;
+    }
+    .col2 {
+        float:left;
+        float:right;            /* This overrides the float:left above */
+        width:170px;            /* Width of left column content (left column width minus left and right padding) */
+        position:relative;
+        right:15px;             /* Width of the left-had side padding on the left column */
+    }
+    .col3 {
+        float:left;
+        float:right;            /* This overrides the float:left above */
+        width:170px;            /* Width of right column content (right column width minus left and right padding) */
+        margin-right:45px;      /* Width of right column right-hand padding + left column left and right padding */
+        position:relative;
+        left:50%;
+    }
+}
+
+/* 2 column left menu settings */
+.leftmenu {
+    .colright {
+        float:left;
+        width:200%;
+        position:relative;
+        left:200px;
+        background:$white;
+    }
+    .col1wrap {
+        float:right;
+        width:50%;
+        position:relative;
+        right:200px;
+        padding-bottom:1em;
+    }
+    .col1 {
+        margin:0 0 0 275px; /* column adjusts */
+        position:relative;
+        right:100%;
+        overflow:hidden;
+        border-left: 1px solid #ddd;
+        padding: 10px 0 0 15px;
+    }
+    .col2 {
+        float:left;
+        width:235px; /* column adjusts */
+        position:relative;
+        right:185px;
+        padding-top: 10px;
+    }
+}
+
+.ManagerBar {
+    .auxLinks {
+        margin-top: 15px;
+        float: right;
+        margin-right: 10px;
+
+        a {
+            color: $white;
+        }
+        span {
+            color: $white;
+            padding: 0px 6px;
+        }
+    }
+}
+
+/* styling for about dialog */
+.aboutPopupContainer {
+    display:none;
+    padding: 10px;
+
+    .aboutPopupSplunkLogo {
+        background: transparent url(/static/img/skins/default/logo_splunkServer_white_low.png) no-repeat scroll 0 0;
+        height: 45px;
+        width: 120px;
+    }
+}
+
+form.admin-lite-dialog {
+    width: $bodyMinWidth;
+    margin: $spacing auto;
+    background: $white;
+    @mixin create-card;
+}
+
+div.admin-dialog-content {
+    padding: $spacing;
+
+    p {
+        font-size: $fontSize;
+        /*width: 42em;  SPL-58204 - this seems to break layout since the container is 600px */
+    }
+    h1, h2, .question {
+        font-weight: bold;
+        padding-top: 0px;
+        margin-top: 0;
+        font-size: 18px;
+        color: $headingsColor;
+        word-wrap: break-word;
+    }
+    ul {
+        font-size: $fontSize;
+    }
+    div.error {
+        /* this MUST match the padding of div.admin-dialog-content */
+        word-wrap: break-word;
+    }
+    label.big {
+        font-size: 14px;
+    }
+    .formset_radioset input[type=radio], .radio-input {
+        @mixin radio-button-overlay;
+    }
+}
+div.admin-dialog-gutter {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+div.admin-dialog-tray {
+    padding: $spacing;
+    text-align: right;
+    overflow: hidden;
+    border-top: $borderLight;
+
+    button {
+        min-width: 110px;
+    }
+}
+
+div.message_block_error {
+    padding: 1px 10px;
+    background-color: #F7DADA;
+    margin-bottom: 10px;
+}
+div.message_block_success {
+    font-size: 18px;
+    font-weight: bold;
+    color: $successColor;
+    padding: 2px 16px 10px 0px;
+    margin-bottom: 30px;
+    background: url("/static/img/skins/default/icon-success-md.png") no-repeat scroll 0 0 transparent;
+    border-bottom: 1px solid $borderColor;
+    width: 623px;
+}
+span.message_block_success_text {
+    padding-left: 30px;
+}
+p.message_block_header {
+    font-weight: bold;
+    border-bottom: 1px solid $errorColor;
+    padding: 1px 1px 3px 1px;
+}
+
+table.msg-listing {
+    width: 600px;
+    font-size: $fontSize;
+
+    td {
+        border-top: 1px solid #ddd;
+    }
+    th {
+        text-align: left;
+        font-weight: normal;
+    }
+    .text {
+        font-size: $fontSize;
+        width: 80%;
+    }
+    .light-container {
+        padding: 5px 5px 0 0;
+        vertical-align: top;
+    }
+    .light {
+        background-image: url('/static/img/skins/default/traffic_light.png');
+        background-repeat: no-repeat;
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+    }
+    .msg-error {
+        background-position: 0 -2px;
+    }
+    .msg-warn {
+        background-position: 0 -42px;
+    }
+    .msg-info {
+        background-position: 0 -82px;
+    }
+    .time {
+        white-space: nowrap;
+        text-align: right;
+    }
+}
+.msg-metadata {
+    color:$textGrayDark;
+    font-size: $fontSizeSmall;
+    font-style: italic;
+}
+.empty-text {
+    color:$textGrayDark;
+    font-style: italic;
+    padding: 5px;
+    margin: 0;
+}
+.input-disabled {
+    color: $gray80;
+}
+p.prose {
+    width: 600px;
+}
+
+
+/*
+ * accumulator
+ */
+.accumulator {
+    table& select {
+        min-width: 15em;
+    }
+    div& {
+        clear: right;
+        white-space: nowrap;
+
+        .accumulator-label {
+            font-weight: bold;
+            font-size: $fontSizeSmall;
+        }
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+        li {
+            padding: 2px 1px 2px 20px;
+            cursor: default;
+            background-repeat: no-repeat;
+
+            &:hover {
+                background-color: #e5f2f5;
+            }
+        }
+        .available li {
+            background-image: url('/static/img/skins/default/icon_circle_add.png');
+            background-position: 3px 3px;
+
+            &.chosen {
+                color: #aaa;
+            }
+            &.disabled {
+                background-image: none;
+                color: #aaa;
+                font-style: italic;
+
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+        }
+        .selected li,
+        .available li.chosen {
+            background-image: url('/static/img/skins/default/icon_circle_delete.png');
+            background-position: 3px 3px;
+        }
+        .available li.chosen {
+            color: #aaa;
+        }
+    }
+}
+div.accumulator-pane {
+    width: 195px;
+    float: left;
+    margin-right: 10px;
+}
+div.accumulator-scrollbox {
+    height: 120px;
+    overflow: auto;
+    margin-top: 10px;
+    border: 1px solid $borderColor;
+}
+
+
+/*
+ * licensing
+ */
+body {
+    background-color: $bodyBackgroundColor;
+    color: $gray30;
+    min-height: 500px;
+}
+
+h1 {
+    @mixin create-heading-extra-large;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+h2 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0px;
+    margin-top: 30px;
+}
+
+h3 {
+    margin: 15px 0px 10px;
+}
+.singleColumnView {
+    border-top: 0;
+    width: $bodyMinWidth;
+    margin: auto;
+    background: none;
+
+    &.cardWrapper, .cardWrapper {
+        @mixin create-card;
+        &.cardPadded {
+            padding: $spacing;
+        }
+    }
+}
+.licensingServerMode.serverMode {
+    padding: 0 $spacing;
+    margin: -$spacing 0 $spacing;
+
+    .serverModeLabel {
+        font-weight: $fontWeightSemiBold;
+    }
+}
+.licensingPage.pageContentWrapper {
+    .licenseGroupContent {
+        @mixin create-card;
+        margin: 0 0 $spacing;
+
+        .moduleWrapper:first-child {
+            border-top: 0;
+        }
+    }
+    .licenseGroupContent {
+        .licenseGroup {
+            .actionButtons {
+                padding: 0;
+                float: right;
+            }
+        }
+    }
+
+    .localServer {
+        @mixin create-card;
+        padding: $spacing;
+    }
+    .moduleWrapper {
+        border-top: $borderLight;
+        padding: $spacing;
+        margin: 0;
+    }
+
+    h2 {
+        @mixin create-heading;
+        margin-top: 0;
+        display: inline-block;
+    }
+    table.listing, table.msg-listing {
+        min-width: calc($bodyMinWidth - $spacingDouble);
+    }
+    table.msg-listing {
+        margin: $spacingQuarter 0 $spacingHalf;
+    }
+    .button {
+        line-height: $lineHeight;
+        vertical-align: middle;
+    }
+    p.prose {
+        padding: $spacing;
+        margin-bottom: $spacingHalf;
+        min-width: calc($bodyMinWidth - $spacingDouble * 2);
+    }
+}
+span.add {
+    background: url(/static/img/skins/default/licensing/icon_circle_add.png) no-repeat;
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 5px;
+}
+span.switch {
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 5px;
+    background: url(/static/img/skins/default/licensing/icon_switch.png) no-repeat;
+}
+.button {
+    cursor: pointer;
+    @mixin interactive;
+    border: $interactiveBorder;
+    border-radius:$interactiveBorderRadius;
+    display: inline-block;
+    padding: $buttonPadding;
+    font-weight: normal;
+    line-height: $lineHeight;
+
+    &:hover {
+        @mixin interactive-hover;
+        text-decoration: none;
+    }
+
+    &:active {
+        @mixin interactive-active;
+    }
+
+    &:focus {
+        @mixin focus-element;
+    }
+}
+#licenseHeader {
+    background-color: #ededed;
+    padding: 10px 15px;
+}
+div.moduleWrapper {
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+
+/** serverMode **/
+div.serverMode, licenseHeaderInfo {
+    padding: 0 $spacing $spacingHalf $spacing;
+    border-bottom: $borderLight;
+}
+div.serverMode {
+    .button {
+        margin: -$spacingQuarter 0 0 $spacingHalf;
+    }
+}
+.serverModeLabel {
+    color: $gray30;
+    font-weight: bold;
+    font-size: $fontSize;
+    float: left;
+    line-height: 20px;
+}
+.pageContentWrapper.licensingPageWrapper {
+    width: calc($bodyMinWidth - $spacing);
+    margin: $spacing auto;
+    border-top: none;
+    box-sizing: border-box;
+    @mixin create-card;
+
+    div.moduleWrapper {
+        margin: 0;
+        p.prose {
+            width: auto;
+            margin: $spacingHalf 0;
+            .spl-icon-external-link-xsm {
+                vertical-align: top;
+            }
+        }
+        h3 {
+            font-size: $fontSizeXLarge;
+            font-weight: 700;
+            margin: 30px 0 0;
+        }
+        table {
+            width: 100%;
+            margin-top: $spacingHalf;
+        }
+    }
+}
+
+
+/** licenseGroup **/
+div.licenseGroup {
+    h2 {
+        float: left;
+        margin: 0 $spacingHalf 0 0;
+        font-size: 24px;
+        font-weight: 500;
+    }
+    > .actionButtons {
+        padding-top: 0;
+        > .button {
+            margin: -$spacingQuarter 0 $spacingQuarter 0;
+        }
+    }
+}
+div.actionButtons {
+    padding-top: 6px;
+}
+a.splButton-primary, a.splButton-primary span {
+    display: inline-block;
+    margin-left: 0px;
+}
+div.subGroupTitle {
+    padding-top: 6px;
+    font-weight:$fontWeightSemiBold;
+}
+
+
+/** local server **/
+div.localServer {
+    margin-top: 30px;
+
+    h2 {
+        font-size: 24px;
+        font-weight: 500;
+        margin: 5px 0 10px;
+    }
+}
+
+
+/** stack **/
+.stack-title {
+    margin-top: 30px;
+
+    h2 {
+        float: left;
+        margin-top: 0px;
+    }
+    a {
+        margin-top: 3px;
+        margin-left: 10px;
+        float: left;
+    }
+}
+
+
+/** pool **/
+.poolActions {
+    margin-top: 4px;
+}
+.poolDescription {
+    margin-top: 15px;
+}
+
+
+table td, th{
+    vertical-align: baseline;
+    padding: $tableCellPadding;
+    border: 0;
+}
+tr.separator td{
+    border-bottom: 1px dotted $borderColor;
+}
+
+table {
+    .large {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .listing {
+        min-width: 600px;
+        clear: left;
+        border-collapse: collapse;
+        margin-bottom: 0px;
+        margin-top: $spacing;
+
+        td:second-child {
+            min-width: 200px;
+        }
+        th {
+            border-right: $borderWhite;
+            text-align: left;
+            font-weight: $fontWeightSemiBold;
+            background-color: $tableHeaderBackground;
+            &:last-child {
+                border-right: none;
+            }
+        }
+    }
+    &.properties {
+        clear: left;
+        width: auto;
+        .k {
+            padding-right: 20px;
+            vertical-align: top;
+        }
+    }
+}
+td.numeric, th.numeric {
+    text-align: right !important;
+}
+
+td.actions {
+    text-align: right;
+    font-weight: normal !important;
+}
+td.k, th.k {
+    font-weight: bold;
+    vertical-align: top;
+}
+.k label {
+    font-size: $fontSize;
+}
+tr.group-header td {
+    background-color: $gray98;
+    padding: $tableCellPadding;
+}
+tr.inactive td {
+    color: $textGray;
+    font-style: italic;
+}
+tr.total td {
+    border-top: 1px solid $borderColor;
+    font-weight: bold;
+}
+table.msg-listing {
+    border-bottom: 1px solid #DDD;
+    margin-top: 10px;
+}
+
+p.listing_action {
+    padding: 5px 0px;
+}
+p.prose {
+    padding: 5px 10px;
+    margin: 10px 0px 0px;
+    color: $textGrayDark;
+    border-radius: $interactiveBorderRadius;
+    background-color: #E5F2F5;
+
+    .spl-external-link {
+        margin-left: 0px;
+    }
+    input {
+        background: #EDEDED;
+        padding: 2px 5px;
+        width: 250px;
+    }
+}
+span.meter-tray {
+    background-color: $gray80;
+    height: $spacingThreeQuarters;
+    display: inline-block;
+    vertical-align: text-top;
+}
+span.meter-indicator {
+    background-color: $brandColor;
+    height: $spacingThreeQuarters;
+    display: inline-block;
+    vertical-align: top;
+}
+span.submeter-indicator {
+    background-color: #D4DEC5;
+    height: calc($spacing * 0.375);
+    display: inline-block;
+    vertical-align: top;
+}
+span.notable {
+    font-weight: bold;
+    color: $errorColor;
+}
+
+/*admin dialog buttons*/
+.admin-dialog-tray a.splButton-primary {
+    float:none;
+}
+
+
+/* Warning icons */
+.icon_small {
+    background-repeat: no-repeat;
+    padding-left: 17px;
+}
+.green_success_small {
+    background-image: url("/static/img/skins/default/icon_complete.png");
+    background-position:0px 0px;
+}
+.yellow_warning_small {
+    background-image: url("/static/img/skins/default/icon_alerts.png");
+    background-position:0px -16px;
+}
+.red_warning_small {
+    background-image: url("/static/img/skins/default/icon_alerts.png");
+    background-position:0px -64px;
+}
+
+/*SPL-73169*/
+.navigationHeader {
+    min-height: 0;
+}
+.ManagerBar:empty {
+    display: none;
+}

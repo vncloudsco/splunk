@@ -1,0 +1,31 @@
+/*  Splunk: Component: Schedule PDF */
+/*  =============================== */
+/*  schedule pdf modal dialog */
+
+/*
+	markup missing ...
+*/
+.schedule-pdf {
+	.help-block {
+		line-height: 1.2em;
+	}
+	.preview-actions {
+		clear: both;
+		a {
+			display: block;
+		}
+		/*  TODO: this should probably be inline-block */
+		.test-email {
+			max-width: 150px;
+			float: left;
+            margin-right: $spacingHalf;
+			.error {
+				color: $errorColor;
+			}
+		}
+	}
+}
+
+.control.shared-controls-textareacontrol.control-default .messagearea {
+		min-height: calc($inputHeight * 2);
+}

@@ -1,0 +1,53 @@
+.home-dashboard-empty {
+    padding: calc($spacing * 2 + $spacingHalf) calc($spacing + $spacingHalf);
+
+    .alert {
+        text-align: center;
+        font-size: 14px;
+        i {
+            left: auto;
+            margin-left: -27px;
+        }
+    }
+}
+
+.add-dashboard-link {
+    font-weight: 200;
+    display:block;
+    border: 1px dashed $gray80;
+    border-radius: $borderRadius;
+    padding: 120px 0 80px 0;
+    text-align: center;
+    color: $gray80;
+    background: rgba(255,255,255,0);
+    transition: color 0.1s linear, border-color 0.1s linear;
+
+    .choose-a-dashboard {
+        line-height: 30px;
+        font-size: $fontSizeXLarge;
+        display: block;
+    }
+    svg {
+        display: block;
+        margin: 0 auto $spacing auto;
+    }
+
+    path, rect, polygon {
+        fill: $gray80;
+        transition: fill 0.1s;
+    }
+
+    &:hover {
+        border-color: $gray60;
+        color: $gray60;
+        text-decoration: none;
+
+        path, rect, polygon {
+            fill: $gray60;
+        }
+    }
+
+    &:focus {
+        @mixin focus-element;
+    }
+}

@@ -1,0 +1,84 @@
+/**
+* $author ecarillo
+* $date 5/20/2015
+* Shared less file for views/indexes/core/AddEditIndexView.js
+* Currently used by AddData and Enterprise Index Management
+*/
+.indexes-modal {
+  .control-label {
+    float: left;
+    width: 160px;
+    padding-top: 5px;
+    text-align: right;
+  }
+  .help-block {
+    margin-bottom: 0;
+    margin-left: 180px;
+  }
+  .controls {
+    margin-left: 180px;
+  }
+  .size-format-placeholder {
+    .controls {
+      > div {
+        display: inline-block;
+        vertical-align: top;
+
+        &.shared-controls-textcontrol {
+          z-index: 1;
+          width: 75%;
+          flex: 75%;
+
+          span,
+          input {
+            width: 100%;
+            box-sizing: border-box;
+            min-height: $inputHeight;
+          }
+        }
+        &.shared-controls-syntheticselectcontrol {
+          width: 30%;
+          flex: 30%;
+
+         .btn {
+            width:100%;
+            box-sizing: border-box;
+          }
+          .dropdown-menu li > a > .link-description {
+            display: inline;
+            vertical-align: top;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+  .archive-placeholder {
+    .shared-controls-syntheticselectcontrol {
+      .dropdown-toggle {
+        .link-label {
+          max-width: 180px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  .shared-waitspinner {
+    display: inline-block;
+    margin: -10px 5px;
+  }
+  .flash-messages-view-placeholder {
+    white-space: pre-line
+  }
+  .dynamic-data-options {
+    div[data-test="controls"], div[data-test="help"] {
+      margin-left: 179px !important;
+    }
+    div[data-test="label"] {
+      width: 160px !important;
+    }
+  }
+}

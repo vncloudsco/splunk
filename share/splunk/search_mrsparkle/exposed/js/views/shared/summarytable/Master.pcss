@@ -1,0 +1,447 @@
+/* TODO would be nice to not have this import here... as far as i can tell it's
+   only for an IE11 edge case... unclear the implications of taking that out...
+*/
+@import '../../table/variables.pcss';
+
+.shared-summarytable {
+    @mixin display-flex column;
+    flex: 1 1 0px;
+    &:not(.summary-table-no-results) {
+        background-color: $gray60;
+    }
+    &.summary-table-no-results {
+        background-color: white;
+        .table-summary {
+            min-height: 0px;
+        }
+    }
+
+    &.disabled {
+        opacity: 0.5;
+
+        .scroll-table-wrapper {
+            max-width: 100%;
+            overflow: hidden;
+        }
+    }
+
+    .shared-waitspinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+    }
+
+    position: relative;
+
+    .header-table-wrapper {
+        border-bottom: none;
+    }
+
+    .scroll-table-wrapper {
+        margin-top: 41px;
+        height: auto;
+        margin-left: 0px;
+        @mixin display-flex column;
+        flex: 1 1 0px;
+        background-color: $gray60;
+    }
+
+    /* IE11 hack (These styles don't apply to edge) */
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        .scroll-table-wrapper {
+            height: calc(100vh - $contentTop - $titleBarHeight - 100px);
+            width: auto;
+        }
+
+        .header-table-wrapper {
+            margin-right: 0 !important;
+        }
+    }
+
+    .dataset-table-head {
+        position: absolute;
+        @mixin display-flex row;
+
+        /* SPL-114466: This hack is necessary to force the GPU to render the page on a separate layer on Chrome Retina displays */
+        /* Background reference: http://blog.getpostman.com/2015/01/23/ui-repaint-issue-on-chrome */
+        transform: translateZ(0);
+
+        top: 0px;
+        left: 0px;
+        border-top: 3px solid $gray60;
+        z-index: 1;
+        -moz-transform: none;
+    }
+
+    .table-summary {
+        margin-bottom: 0px;
+        background-color: $gray60;
+        thead {
+            float: left;
+        }
+    }
+
+    .summary-header i {
+        float: right;
+        margin-right: 10px;
+        color: $gray60;
+    }
+
+    .coverage {
+        display: flex;
+        width: 100%;
+        margin-top: 2px;
+        .bar {
+            height: 10px;
+            min-width: 5px;
+        }
+    }
+
+    .coverage > .match {
+        background-color: $successColor;
+    }
+
+    .coverage > .mismatch {
+        background-color: $errorColor;
+    }
+
+    .coverage > .null-or-empty {
+        background-color: $warningColor;
+    }
+
+    .coverage > .loading {
+        background-color: color($black a(10%));
+    }
+
+    .col-header,
+    .summary-table-column {
+        border-left: 2px solid $gray60;
+        border-right: 2px solid $gray60;
+    }
+
+    .col-header.column-selected::after,
+    .summary-table-column.column-selected::after {
+        content: '';
+        border: 2px solid #467fc7;
+        position: absolute;
+        top: -2px;
+        right: -1px;
+        bottom: -2px;
+        left: -1px;
+        pointer-events: none;
+    }
+
+    .col-header.column-selected::after {
+        border-bottom: none;
+    }
+
+    .col-header {
+        font-size: $fontSizeLarge;
+        line-height: 22px;
+        position: relative;
+        box-sizing: border-box;
+        word-wrap: break-word;
+        user-select: none;
+        background-color: $white;
+        padding: 0px;
+
+        &:first-child {
+            width: 60px;
+            min-width: 60px;
+        }
+
+        &.column-selected, &.column-selected-end {
+            cursor: move;
+            cursor: grab;
+        }
+
+        &.grabbed, &.column-selected:active, &.column-selected-end:active {
+            cursor: move;
+            cursor: grabbing;
+        }
+
+        &.over-right {
+            border-right: 4px solid $accentColor !important;
+            border-left: none;
+            right: -2px;
+        }
+
+        &.over-right + div.col-header {
+            border-left: none;
+            margin-left: 2px;
+            margin-right: -2px;
+            border-right-width: 4px;
+        }
+
+        &.over-left {
+            border-left: 4px solid $accentColor !important;
+            border-right: none;
+            left: -2px;
+        }
+
+        &:not(:first-child) {
+            min-width: 200px;
+        }
+
+        &:last-child {
+            padding-right: 0px;
+        }
+
+        &.field {
+            width: 200px;
+        }
+
+        &.field.type-raw {
+            width: 600px;
+        }
+
+        &.all {
+            font-size: 22px;
+            float: right;
+            text-align: right;
+        }
+
+        &:not(.disabled) i.field-type:not([data-type="raw"]):not([data-type="timestamp"]) {
+            cursor: pointer;
+        }
+
+        span.name {
+            display: block;
+            white-space: nowrap;
+            word-break: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            position: relative;
+            padding: 3px 10px 1px 11px;
+
+            &.all {
+                top: 5px;
+            }
+        }
+
+        i.field-type {
+            position: relative;
+            float: left;
+            margin-top: 3px;
+            margin-left: 9px;
+            color: $textGray;
+
+            &.icon-ipv4 {
+                margin-top: 2px;
+            }
+        }
+
+        i.icon-ipv4:before {
+            font-family: inherit;
+            content: 'IP';
+            font-size: 75%;
+        }
+
+        .field-name-input {
+            display: inline-block;
+            margin: 2px 5px 0px 5px;
+            width: calc(100% - 60px);
+            font-size: 15px;
+            border: none;
+            border-radius: 0px;
+            &.warning {
+                border: 1px solid $errorColor;
+            }
+        }
+    }
+}
+
+.summary-table-results {
+    white-space: nowrap;
+    height: auto;
+    padding-bottom: 2px;
+    padding-left: 60px;
+    max-width: 100%;
+}
+
+.summary-table-column {
+    background-color: $white;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    min-width: 200px;
+
+    div.result-field {
+        position: relative;
+
+        .selection {
+            color: transparent;
+
+            + .real-text-wrapper {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+        }
+    }
+
+    &:not(.column-_raw) {
+        width: 200px;
+    }
+
+    &.column-_raw {
+        width: 600px;
+    }
+}
+
+.metrics-no-results {
+    display: inline-block;
+    padding: 6px;
+}
+
+.list-summary {
+    padding: 10px 20px 10px 0;
+    position: relative;
+}
+
+.list-summary-row {
+    max-width: 280px;
+    line-height: 20px;
+    @mixin clearfix;
+}
+
+.list-summary-row-last {
+    padding-bottom: 10px;
+}
+.list-summary-label {
+    position: relative;
+    flex: 1000 0 0;
+    padding-left: 15px;
+    float: left;
+
+    &.summary-matchedtype, &.summary-mismatchedtype, &.summary-nulloremptyvalues {
+        padding-left: 30px;
+    }
+
+    i {
+        position: absolute;
+        font-size: 150%;
+        top: -1px;
+        left: 14px;
+        color: $gray80;
+    }
+
+    &.summary-matchedtype:not(.summary-zero) i {
+        color: $successColor;
+    }
+
+    &.summary-mismatchedtype:not(.summary-zero) i {
+        color: $errorColor;
+    }
+
+    &.summary-nulloremptyvalues:not(.summary-zero) i {
+        color: $warningColor;
+    }
+}
+
+.list-summary-spacer {
+    position: relative;
+    overflow: hidden;
+    &::before {
+        position: absolute;
+        left:0;
+        top:0;
+        content: '......................................................................................................................................................'
+    }
+}
+
+.list-summary-value {
+    flex: 1 0 auto;
+    text-align: right;
+    margin: 0;
+    color: $textGray;
+    white-space: nowrap;
+    float:right;
+}
+
+.top-results-cell {
+    border-top: 1px solid $gray60;
+    padding: 4px 6px;
+    position: relative;
+    z-index: 0;
+    @mixin clearfix;
+
+    &.selected {
+        padding: 3px 4px 2px 4px;
+        border: 2px solid $accentColor;
+    }
+
+    .result-bar {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        bottom: 2px;
+        z-index: -1;
+        max-width: calc(100% - 4px);
+
+        &.matched {
+            background-color: $successColorL30;
+        }
+
+        &.mismatched {
+            background-color: $errorColorL30;
+        }
+
+        &.null, &.empty {
+            background-color: $warningColorL30;
+        }
+    }
+
+    .result-field {
+        float: left;
+        white-space: normal;
+        max-width: 100%;
+        word-wrap: break-word;
+
+        &.null-cell {
+            font-style: italic;
+            color: $textDisabledColor;
+        }
+    }
+
+    .result-value {
+        float: right;
+        color: $gray60;
+    }
+
+    .cell-value-input {
+        margin: 0px;
+        box-sizing: border-box;
+        height: 100%;
+        float: left;
+        width: calc(100% - 40px);
+    }
+}
+
+.col-header,
+.list-summary,
+.top-results-cell {
+    &.column-highlighted {
+        background: $warningColorL50;
+    }
+
+    &.column-cut {
+        background: $errorColorL50;
+    }
+
+    &.column-selected,
+    &.selected {
+        background: $accentColorL50;
+    }
+
+    &:hover:not(.disabled),
+    &.hover:not(.disabled) {
+        background: $tableRowHoverColor;
+    }
+}

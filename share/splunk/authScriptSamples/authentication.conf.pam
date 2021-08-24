@@ -1,0 +1,11 @@
+[authentication]
+authType = Scripted
+authSettings = script
+
+[script]
+scriptPath = "$SPLUNK_HOME/bin/python" "$SPLUNK_HOME/share/splunk/authScriptSamples/pamScripted.py"
+
+[cacheTiming]
+userLoginTTL    = 1
+getUserInfoTTL  = 1
+getUsersTTL     = 1

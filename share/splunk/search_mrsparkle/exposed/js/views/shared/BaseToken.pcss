@@ -1,0 +1,36 @@
+.inline {
+    display: inline-block;
+}
+
+.token-container {
+    border: 1px solid $buttonBorderColorActive;
+    border-radius: 3px;
+	background-color: $pillBackgroundColorHover;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+}
+
+.no-icons {
+    display: inline-block;
+    padding: 4px 8px;
+}
+
+.token-button {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    box-shadow: none;
+    &:not(:last-child) {
+        padding-right: 2px;
+    }
+}
+
+.token-icon {
+    color: $textColor;
+}

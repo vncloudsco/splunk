@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<software_identification_tag
+    xmlns="http://standards.iso.org/iso/19770/-2/2009/schema.xsd">
+    <entitlement_required_indicator>false</entitlement_required_indicator>
+    <product_title>Splunk Enterprise</product_title>
+    <product_version>
+        <name>8.0.4.0</name>
+        <numeric>
+            <major>8</major>
+            <minor>0</minor>
+            <build>4</build>
+            <review>0</review>
+        </numeric>
+    </product_version>
+    <software_creator>
+        <name>Splunk, Inc.</name>
+        <regid>regid.2001-12.com.splunk</regid>
+    </software_creator>
+    <software_id>
+        <unique_id>7EAB7636-70C8-4952-ABA4-76280C1ED710</unique_id>
+        <tag_creator_regid>regid.2001-12.com.splunk</tag_creator_regid>
+    </software_id>
+    <tag_creator>
+        <name>Splunk, Inc.</name>
+        <regid>regid.2001-12.com.splunk</regid>
+    </tag_creator>
+    <extended_information>
+        <tag_type
+            xmlns="http://www.tagvault.org/tv_extensions.xsd">Application
+        </tag_type>
+    </extended_information>
+</software_identification_tag>
+

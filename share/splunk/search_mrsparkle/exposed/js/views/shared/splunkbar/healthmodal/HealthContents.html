@@ -1,0 +1,54 @@
+<div class="<%- css.infoDefault %>" data-role="info-default">
+    <h3 data-role="section-heading">
+        <%- _('How to interpret this health report:').t() %>
+    </h3>
+    <p class="<%- css.defaultText %>" data-role="default-text-1">
+        <%- _('This health report displays information from the /health/splunkd/details endpoint. There are three potential states for a feature:').t() %>
+    </p>
+        <ul>
+            <li><span data-role="default-info-icon" /> <%- _('Green: The feature is functioning properly.').t() %></li>
+            <li><span data-role="default-warn-icon" /> <%- _('Yellow: The feature is experiencing a problem. The feature’s status might automatically improve, or it might worsen over time. For details, see Root Cause.').t() %></li>
+            <li><span data-role="default-error-icon" /> <%- _('Red: The feature has severe issues and is negatively impacting the functionality of your deployment. For details, see Root Cause.').t() %></li>
+            <li><span data-role="default-disabled-icon"/> <%- _('Grey: Health report is disabled for the feature.').t() %></li>
+        </ul>
+    <p class="<%- css.defaultText %>" data-role="default-text-2">
+        <%- _('To manage red and yellow threshold values for the individual features, go to').t() %> <a href="<%- managerLink %>" target="_blank" data-role="default-managerLink" data-test="default-link"><%- _('Health Report Manager').t() %></a>
+    </p>
+    <p class="<%- css.defaultText %>" data-role="default-text-3">
+        <%- _('For more information on this health report, see').t() %> <a href="<%- helplink %>" target="_blank" data-role="default-docLink" data-test="default-link"><%- _('Learn more').t() %></a>
+    </p>
+</div>
+<div class="<%- css.infoGood %>" data-role="info-good">
+    <h3 data-role="section-heading">
+        <span data-role="info-good-icon" /> <span data-role="nodeid" />
+    </h3>
+    <p class="<%- css.infoGoodText %>" data-role="info-good-text">
+        <%- _('This feature is functioning correctly.').t() %>
+    </p>
+</div>
+<div class="<%- css.infoBox %>" data-role="info-box">
+    <h3 data-role="section-heading">
+        <span data-role="info-icon" /> <span data-role="nodeid" />
+    </h3>
+    <ul>
+        <li data-role="reasons">
+            <b><%- _('Root Cause(s): ').t() %></b>
+            <ul data-role="reasons-list"/>
+        </li>
+        <li data-role="messages">
+            <b><%- _('Last 50 related messages:').t() %></b>
+            <ul data-role="messages-list" />
+        </li>
+    </ul>
+</div>
+<div class="<%- css.infoDisabled %>" data-role="info-disabled">
+    <h3 data-role="section-heading">
+        <span data-role="info-disabled-icon" /> <span data-role="nodeid" />
+    </h3>
+    <p class="<%- css.infoDisabledText %>" data-role="info-disabled-text">
+        <%- _('This feature\'s health report is disabled.').t() %>
+    </p>
+</div>
+
+<div class="<%- css.health %>" data-role="health">
+</div>

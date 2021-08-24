@@ -1,0 +1,65 @@
+/*  Splunk: Component: Mega-Menu */
+/*  ============================ */
+
+$megaMenuSidebarWidth: 150px;
+
+.view {
+	background-color: $navBarSettingSidebarColor;
+}
+
+.body {
+    padding: $spacingHalf;
+    columns: 2;
+    column-gap: 0;
+    width: 440px;
+    background-color: $navBarSettingBackgroundColor;
+
+    .sidebar + & {
+        margin-left: $megaMenuSidebarWidth;
+    }
+
+    [data-menu-sections="1"] > &, [data-menu-sections="2"] > & {
+        width: 220px;
+        columns: 1;
+    }
+}
+
+.sidebar {
+    width: $megaMenuSidebarWidth;
+    padding: 0;
+    float: left;
+
+    > a {
+		color: $interactiveTextColor;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        padding: $spacingThreeQuarters;
+
+        &:focus {
+            @mixin focus-element-inset $navBarSettingSidebarColorHover;
+        }
+        &:hover {
+            background: $navBarSettingSidebarColorHover;
+        }
+    }
+
+    svg {
+        margin: $spacingHalf auto $spacingThreeQuarters auto;
+        display: block;
+        width: 60px;
+    }
+}
+
+.fill {
+	fill: $navBarSettingSVGFillColor;
+}
+
+.stroke {
+	stroke: $navBarSettingSVGFillColor;
+}
+
+.footer {
+    composes: footer from '../../MenuDialog.pcssm';
+    text-align: right;
+}

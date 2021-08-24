@@ -1,0 +1,35 @@
+.tab {
+    display: inline-block;
+    margin-right: 15px;
+    text-align: center;
+}
+
+.label {
+    @mixin reset;
+    margin: 0px;
+}
+
+.button {
+    display: block;
+    position: relative;
+    padding: 10px;
+    padding-bottom: 7px;
+    border-radius: 4px;
+
+    &:hover {
+        background-color: $pillBackgroundColorHover;
+    }
+
+    &:focus {
+        @mixin focus-element;
+    }
+}
+
+.buttonSelected {
+    composes: button;
+    background-color: $pillBackgroundColorHover;
+
+    &:focus {
+        @mixin focus-element;
+    }
+}

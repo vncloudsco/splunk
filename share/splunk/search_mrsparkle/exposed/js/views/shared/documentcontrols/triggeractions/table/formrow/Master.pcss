@@ -1,0 +1,34 @@
+$formRowWidth: 600px;
+$formRowControlWidth: 330px;
+$formRowLabelWidth: 90px;
+
+.more-info {
+    .control-group {
+        display: block;
+        width: $formRowControlWidth;
+        clear: both;
+    }
+    .control-label {
+        width: $formRowLabelWidth;
+    }
+    .controls {
+        margin-left: calc($formRowLabelWidth + $spacingHalf);
+    }
+    .help-block {
+        width: auto;
+        margin-left: 100px;
+        position: static;
+        
+    }
+
+    .form-vertical {
+        .help-block {
+            position: initial;
+            width: initial;
+        }
+    }
+
+    .controls.controls-join {
+        margin-bottom: 10px;
+    }
+}

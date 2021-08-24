@@ -1,0 +1,75 @@
+$dataIconShadow: 0 0 $spacing $gray80;
+$logoIconShadow: 0 0 $spacing $brandColor;
+$focusIconShadow: 0 0 $spacing $accentColor;
+
+/*  Nav Logo */
+.brand {
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    line-height: $litebarHeight;
+    height: $litebarHeight;
+    white-space: nowrap;
+    display: block;
+    color: $white;
+    padding: 0 $spacingQuarter;
+    font-size: $fontSizeXLarge;
+    float: left;
+    text-decoration: none;
+    text-rendering: geometricPrecision;
+    backface-visibility: hidden;
+
+    &:hover {
+        background: none;
+        text-decoration: none;
+    }
+
+    &:hover {
+        color: $white;
+        > [data-icon] {
+            text-shadow: $dataIconShadow, $dataIconShadow;
+        }
+        > .gt > i:before, > .subBrand > [data-icon] {
+            text-shadow: $logoIconShadow, $logoIconShadow;
+        }
+    }
+    &:focus {
+        color: $white;
+        box-shadow: none;
+        outline: none;
+        > [data-icon] {
+            text-shadow: $dataIconShadow, $focusIconShadow, $focusIconShadow, $focusIconShadow;
+        }
+        > .gt > i:before, > .subBrand > [data-icon] {
+            text-shadow: $logoIconShadow, $focusIconShadow, $focusIconShadow, $focusIconShadow;
+        }
+    }
+    > [data-icon], > .gt > i:before, > .subBrand > [data-icon] {
+        transition: text-shadow $transitionTime;
+    }
+}
+
+.gt {
+    position: relative;
+}
+
+.gt, .subBrand {
+    color: $splunkLiteColor;
+}
+
+.icon {
+    margin-right: 6px;
+    vertical-align: middle;
+    font-size: 1.4em;
+}
+
+.subBrand,
+.appText {
+    -webkit-font-smoothing: antialiased;
+}
+
+.appText {
+    font-size: 14px;
+    margin-right: 5px;
+    margin-left: 5px;
+    color: $splunkLiteColor;
+}

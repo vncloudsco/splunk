@@ -1,0 +1,455 @@
+/*!
+ * Debug styles
+ * extra mixins and classes for debugging and navigation
+ */
+
+$cardShadow: 0 1px 4px color($gray20 a(0.16));
+
+.navbar-fixed-top .navbar-inner {
+    background: $gray20;
+    border-bottom: none;
+    min-height: 20px;
+    box-shadow: none;
+}
+
+
+.navbar .nav > li > a {
+    text-shadow:none;
+    line-height: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    &:hover {
+        color: $white;
+    }
+}
+
+.navbar .nav > li.active a {
+    &, &:hover {
+        background: $bodyBackgroundColor;
+        box-shadow: none;
+        cursor: pointer;
+    }
+}
+
+
+.navbar .brand {
+    color: $white;
+    text-shadow:none;
+    font-family: "Splunk Icons";
+    -webkit-font-smoothing: antialiased;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    b {
+        font-weight: normal;
+    }
+}
+
+/*
+Extract vars:
+
+	@(.*):.*
+
+	.$1{.debug(@$1)}
+
+Dump vars:
+
+	\.(.+)\{.*\}
+
+	<dt>$1</dt>
+	<dd class="$1"></dd>
+*/
+
+/*  base styles */
+
+@define-mixin debug $var {
+	background-color:$var;
+	color:$textColor;
+	word-break:break-all;
+    overflow: hidden;
+}
+
+@define-mixin palette $var {
+    .$(var)L50{@mixin debug $$(var)L50;}
+    .$(var)L40{@mixin debug $$(var)L40;}
+    .$(var)L30{@mixin debug $$(var)L30;}
+    .$(var)L20{@mixin debug $$(var)L20;}
+    .$(var)L10{@mixin debug $$(var)L10;}
+    .$(var) {@mixin debug $$(var);}
+    .$(var)D10{@mixin debug $$(var)D10;}
+    .$(var)D20{@mixin debug $$(var)D20;}
+    .$(var)D30{@mixin debug $$(var)D30;}
+    .$(var)D40{@mixin debug $$(var)D40;}
+    .$(var)D50{@mixin debug $$(var)D50;}
+}
+
+/*  preview vars ... */
+.color-list {
+
+    @mixin palette brandColor;
+
+	.white{@mixin debug $white;}
+	.gray98{@mixin debug $gray98;}
+	.gray96{@mixin debug $gray96;}
+	.gray92{@mixin debug $gray92;}
+	.gray80{@mixin debug $gray80;}
+	.gray60{@mixin debug $gray60;}
+	.gray45{@mixin debug $gray45;}
+	.gray30{@mixin debug $gray30;}
+	.gray20{@mixin debug $gray20;}
+	.black{@mixin debug $black;}
+
+    /*************************************************************************************************/
+    /*  SEMANTIC COLORS                                                                              */
+    /*************************************************************************************************/
+
+    @mixin palette accentColor;
+    @mixin palette errorColor;
+    @mixin palette alertColor;
+    @mixin palette warningColor;
+    @mixin palette infoColor;
+    @mixin palette successColor;
+
+
+    /*************************************************************************************************/
+    /*  CATEGORICAL COLORS                                                                           */
+    /*************************************************************************************************/
+
+    @for $i from 1 to 30 {
+        .cat$(i)Color {
+            @mixin debug $cat$(i)Color;
+        }
+        .cat$(i)ColorL {
+            @mixin debug $cat$(i)ColorL;
+        }
+    }
+
+    /*************************************************************************************************/
+    /*  DIVERGING COLORS                                                                             */
+    /*************************************************************************************************/
+
+    @for $i from 1 to 6 {
+        .diverging$(i)ColorA {
+            @mixin debug $diverging$(i)ColorA;
+        }
+        .diverging$(i)ColorB {
+            @mixin debug $diverging$(i)ColorB;
+        }
+    }
+
+	/*  Scaffolding */
+	/*  ------------------------- */
+	.bodyBackgroundColor{@mixin debug $bodyBackgroundColor;}
+	.textColor{@mixin debug $textColor;}
+	.containerBackgroundColor{@mixin debug $containerBackgroundColor;}
+
+	/*  Links */
+	/*  ------------------------- */
+	.linkColor{@mixin debug $linkColor;}
+	.linkColorHover{@mixin debug $linkColorHover;}
+
+	/*  Tables */
+	/*  ------------------------- */
+	.tableBackgroundHover{@mixin debug $tableRowHoverColor;}
+	.tableBackgroundAccent{@mixin debug $tableRowAccentColor;}
+	.tableBackgroundAccentHover{@mixin debug $tableRowHoverColor;}
+	.tableBorder{@mixin debug $tableBorderColor;}
+	.tableBorderVertical{@mixin debug $tableBorderVerticalColor;}
+
+
+	/*  Forms */
+	/*  ------------------------- */
+	.inputBackground{@mixin debug $inputBackground;}
+	.inputBorder{@mixin debug $inputBorder;}
+	.inputDisabledBackground{@mixin debug $inputDisabledBackground;}
+
+
+	/*  Dropdowns */
+	/*  ------------------------- */
+	.dropdownBackground{@mixin debug $white;}
+	.dropdownBorder{@mixin debug $borderColor;}
+
+
+
+	/*  COMPONENT VARIABLES */
+	/*  ================================================== */
+
+
+
+	/*  Form states and alerts */
+	/*  ------------------------- */
+	.warningText{@mixin debug $warningText;}
+	.warningBackground{@mixin debug $warningBackground;}
+	.warningBorder{@mixin debug $warningBorder;}
+
+	.errorText{@mixin debug $errorText;}
+	.errorBackground{@mixin debug $errorBackground;}
+	.errorBorder{@mixin debug $errorBorder;}
+
+	.successText{@mixin debug $successText;}
+	.successBackground{@mixin debug $successBackground;}
+	.successBorder{@mixin debug $successBorder;}
+
+	.infoText{@mixin debug $infoText;}
+	.infoBackground{@mixin debug $infoBackground;}
+	.infoBorder{@mixin debug $infoBorder;}
+
+
+
+
+	/*  BASE INTERACTIVE */
+	/*  -------------------------- */
+
+	/*  text */
+	.interactiveColor{@mixin debug $interactiveTextColor;}
+
+	/*  background */
+	.interactiveBackgroundColor{@mixin debug $interactiveBackgroundColor;}
+	.interactiveBackgroundColorHover{@mixin debug $interactiveBackgroundColorHover;}
+	/*  borders */
+	.interactiveBorderColor{@mixin debug $interactiveBorderColor;}
+	.interactiveBorderColorHover{@mixin debug $interactiveBorderColorHover;}
+
+	/*  PRIMARY BUTTONS */
+	/*  -------------------------- */
+
+	/*  text */
+	.primaryTextColor{@mixin debug $primaryTextColor;}
+	/*  background */
+	.primaryBackgroundColor{@mixin debug $primaryBackgroundColor;}
+	.primaryBackgroundColorHover{@mixin debug $primaryBackgroundColorHover;}
+	/*  borders */
+	.primaryBorderColor{@mixin debug $primaryBorderColor;}
+	.primaryBorderColorHover{@mixin debug $primaryBorderColor;}
+
+
+	/*  PILL BUTTONS */
+	/*  -------------------------- */
+
+	/*  text */
+	.pillTextColor{@mixin debug $pillTextColor;}
+	.pillTextColorHover{@mixin debug $pillTextColorHover;}
+	/*  background */
+	.pillBackgroundColorHover{@mixin debug $pillBackgroundColorHover;}
+
+}
+
+
+h2, h3 {
+    clear: left;
+
+}
+body {margin-top:50px !important;}
+.navbar-fixed-top {
+    position: fixed !important;
+    z-index: 2000 !important;
+}
+.content {
+    margin: 0 20px 20px  320px;
+    border-radius: 4px;
+}
+.wrapper .docs-sidebar {width: 270px; margin-left: 20px; }
+.wrapper .docs-sidebar .nav > li {line-height: 20px;}
+.wrapper .docs-sidebar .nav > li > a:hover {background: #08C; color: #fff;}
+.footer {clear:both;text-align:center; margin-bottom: 50%;}
+.clear {clear:both;}
+.section {clear:both;margin-bottom:1em;padding-top: 40px;}
+body.dark .section {background-color:#000;}
+body.light .section {background-color:#fff;}
+body.medium .section {background-color:#7D7D7D;}
+ul.color-list {
+    padding: 0;
+    margin: 0 20px 20px 0;
+    width: 300px;
+    float: left;
+    overflow: hidden;
+    box-shadow: $cardShadow;
+
+    li {
+        display:block;
+        width:100%;
+        height: 40px;
+        position:relative;
+
+        > span {
+            position:absolute;
+            display: block;
+            top: 0;
+            bottom: 0;
+            line-height: 40px;
+            color: $white;
+
+            padding: 3px 5px;
+            opacity: 0.65;
+        }
+
+        > span.name {
+            left: 0;
+            width: 210px;
+        }
+
+        > span.hex {
+            right: 0;
+            text-align: right;
+            opacity: 0;
+            transition: opacity 0.2s;
+            width: 70px;
+        }
+
+        &.light-color > span {
+            color: $textColor;
+        }
+    }
+
+    &.color-list-twos {
+        width: 900px;
+        > li{
+          float: left;
+          width: 50%;
+        }
+    }
+}
+.show-hex-values ul.color-list li > span.hex {
+    opacity: 0.65;
+}
+
+.the-icons {
+    list-style:none;
+}
+.the-icons li[class^="icon-"]:before,
+.the-icons li[class*=" icon-"]:before
+{
+    text-align: center;
+    display: inline-block;
+    min-width: 32px;
+    padding-right: 5px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    transition: font-size 0.4s;
+}
+.the-icons li[class^="icon-"]:hover:before,
+.the-icons li[class*=" icon-"]:hover:before {
+    font-size: 36px;
+    transition: font-size 0.1s;
+}
+.the-icons li[class^="icon-"],
+.the-icons li[class*=" icon-"] {
+    cursor: pointer;
+    height: 36px;
+    line-height: 24px;
+    margin-top: -3px;
+}
+.the-icons li > h5 {
+
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+}
+
+.docs-example {
+    margin: 15px 0;
+    padding: 20px 20px 14px;
+    position: relative;
+    z-index: auto;
+
+    position: relative;
+    box-shadow: $cardShadow;
+    background-color: #FFF;
+    border-radius: 2px;
+    clear: left;
+}
+#navigation .docs-example {
+    padding-left: 0;
+    overflow: hidden;
+}
+.docs-example  .popdown-dialog {
+    z-index: 1;
+}
+.docs-example + .prettyprint {
+    margin-top: -20px;
+    padding-top: 15px;
+}
+
+/*sidebar*/
+.docs-sidenav {
+  width: 270px;
+  margin: 30px 0 0;
+  padding: 0;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.065);
+}
+.docs-sidenav > li > a {
+    display: block;
+    margin: 0 0 -1px;
+    padding: 0 19px;
+    line-height: 28px;
+    margin-left: 0;
+    margin-right: 0;
+    transition: font-weight 0.05s;
+
+    span {
+        position: absolute;
+        margin-top: 5px;
+        right: 15px;
+        opacity: 0;
+        transition: opacity 0.1s;
+    }
+    &:focus {
+        background-color: #fff;
+    }
+    &.current-section {
+        font-weight: bold;
+        span {
+            opacity: 1;
+        }
+    }
+}
+
+.docs-sidenav > li + li > a {
+  border-top:  none;
+}
+
+.docs-sidenav > .active > a {
+  position: relative;
+  z-index: 2;
+  padding: 9px 15px;
+  border: 0;
+  text-shadow: 0 1px 0 rgba(0,0,0,.15);
+  box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+}
+.docs-sidenav.affix {
+  top: 27px;
+}
+.docs-sidenav.affix-bottom {
+  position: absolute;
+  top: auto;
+  bottom: 270px;
+}
+
+.wrapper .docs-sidenav > li > a {
+    margin: 0;
+}
+.docs-sidebar .nav-list {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+
+/* **************** OOCSS GRIDS ***************** */
+.line:after{content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+.lastUnit:after{content: " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";visibility:hidden; clear:both;height:0 !important;display:block;line-height:0;}
+.line{*zoom:1;}
+.unit{float:left;}
+.size1of1{float:none;}
+.size1of2{width:50%;}
+.size1of3{width:33.33333%;}
+.size2of3{width:66.66666%;}
+.size1of4{width:25%;}
+.size3of4{width:75%;}
+.size1of5{width:20%;}
+.size2of5{width:40%;}
+.size3of5{width:60%;}
+.size4of5{width:80%;}
+.lastUnit {display: table-cell; *display:block;*zoom:1;float:none;_position:relative; _left:-3px; _margin-right: -3px;width:auto;}

@@ -1,0 +1,147 @@
+/*  Splunk: Pages: Virtual Indexes */
+/*  ============================== */
+
+
+/*   table content */
+.virtualindexes-providersgrid,
+.virtualindexes-indexesgrid,
+.virtualindexes-archivegrid
+{
+	clear: both;
+	padding-top: 10px;
+    > table {
+        @mixin create-card-table;
+    }
+}
+
+/*  TODO: why isn't this common? */
+.message-single {
+	margin: 20px;
+}
+
+/*  TODO: why is this set? */
+.tab-content {
+	overflow: visible;
+
+	.tab-pane {
+		min-height: 416px;
+	}
+}
+
+/*  TODO: this could be common */
+.section-padded .divider {
+	clear: both;
+	margin: 10px -20px;
+}
+
+.tab-pane {
+	min-height: 420px;
+}
+
+.col-flex {
+	/*  width: auto; */
+}
+.col-slim {
+	width: 140px;
+}
+.col-100 {
+	width: 100px;
+}
+
+td a + a {
+	margin-left: 10px;
+}
+td span + a {
+  margin-left: 10px;
+}
+.enableAction {
+    margin-left: 10px;
+}
+.disableAction {
+  margin-left: 13px;
+}
+.virtualindexes-providersgrid {
+  .table td .tooltip-link {
+    top: unset;
+    font-size: unset;
+  }
+}
+.virtualindexes-userimpersonationtab .uneditable-input {
+  width: 600px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.virtualindexes-archivegrid {
+  .expanded-info {
+    padding-top: 1em;
+  }
+
+  .col-info {
+    width: 1em;
+  }
+
+  .col-selected {
+    width: 1em;
+  }
+
+  .checkbox {
+    padding: 0px 0px 0px 0px;
+  }
+
+  .bandwidth-header {
+    white-space: nowrap;
+  }
+
+  .select-all-checkbox {
+    min-width: 16px;
+  }
+
+  .selected-checkbox {
+    padding-top: 10px;
+  }
+
+  table > tbody > tr > td.selected-checkbox:not(:first-child) {
+      border-left: 1px solid transparent;
+  }
+}
+.virtualindexes-buttons-placeholder {
+    margin-bottom: $spacingThreeQuarters;
+}
+.virtualindexes-archivegridrow {
+  .checkbox {
+    margin-top: -5px;
+  }
+  .list-dotted dt {
+    width: 140px;
+  }
+}
+.unified-search-placeholder {
+  display: inline-block;
+  width: 400px;
+  float: left;
+  margin-right: $spacingQuarter;
+
+  .control-group {
+    .control-label {
+      margin-right: 3px;
+    }
+    .controls {
+      margin-left: 170px;
+      margin-right: 2px;
+    }
+  }
+}
+.filter-button-placeholder {
+    background-color: $white;
+}
+.control.shared-findinput {
+    margin-top: 0;
+}
+.virtualindexes {
+    > .section-header {
+        padding-bottom: 0;
+    }
+    > .nav-tabs {
+        background-color: transparent;
+    }
+}

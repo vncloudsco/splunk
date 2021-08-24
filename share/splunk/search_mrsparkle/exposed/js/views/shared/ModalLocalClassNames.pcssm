@@ -1,0 +1,136 @@
+/*  Splunk: Modals */
+/*  ============== */
+
+
+/*  Background */
+.backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $zindexModalBackdrop;
+  background-color: $popupBackdropColor;
+  opacity: 0;
+
+  &[data-modal-state=open] {
+      opacity: 0.80;
+  }
+}
+
+ /*  modal container */
+.view {
+    all: initial;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    @mixin modal-width;
+    margin-left: -225px;
+    z-index: $zindexModal;
+    background-color: $popupBackgroundColor;
+    border: none;
+    box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+    outline: none;
+    transition: $transitionOpacityFast, $transitionTopFast ease;
+    opacity: 0;
+    font-size: $fontSize;
+    font-family: $fontFamily;
+
+    /*  SPL-68751 - IE10 box shadow animation artifacts fix */
+    &:after {
+        content: "";
+        font-size: 0;
+        display: inline;
+        overflow: hidden;
+    }
+
+    &[data-modal-state=open] {
+        top: $spacingDouble;
+        opacity: 1;
+    }
+
+    [data-icon=splunk] {
+        color: $modalIconColor;
+    }
+
+}/*  modal */
+
+/*  Header
+/*  =============== */
+
+.headerWrapper {
+    background: $popupHeaderBackgroundColor;
+
+    &:empty {
+        display: none;
+    }
+}
+
+.header {
+    composes: headerWrapper;
+    position: relative;
+    padding: $spacing;
+}
+
+.title {
+    font-size: $fontSizeXLarge;
+    font-weight: $fontWeightSemiBold;
+    line-height: 22px;
+    margin: 0;
+    overflow-wrap: break-word;
+    padding-right: $spacingDouble;
+    color: $modalTitleColor;
+}
+
+.closeWrapper {
+    top: calc($spacingHalf + $spacingQuarter);
+    right: calc($spacingHalf + $spacingQuarter);
+    position: absolute;
+}
+
+/*  Body
+/*  =============== */
+
+.body {
+    max-height: calc(100vh - 200px);
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+.bodyPadded {
+    composes: body;
+    padding: $spacing;
+}
+.bodyScrolling {
+    composes: body;
+    overflow-y: auto;
+    border-top: $borderDefault;
+    border-bottom: $borderDefault;
+}
+.bodyScrollingPadded {
+    composes: bodyScrolling;
+    padding: $spacing;
+    color: $modalTextColor;
+}
+
+/*  Footer
+/*  =============== */
+
+.footer {
+    padding: $spacing;
+    margin-bottom: 0;
+    text-align: right; /*  right align buttons */
+    background: $popupFooterBackgroundColor;
+    border-radius: 0 0 8px 8px;
+    @mixin clearfix;
+}
+
+.buttonsLeft {
+    float: left;
+}
+
+.buttonsRight {
+    float: right;
+}

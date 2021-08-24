@@ -1,0 +1,73 @@
+/*  Messages appears in Splunk Bar and Lite Bar */
+/*  ======================= */
+
+
+.view {
+    color: $textColor;
+    position: relative;
+    background-color: $popupBackgroundColor;
+    padding: 5px 30px 5px 35px;
+    word-wrap: break-word;
+
+    & + .view {
+        border-top: 1px dotted $borderColor;
+    }
+}
+
+.time {
+    color: $textGray;
+    font-size: $fontSizeSmall;
+    display: block;
+}
+
+.icon {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 150%;
+    img {
+        width: 18px;
+    }
+}
+
+.info,
+.debug {
+    composes: icon;
+    color: $infoColor;
+}
+.warn {
+    composes: icon;
+    color: $warningColor;
+}
+.greater {
+    composes: icon;
+    color: $brandColor;
+    font-size: 1.5em;
+    top: 0;
+}
+.important,
+.error,
+.critical
+{
+    composes: icon;
+    color: $errorColor;
+}
+
+.delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: $textGray;
+    width: 25px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 120%;
+    border: none;
+
+    &:hover, &:focus, &:active {
+        color: $linkColor;
+    }
+    &:focus {
+        @mixin focus-element-inset;
+    }
+}

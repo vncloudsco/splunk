@@ -1,0 +1,92 @@
+/*  Splunk: Component: Panel Editor */
+/*  =============================== */
+
+/*
+	markup missing
+*/
+/*  drop down menus and icons for dashboard edit mode */
+.dashboard-element-editor {
+    .dashboard-element-controls {
+        .shared-reportcontrols-details,
+        .report-description {
+            padding: 5px 10px;
+            font-size: $fontSizeSmall;
+        }
+
+        .report-name {
+            @mixin create-heading-medium;
+            padding: 5px 10px 0px 10px;
+        }
+        .dropdown-menu.show-details {
+            width: 470px;
+        }
+    }
+
+    [class^="icon-"] {
+        font-size: 1.5em;
+        vertical-align: middle;
+    }
+    .dropdown-menu [class^="icon-"],
+    .popdown-visualization [class^="icon-"] {
+        font-size: 1em;
+    }
+
+    .dropdown-menu {
+        ul {
+            max-height: none;
+        }
+    }
+
+    .link-label {
+        display: none;
+    }
+
+    .element-type {
+        padding: 0 $spacingHalf;
+        @mixin create-section-heading-small;
+    }
+}
+
+.modal.add-panel {
+    .add-panel-select {
+        .btn {
+            padding-top: 8px;
+        }
+        i {
+            font-size: 24px;
+        }
+    }
+    .add-panel-report {
+        display: block;
+        a.dropdown-toggle {
+            display: block;
+            overflow: hidden;
+        }
+    }
+}
+
+.modal .dropdown-toggle {
+    overflow: hidden;
+}
+
+.input-timerangepicker {
+    .timerange-edit-hint {
+        padding-top: 4px;
+        font-size: $fontSizeXSmall;
+        width: 225px;
+    }
+
+    .shared-timerangepicker {
+        display: inline-block;
+    }
+
+    .remove-timerange-picker {
+        display: inline-block;
+        padding: 0px 12px;
+        font-size: 16px;
+        i {
+            position: relative;
+            top: 3px;
+        }
+    }
+}

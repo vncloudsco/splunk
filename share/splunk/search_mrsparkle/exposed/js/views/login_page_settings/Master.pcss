@@ -1,0 +1,117 @@
+.login-background {
+    .editFormWrapper {
+        @mixin create-card;
+
+        position: relative;
+        width: $bodyMinWidth;
+        margin: 0 auto $spacing;
+
+        .formWrapper {
+            padding: $spacing;
+
+            .help-block {
+                margin-top: $spacingHalf;
+            }
+            .control-group:last-child {
+                margin-bottom: 0;
+            }
+            .control-label {
+                padding-top: 0;
+            }
+            .preview-container {
+                border: $border $gray30;
+                overflow: hidden;
+                cursor: pointer;
+                height: 200px;
+                width: 300px;
+                position: relative;
+                background: $gray45;
+                transition: all 0.3s ease;
+                z-index: calc($zindexFocus + 1);
+            }
+            .preview-tile {
+                background-size: cover;
+                background-position: 50% 50%;
+                background-color: $gray30;
+                background-repeat: no-repeat;
+                position: relative;
+                height: 100%;
+                width: 100%;
+            }
+            .body-default-img {
+                @if $theme == enterprise {
+                    background-image: url("../account/login_bg_enterprise.jpg");
+                }
+                @if $theme == lite {
+                    background-image: url("../account/litebackground.jpg");
+                }
+            }
+            .login-form-img {
+                @if $theme == enterprise {
+                    background-image: url("../account/login-form-enteprise.png");
+                }
+                @if $theme == lite {
+                    background-image: url("../account/login-form-lite.png");
+                }
+            }
+            .login-form-img-sc {
+                background-image: url("../account/login-form-cloud.png");
+            }
+            .radio-controls {
+                input[type=radio] {
+                    @mixin radio-button-overlay;
+                    &:not(:last-child) {
+                        margin-bottom: $spacingHalf;
+                    }
+                }
+                .bg-label {
+                    display: inline;
+                    margin-top: $spacingQuarter;
+                }
+            }
+            .upload-file-btn {
+                margin: 0 $spacingHalf;
+            }
+            .upload-message{
+                margin: $spacingHalf 0;
+            }
+            .login-form-preview {
+                position: absolute;
+                background-size: cover;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+                margin: auto;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 50px;
+                width: 171px;
+            }
+            .preview-close {
+                color: white;
+                position: absolute;
+                top: 30px;
+                right: 30px;
+                font-size: 60px;
+            }
+            .preview-close:hover {
+                color: lightgrey;
+                text-decoration: none;
+            }
+        }
+        .jmFormActions {
+            border-top: $borderLight;
+            height: $inputHeight;
+            padding: $spacing;
+            text-align: right;
+
+            .cancel-button {
+                margin-right: $spacingHalf;
+            }
+            .btn {
+                min-width: 100px;
+            }
+        }
+    }
+}

@@ -1,0 +1,65 @@
+.view {
+    composes: bodyPadded from '../../ModalLocalClassNames.pcssm';
+    padding: 0px;
+    border-top: 1px solid $borderColor;
+    color: $textColor;
+}
+
+.health {
+    width: 250px;
+    float: left;
+    padding-bottom: 5px;
+    padding-top: 6px;
+}
+
+.health div {
+    margin: 5px 15px;
+    text-decoration: none;
+    color: $placeholderText;
+    font-family: $sansFontFamily;
+    font-size: 14px;
+}
+
+.health div a {
+    text-decoration: none;
+    color: $navBarHealthMonitorItemTextColor;
+    white-space: nowrap;
+
+    &:hover {
+        background-color: $navBarHealthMonitorItemTextColorHover;
+    }
+}
+
+.healthSelected {
+    font-weight: 800;
+}
+
+.external {
+    padding-left: 4px;
+}
+
+.infoBox {
+    composes: bodyScrolling from '../../ModalLocalClassNames.pcssm';
+    float: right;
+    width: 580px;
+    margin-bottom: 5px;
+    border-top: 0px;
+    border-bottom: 0px;
+
+    ul {
+        list-style-type: disc;
+    }
+}
+
+.infoDefault,
+.infoGood,
+.infoDisabled {
+    float: right;
+    width: 570px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    > ul {
+        list-style-type: none;
+    }
+}

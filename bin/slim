@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+# coding=utf-8
+#
+# Copyright © Splunk, Inc. All Rights Reserved.
+
+"""exec" "${0%/*}/splunk" cmd python -E "$0" "$@"""
+
+from __future__ import absolute_import, division, print_function, unicode_literals
+from os import path
+import re
+import sys
+
+
+def _update_system_path():
+    splunk_packaging_toolkit = path.join(path.dirname(path.dirname(path.abspath(__file__))), 'lib/python3.7/site-packages')
+    if splunk_packaging_toolkit not in sys.path:
+        sys.path.insert(0, splunk_packaging_toolkit)
+
+_update_system_path()
+del _update_system_path
+from slim.__main__ import main
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    main()

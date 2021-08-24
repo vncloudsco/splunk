@@ -1,0 +1,88 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "UPDATE\-INSTALLATION" "1" "September 2017" "Splunk, Inc." "Splunk Packaging Toolkit"
+.
+.SH "NAME"
+\fBupdate\-installation\fR \- perform a sequence of update actions on an installation graph
+.
+.SH "SYNOPSIS"
+\fBslim\fR \fBupdate\-installation\fR [(\fB\-h\fR|\fB\-\-help\fR)] [(\fB\-a\fR|\fB\-\-actions=\fR)<action> [<action>\.\.\.]] [(\fB\-i\fR|\fB\-\-installation=\fR)<filename>] [(\fB\-o\fR|\fB\-\-output\-dir=\fR)<output\-dir>] [(\fB\-r\fR|\fB\-\-repository=\fR)<repository>] [\fB\-\-disable\-automatic\-resolution\fR] [(\fB\-c\fR|\fBcombine\-search\-head\-indexer\-workloads\fR)] [(\fB\-d\fR|\fB\-\-deployment\-packages=)\fR<specification> [<specification>\.\.\.]] [(\fB\-f\fR|\fB\-\-forwarder\-workloads=\fR<forwarder\-workloads>] [(\fB\-t\fR|\fB\-\-target\-os=\fR)<os\-name>] (\fB\-p\fR|\fB\-\-package=\fR)<app\-source>
+.
+.SH "DESCRIPTION"
+Performs a sequence of update actions on the app installation graph for a Splunk system\.
+.
+.SH "OPTIONS"
+\fB\-h\fR, \fB\-\-help\fR
+.
+.br
+Print help message and exit\.
+.
+.P
+\fB\-a\fR <action> [<action>\.\.\.], \fB\-\-actions\fR <action> [<action>\.\.\.]
+.
+.br
+Apply actions to the given installation graph: \fBadd\fR, \fBremove\fR, \fBset\fR, or \fBupdate\fR\.
+.
+.P
+\fB\-\-disable\-automatic\-resolution\fR Do not automatically resolve dependency conflicts by updating installed versions\.
+.
+.P
+\fB\-i\fR <filename>, \fB\-\-installation=\fR<filename>
+.
+.br
+Read installation graph from the file at this location (default: empty)\.
+.
+.P
+\fB\-o\fR <output\-dir>, \fB\-\-output\-dir=\fR<output\-dir>
+.
+.br
+Save targeted deployment packages to the directory at this location (default: current directory)\.
+.
+.P
+\fB\-r\fR <repository>, \fB\-\-repository=\fR<repository>
+.
+.br
+Look for dependent source packages in the directory at this location (default: \fB${SLIM_REPOSITORY:=~/\.slim/repository}\fR)\.
+.
+.P
+\fB\-t\fR <os\-name>, \fB\-\-target\-os=\fR<os\-name> Specify the target OS to be used when evaluating OS\-specific dependencies defined in the manifest: \fI, \fImac,\fRwindows, \fIlinux_x86,\fRlinux_x86_64\. By default, all OS\-specific dependencies will be installed (\fR)\.
+.
+.P
+\fB\-c\fR, \fB\-\-combine\-search\-head\-indexer\-workloads\fR Combine search head and indexer workloads into a single deployment package\.
+.
+.P
+\fB\-d\fR <specification> [<specification> \.\.\.], \fB\-\-deployment\-packages=\fR<specification> [<specification> \.\.\.] Specify a set of deployment packages by name, workload, and—for forwarder workloads—input groups\. A deployment specification is represented by a JSON object:
+.
+.IP "" 4
+.
+.nf
+
+{
+    "name": "<package\-name>",
+    "workload": [("searchHead" | "indexer" | "forwarder")(,("searchHead" | "indexer" | "forwarder") \.\.\.)](,
+    "inputGroups": ["<group\-name>"(, "<group\-name>" \.\.\.)])
+}
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fB\-f\fR <forwarder\-workloads>, \fB\-\-forwarder\-workloads\fR <forwarder\-workloads> Map app input groups to a set of server classes (default: ["\fIsearch_heads", "\fRindexers", "_forwarders"])\. A forwarder workload is represented by an JSON array of objects:
+.
+.IP "" 4
+.
+.nf
+
+[
+    "<server\-class\-name>": ["<input\-group\-name>"(, "<input\-group\-name>" \.\.\.)],
+    "<server\-class\-name>": ["<input\-group\-name>"(, "<input\-group\-name>" \.\.\.)] \.\.\.
+]
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fB\-p\fR <app\-source>, \fB\-\-target\-os=\fR<app\-source> Specify the location of the app package\.

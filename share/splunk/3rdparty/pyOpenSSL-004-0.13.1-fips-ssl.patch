@@ -1,0 +1,37 @@
+--- pyOpenSSL-0.13.1/OpenSSL/ssl/ssl.c.orig	2015-04-22 09:06:11.195365837 -0700
++++ pyOpenSSL-0.13.1/OpenSSL/ssl/ssl.c	2015-04-22 09:07:26.509507668 -0700
+@@ -99,6 +99,14 @@
+
+     import_crypto();
+
++if (getenv("OPENSSL_FIPS") != NULL) {
++#ifdef OPENSSL_FIPS
++    if (FIPS_mode() == 0 && FIPS_mode_set(1) != 1) return;
++#else /* OPENSSL_FIPS */
++    return;
++#endif /* OPENSSL_FIPS */
++}
++
+     new_x509 = crypto_X509_New;
+     new_x509name = crypto_X509Name_New;
+     new_x509store = crypto_X509Store_New;
+--- pyOpenSSL-0.13.1/OpenSSL/ssl/context.c.orig	2015-12-07 07:18:46.251926751 -0800
++++ pyOpenSSL-0.13.1/OpenSSL/ssl/context.c	2015-12-07 07:23:46.251556171 -0800
+@@ -1191,6 +1191,8 @@
+ #endif
+     SSL_METHOD *method;
+
++    if (FIPS_mode() != 0 && (i_method == ssl_SSLv2_METHOD || i_method == ssl_SSLv3_METHOD))
++        i_method = ssl_SSLv23_METHOD;	/* SSL2 and SSL3 are both disabled in FIPS, ignore them if picked */
+     switch (i_method) {
+         case ssl_SSLv2_METHOD:
+ #ifdef OPENSSL_NO_SSL2
+@@ -1232,6 +1234,8 @@
+     self->app_data = Py_None;
+
+     /* Some initialization that's required to operate smoothly in Python */
++    if (FIPS_mode() != 0)
++        SSL_CTX_set_options(self->ctx, SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3);
+     SSL_CTX_set_app_data(self->ctx, self);
+     SSL_CTX_set_mode(self->ctx, SSL_MODE_ENABLE_PARTIAL_WRITE |
+                                 SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER |

@@ -1,0 +1,74 @@
+This directory contains sample scripts to get you started on scripted auth.
+These are SAMPLES and should not be deployed in a production environment until 
+they have been edited to provide proper functionality. The scripts show 
+how to login but do not map users to roles. This directory also contains a sample 
+python module that maps users to roles but it must be seeded with your users.
+
+1. Dumb
+        This is the most basic scripted authentication example. The script does not query any
+        external authentication system; it has a static table with a few users mapped to roles,
+        all of which have the password 'changeme'. This is the best starting point to learn
+        the contract between your script and splunkd, in terms of what splunkd will send to the
+        script and the format of what to pass back.
+
+        To try this out, move 'authentication.conf.dumb' to $SPLUNK_HOME/etc/system/local/ renamed
+        to 'authentication.conf'.
+
+2. PAM.
+	Use authentication.conf.pam, pamauth.c and pamScripted.py.
+	
+	If you are using a Unix-based system you must compile pamauth.c 
+	to interface with PAM:
+	
+	gcc -Wall -Wextra -o pamauth pamauth.c -lpam
+
+	NOTE: On SUN systems the call pam_fail_delay may not be present, causing a compile error.
+	This call just mitigates brute force attacks by introducing a 1 second delay for failed
+	logins. If you remove this line the program should compile. 
+    
+    PAM requires that the caller have access to /etc/shadow, but you should not run Splunk as root.
+	
+        If you are not running splunk as root you must setuid 0 so it can access the 
+        information it needs to verify the password.
+
+        chown root.root pamauth; chmod a+s pamauth
+
+	pamauth.c does not compile on MacOS. However, the script comes with code that will work 
+	on MacOS. The flag isMac can be flipped to use Mac commands.
+
+	
+3. RADIUS
+    The RADIUS sample requires that you have radclient installed ( http://www.freeradius.org )
+    If you have another radius client installed that works differently than radclient, you 
+	must edit the script. The only interaction with RADIUS is in userLogin.
+	
+	For MacOS users, we have successfully used the radius client detailed here:
+	http://home.sw.rr.com/jguidroz/radius.html
+
+	Unforunately RADIUS doesn't contain any information that can be used to map users to their 
+	Splunk roles (nothing universal, hunt groups seem like a logical assumption here but 
+	I couldn't assume everyone would have hunt groups setup). 
+	
+	For this reason a basic mapping system is provided in the file userMapping.py. 
+	This module supplies two functions: getUsersRole and getUsersFilters. 
+	You may replace these functions with whatever you wish to return Splunk 
+	roles and filters.
+	
+	Left untouched these functions will return the role User (lowest one in the system).
+	There is a commented dict that can be used to elevate users and also apply search 
+	filters on a per user basic. Search filters that are role-based are still supported 
+	under scripted auth. The role-based filters will just be added to the ones being returned 
+	from getUserFilter. 
+
+	Step instructions follow:
+	1. Install Radius client.
+
+	2. Modify radiusScripted.py
+   	   a) enter path to radius client
+      		ex: RADIUS_CLIENT = '/usr/local/freeradius/bin/radclient'
+   	   b) enter path to radius server
+      		ex: RADIUS_SERVER = 10.1.2.5:1812
+
+	3. Rename authentication.conf.radius to authentication.conf and move to $SPLUNK_HOME/etc/system/local/
+
+	4. Restart Splunk. 

@@ -1,0 +1,11 @@
+<% if (isUpload) { %>
+<div class="data-source-upload"></div>
+<% } else { %>
+<div class="layoutCol layoutColLeft data-source-col-left scroll-y sourceList"></div>
+<div class="layoutCol layoutColRight data-source-col-right scroll-y scroll-x">
+    <div class="inputForm form-horizontal">
+        <div id="initial_prompt"><i class="icon-arrow-left"></i> <%= _('Select an option').t() %></div>
+    </div>
+    <div class="modularInputWrapper"></div>
+</div>
+<% } %>

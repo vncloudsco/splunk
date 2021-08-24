@@ -1,0 +1,87 @@
+/* toggle */
+
+.view {
+    padding: 0 1em; /*  can't use vertical padding since badges/labels push this out */
+    color: $gray80;
+    background: transparent;
+    border: none;
+    line-height: $navbarHeight;
+    height: $navbarHeight;
+    white-space: nowrap;
+    display: block;
+    text-decoration: none;
+    transition: $transitionBackground, $transitionTextColor;
+
+    &:hover {
+        color: $white;
+        outline: none;
+        text-decoration: none;
+    }
+    &.active, &:active {
+        color: $white;
+    }
+    &:focus {
+        @mixin focus-element-inset $navbarBackground;
+        color: $white;
+        background: $navbarBackground;
+    }
+}
+
+
+
+.label {
+    composes: label from "../Button.pcssm";
+
+    &:not(:first-child) {
+        padding-left: 5px;
+    }
+}
+
+.truncateLabel {
+    composes: label;
+    max-width: calc((100vw - 860px) / 2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.optionalLabel {
+    composes: label;
+}
+
+@media only screen and (max-width: 1300px) {
+  .optionalLabel {
+    display: none;
+  }
+
+  .optionalLabel:not(:first-child):not(:last-child) {
+    /* still needs to create margin between the icon and the caret */
+    color: transparent;
+    width: 3px;
+    padding: 0;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+}
+
+
+
+.badge {
+    display: inline-block;
+    vertical-align: baseline;
+
+    padding: 2px 4px 0 4px;
+    line-height: 17px;
+    min-width: 10px;
+    text-align: center;
+
+    border-radius: 9px;
+
+    white-space: nowrap;
+    font-weight: normal;
+
+    background: $accentColorL10;
+    color: $white;
+}

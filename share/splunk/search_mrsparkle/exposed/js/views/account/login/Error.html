@@ -1,0 +1,27 @@
+<% if (!model.serverInfo.isFreeLicense() && model.serverInfo.isTrial()) { %>
+    <p><a href="#" class="hint"><%- _('First time signing in?').t() %></a></p>
+<% } %>
+<% if ((messages || []).length) { %>
+    <div class="error-messages">
+    <% _.each(messages, function(message, index) { %>
+        <p class="error">
+            <% if (index === 0) { %>
+                <svg width="24px" height="24px" viewBox="465 398 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs>
+                        <circle id="path-1" cx="12" cy="12" r="12"></circle>
+                        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="24" height="24" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                    </defs>
+                    <g id="Group-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(465.000000, 398.000000)">
+                        <use class="stroke-svg" id="Oval-5" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+                        <path class="fill-svg" d="M10.2194542,7.75563395 C10.098253,6.78602409 10.7902713,6 11.7661018,6 L12.2338982,6 C13.2092893,6 13.902295,6.7816397 13.7805458,7.75563395 L13.2194542,12.244366 C13.098253,13.2139759 12.209547,14 11.2294254,14 L12.7705746,14 C11.7927132,14 10.902295,13.2183603 10.7805458,12.244366 L10.2194542,7.75563395 Z" id="Rectangle-64"></path>
+                        <circle class="fill-svg" id="Oval-2" cx="12" cy="17" r="2"></circle>
+                    </g>
+                </svg>
+            <% } %>
+            <%- message.message %><% if (message.link) { %> <a href="<%- message.link.url %>" <% if (message.link.className) { %> class="<%- message.link.className %>" <% } %> <% if (message.link) { %>target="_blank"<% } %>><%- message.link.title %></a><% } %>
+        </p>
+    <% }) %>
+    </div>
+<% } %>

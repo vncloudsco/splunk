@@ -1,0 +1,12 @@
+<endpoint name="data_fabric" template="pages/system.html" showOnSearchHeadCluster="1">
+  <header>Data Fabric</header>
+  <capabilities>
+      <read>edit_dist_peer AND edit_search_server AND fsh_manage</read>
+  </capabilities>
+  <menu name="deployment_configurations">
+    <label>Data Fabric</label>
+    <url>/manager/%(namespace)s/data_fabric</url>
+    <order>75</order>
+    <id>data_fabric</id>
+  </menu>
+</endpoint>

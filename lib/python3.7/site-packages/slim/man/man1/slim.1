@@ -1,0 +1,79 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "SLIM" "1" "September 2017" "Splunk, Inc." "Splunk Packaging Toolkit"
+.
+.SH "NAME"
+\fBslim\fR \- execute packaging toolkit command
+.
+.SH "SYNOPSIS"
+\fBslim\fR [\fB\-v\fR] [\fB\-h\fR] [\fB\-\-debug\fR] [\fB\-\-quiet\fR] <command> [<args>]
+.
+.SH "DESCRIPTION"
+Executes a Splunk Packaging Toolkit command\.
+.
+.SH "OPTIONS"
+\fB\-v\fR, \fB\-\-version\fR
+.
+.br
+Print version number and exit\.
+.
+.P
+\fB\-h\fR, \fB\-\-help\fR
+.
+.br
+Print help message and exit\.
+.
+.P
+\fB\-\-debug\fR
+.
+.br
+Print debugging information\.
+.
+.P
+\fB\-\-quiet\fR
+.
+.br
+Suppress information and warning messages, but not error messages\.
+.
+.SH "SLIM COMMANDS"
+\fBgenerate\-manifest\fR
+.
+.br
+Create a new or updated manifest for a Splunk app\.
+.
+.P
+\fBpackage\fR
+.
+.br
+Package the source of a Splunk app for distribution\.
+.
+.P
+\fBdescribe\fR
+.
+.br
+Describe a Splunk app and its dependencies\.
+.
+.P
+\fBvalidate\fR
+.
+.br
+Verify the contents of the manifest of a Splunk app\.
+.
+.P
+\fBpartition\fR
+.
+.br
+Create a set of deployment packages from a Splunk app source package\.
+.
+.P
+\fBconfig\fR
+.
+.br
+Get and set user or system options\.
+.
+.P
+\fBupdate\-installation\fR
+.
+.br
+Perform a sequence of update actions on the app installation graph for a Splunk system\.

@@ -1,0 +1,135 @@
+/*  Splunk: Buttons */
+/*  =============== */
+
+
+.view {
+    display: inline-block;
+    border: 1px solid transparent;
+    border-radius: $interactiveBorderRadius;
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-decoration: none;
+    background-color: transparent;
+    @mixin button-padding;
+}
+
+.default {
+    composes: view;
+    @mixin interactive;
+    @mixin button-states;
+}
+
+/*  Primary */
+/*  ------------------- */
+
+.primary {
+    composes: view;
+    @mixin button-padding-primary;
+    font-weight: $fontWeightSemiBold;
+    border: none;
+
+    @mixin interactive-primary;
+    @mixin button-states interactive-primary-hover, interactive-primary-active, interactive-primary-disabled, interactive-primary $primaryBackgroundColor;
+}
+
+.pill {
+    composes: view;
+    line-height: $lineHeight;
+    border-radius: $interactiveBorderRadius;
+
+    @mixin interactive none, transparent, none, $pillTextColor;
+    @mixin button-states pill-hover, pill-active, pill-disabled, pill-style $linkColor;
+
+    &[disabled]:focus, &[disabled]:hover {
+        background: none;
+        box-shadow: none;
+    }
+}
+
+.pillSquare {
+    composes: pill;
+    padding: 0;
+    height: 27px;
+    width: 27px;
+    text-align: center;
+}
+
+.label {
+    &:not(:last-child) {
+        padding-right: $spacingQuarter;
+    }
+
+    &:not(:first-child) {
+        padding-left: 0.25em;
+    }
+
+    &:empty {
+        display: none;
+    }
+}
+
+/*  Layout Options */
+/*  -------------------------------------------------- */
+.block {
+  display: block;
+  width: 100%;
+}
+
+/*  Vertically space out multiple block buttons */
+.block + .block {
+  margin-top: 5px;
+}
+
+/* Horizontally space out multiple inline buttons */
+.inline + .inline {
+  margin-left: 5px;
+}
+
+/*  Button Sizes */
+/*  -------------------------------------------------- */
+.large {
+  @mixin button-size $buttonPaddingVerticalLarge, calc($buttonPaddingSides * 2), 4px;
+  font-size: $fontSize;
+  border-radius: $borderRadiusLarge;
+
+  &.primary {
+    @mixin button-padding-primary $buttonPaddingVerticalLarge, calc($buttonPaddingSides * 2);
+  }
+}
+
+.small {
+  @mixin button-size $buttonPaddingVerticalSmall;
+  font-size: $fontSize;
+  border-radius: $borderRadiusSmall;
+
+  &.primary {
+    @mixin button-padding-primary $buttonPaddingVerticalSmall;
+  }
+}
+
+.mini {
+  @mixin button-size $buttonPaddingVerticalMini, calc($buttonPaddingSides / 2), -1px;
+  font-size: $fontSizeSmall;
+  border-radius: $borderRadiusSmall;
+
+  &.primary {
+    @mixin button-padding-primary $buttonPaddingVerticalMini, calc($buttonPaddingSides / 2);
+  }
+}
+
+/*  Print */
+/*  -------------------------------------------------- */
+@media print {
+    .view {
+        @mixin print-no-background;
+        border-color: transparent !important;
+        padding: 0 !important;
+        color: $textColor !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+}

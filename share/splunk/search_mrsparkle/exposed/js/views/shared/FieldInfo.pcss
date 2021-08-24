@@ -1,0 +1,99 @@
+/*  Splunk: Component: Field Info */
+/*  ============================= */
+
+
+/*  flyout */
+.shared-fieldinfo,
+.shared-eventsviewer-shared-timeinfo {
+	.popdown-dialog-body {
+	    padding: 0 20px 20px 20px;
+	}
+
+	h2 {
+		@mixin create-heading-large;
+	    margin: $spacingQuarter -$spacing;
+		line-height: 40px;
+		padding: 0 60px 0 20px;
+		border-top-right-radius: $containerInnerBorderRadius;
+		border-top-left-radius: $containerInnerBorderRadius;
+		box-shadow:none;
+		/*  SPL-74434 */
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap; /*  for IE */
+	}
+	h3 {
+		font-size: $fontSize;
+		font-weight: bold;
+		margin: 15px 0 0 0;
+	}
+
+	table.fields, table.before-after, table.available-actions {
+	   width: 100%;
+
+	   td {
+	       padding: 3px 0px;
+	       vertical-align: top;
+	   }
+	}
+
+	.close {
+	    display: block;
+		top: 7px;
+		right: 7px;
+		overflow: hidden;
+		position:absolute;
+	}
+}
+
+.shared-fieldinfo {
+	width: 600px;
+
+	p {
+	    line-height: 30px;
+	}
+	.select-field-label {
+	    display: inline-block;
+	    margin: 0 5px 0 20px;
+	    line-height: 26px;
+	    color: $textGray;
+	    vertical-align:top;
+	}
+
+	.graph-bar {
+		margin: 0 20px 0 0;
+		height: $lineHeight;
+		background-color: $gray60;
+		background-image: linear-gradient(to bottom, $gray80, $gray60);
+		/*  SPL-74434 */
+		max-width: 100%;
+	}
+
+	table.table-condensed {
+	    margin: 13px -20px -5px -20px;
+	    width: 598px;
+	}
+
+  table.table-field-values tbody > tr > td {
+    font-family: $monoFontFamily;
+  }
+
+	td.value {
+		max-width: 200px;
+		word-wrap: break-word;
+		padding-left:20px;
+	}
+
+	th.value {
+	    padding-left:20px;
+	}
+
+	ul.inline {
+        line-height: 20px;
+        margin-bottom: 0;
+
+        li {
+            padding-left: 0
+        }
+    }
+}

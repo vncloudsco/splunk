@@ -1,0 +1,50 @@
+#
+# Static translation strings
+#
+# Place strings to be translated in here that don't otherwise live in a
+# Python, html (template) or Javascript file
+#
+# i18n-extract.py will collect strings found here and add them to the 
+# messages.pot file
+#
+#
+# The format for this file is simply one string to be translated per line
+# optionally preceded by a comment for the translator beginning with # TRANS:
+#
+# Plural versions of strings should immediately follow the singular version:
+#
+#   Delete %d file?
+#   Delete %d files?
+#
+# There must be at least one blank line between translatable strings
+# 
+# Blank lines and other lines beginning with a # are ignored.
+#
+# Eg:
+#   # TRANS: This is displayed as a warning on the file management page
+#   Delete %s files?
+
+# TRANS: Search is commonly displayed as the label of certain form elements.
+Search
+
+# TRANS: Owner is commonly displayed as the label of certain form elements.
+Owner
+
+# TRANS: App is commonly displayed as the label of certain form elements.
+App
+
+# TRANS: Ascending sort abbreviation
+asc
+
+# TRANS: Decending sort abbreviation
+desc
+
+
+# TRANS: The name of the build eventtype workflow action
+Build Eventtype
+
+# TRANS: The name of extract fields workflow action
+Extract Fields
+
+# TRANS: The name of the show source workflow action
+Show Source

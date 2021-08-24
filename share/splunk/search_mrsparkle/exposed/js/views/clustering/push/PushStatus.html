@@ -1,0 +1,36 @@
+<div class="section-padded">
+    <div class="success-info">
+        <h3><%- title %>
+            <%if (lastRunAction) {%>
+                <%if (lastActionSuccess) {%>
+                    <i class="icon-check"></i> <%= _('Successful').t() %>
+                <%} else {%>
+                    <i class="icon-alert"></i> <%= _('Unsuccessful').t() %>
+                <%} %>
+            <%}%>
+        </h3>
+        <dl class="list-dotted">
+            <% if ((lastRunAction === actions.CHECK_RESTART)) { %>
+                <% if (restartRequired) { %>
+                    <dt style=""><%= _('Restart').t() %><sup><a href="#" class="tooltip-link" rel="tooltip" data-title="<%= _('The changes to the bundle require a restart of all peers.').t() %>">?</a></sup></dt>
+                    <dd><%= _('Required').t() %></dd>
+                <% } else { %>
+                    <dt style=""><%= _('Restart').t() %><sup><a href="#" class="tooltip-link" rel="tooltip" data-title="<%= _('The changes to the bundle do not require a restart of all peers.').t() %>">?</a></sup></dt>
+                    <dd><%= _('Not Required').t() %></dd>
+                <% } %>
+            <% } %>
+            <dt style=""><%= _('Updated Time').t() %></dt>
+            <dd><%-timeLastPush%></dd>
+            <dt style=""><%= _('Active Bundle ID').t() %><sup><a href="#" class="tooltip-link" rel="tooltip" data-title="<%= _('The Bundle ID denotes the active configuration bundle used by all peers.').t() %>">?</a></sup></dt>
+            <dd><%-activeBundleId%></dd>
+            <dt style=""><%= _('Latest Bundle ID').t() %><sup><a href="#" class="tooltip-link" rel="tooltip" data-title="<%= _('The Bundle ID denotes the latest configuration bundle downloaded and validated by all peers.').t() %>">?</a></sup></dt>
+            <dd><%-latestBundleId%></dd>
+            <dt style=""><%= _('Previous Bundle ID').t() %><sup><a href="#" class="tooltip-link" rel="tooltip" data-title="<%= _('The Bundle ID denotes the previous configuration bundle downloaded and validated by all peers.').t() %>">?</a></sup></dt>
+            <dd><%-previousBundleId%></dd>
+            <% if ((lastRunAction === actions.CHECK_RESTART) && checkRestartBundleId) { %>
+                <dt style=""><%= _('Latest Check Restart Bundle').t() %><sup><a href="#" class="tooltip-link" rel="tooltip" data-title="<%= _('The Bundle ID denotes the latest configuration bundle validated and check restarted by all peers.').t() %>">?</a></sup></dt>
+                <dd><%-checkRestartBundleId%></dd>
+            <% } %>
+        </dl>
+   </div>
+</div>
