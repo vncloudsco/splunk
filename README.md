@@ -10,6 +10,7 @@ Chạy lần đầu và điền thông tin user + pass
 
 ```
 /opt/splunk/bin/splunk start --accept-license
+/opt/splunk/bin/splunk enable boot-start 
 ```
  
 khởi động :
